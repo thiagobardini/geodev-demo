@@ -22,7 +22,7 @@ export default function Card({
       onClick={onClick}
     >
       <div className="flex h-60 items-center justify-center overflow-hidden">{demo}</div>
-      <div className="mx-auto h-full max-w-md text-center bg-gray-50 pt-2">
+      <div className="mx-auto h-full max-w-full text-center bg-gray-50 pt-2">
         <h2 className="bg-gradient-to-br from-black to-stone-500 bg-clip-text font-display text-xl font-bold text-transparent [text-wrap:balance] md:text-3xl md:font-normal">
           {title}
         </h2>

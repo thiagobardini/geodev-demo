@@ -56,7 +56,7 @@ const features = [
     title: "Mapbox Integration",
     description: "Showcasing my skills by integrating Mapbox.",
     demo: <Map />,
-    large: false,
+    large: true,
     modal: <Map />,
   },
   {
@@ -65,12 +65,5 @@ const features = [
     demo: <WebVitals />,
     large: false,
     modal: <Map />,
-  },
-  {
-    title: "Airtable Integration",
-    description: "Showcasing my skills by integrating Airtable.",
-    demo: <Map />,
-    large: false,
-    modal: <Map />,
-  },
+  }
 ];
