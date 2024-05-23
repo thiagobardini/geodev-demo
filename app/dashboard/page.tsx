@@ -5,8 +5,8 @@ import { DEPLOY_URL } from "@/lib/constants";
 import WebVitals from "@/components/home/web-vitals";
 import ComponentGrid from "@/components/shared/component-grid";
 import Image from "next/image";
-import { nFormatter } from "@/lib/utils";
 import { signIn, useSession } from "next-auth/react";
+import { LoadingDots, Google } from "@/components/shared/icons";
 
 export default function Page() {
   const { data: session, status } = useSession();
@@ -14,21 +14,30 @@ export default function Page() {
   status === "loading" && (
     // Loading...
     <div className="z-10 w-full max-w-xl px-5 xl:px-0">
-      <p>Loading...</p>
+      <LoadingDots color="#808080" />
     </div>
   );
 
   return (
     <>
-      {status !== "loading" && !session ? (
-        <div className="z-10 flex h-screen   items-center space-y-5">
-          <h1>You are not logged in</h1>
-          <button
-            onClick={() => signIn("google")}
-            className="rounded-full border border-black bg-black p-1.5 px-4 text-sm text-white transition-all hover:bg-white hover:text-black"
-          >
-            Sign in
-          </button>
+      {!session ? (
+        <div className="z-10 w-full overflow-hidden shadow-xl md:max-w-md md:rounded-2xl md:border md:border-gray-200">
+          <div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
+            <h1>You are not logged in</h1>
+            <button
+              onClick={() => signIn("google")}
+              className="flex h-10 w-full items-center justify-center space-x-3 rounded-md border border-gray-200 bg-white text-sm text-black shadow-sm transition-all duration-75 hover:bg-gray-50 focus:outline-none"
+            >
+              {status === "loading" ? (
+                <LoadingDots color="#808080" />
+              ) : (
+                <>
+                  <Google className="h-5 w-5" />
+                  Sign In with Google
+                </>
+              )}
+            </button>
+          </div>
         </div>
       ) : (
         <>
