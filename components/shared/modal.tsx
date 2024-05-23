@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Drawer } from "vaul";
 import * as Dialog from "@radix-ui/react-dialog";
 import useMediaQuery from "@/lib/hooks/use-media-query";
+import { IoClose } from "react-icons/io5";
 
 export default function Modal({
   children,
@@ -18,6 +19,8 @@ export default function Modal({
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const { isMobile } = useMediaQuery();
+
+  const handleClose = () => setShowModal(false);
 
   if (isMobile) {
     return (
@@ -33,6 +36,12 @@ export default function Modal({
             <div className="sticky top-0 z-20 flex w-full items-center justify-center rounded-t-[10px] bg-inherit">
               <div className="my-3 h-1 w-12 rounded-full bg-gray-300" />
             </div>
+            <button
+              onClick={handleClose}
+              className="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
+            >
+              <IoClose size={24} />
+            </button>
             {children}
           </Drawer.Content>
           <Drawer.Overlay />
@@ -44,18 +53,25 @@ export default function Modal({
     <Dialog.Root open={showModal} onOpenChange={setShowModal}>
       <Dialog.Portal>
         <Dialog.Overlay
-          // for detecting when there's an active opened modal
           id="modal-backdrop"
           className="animate-fade-in fixed inset-0 z-40 bg-gray-100 bg-opacity-50 backdrop-blur-md"
         />
+
         <Dialog.Content
-          onOpenAutoFocus={(e) => e.preventDefault()}
-          onCloseAutoFocus={(e) => e.preventDefault()}
+          onOpenAutoFocus={(e: React.FocusEvent) => e.preventDefault()}
+          onCloseAutoFocus={(e: React.FocusEvent) => e.preventDefault()}
           className={cn(
             "animate-scale-in fixed inset-0 z-40 m-auto max-h-fit w-full max-w-md overflow-hidden border border-gray-200 bg-white p-0 shadow-xl md:rounded-2xl",
             className,
           )}
         >
+          <button
+            onClick={handleClose}
+            className="absolute right-2 top-2 z-50 text-gray-500 hover:text-gray-700"
+          >
+            <IoClose size={24} />
+          </button>
+
           {children}
         </Dialog.Content>
       </Dialog.Portal>

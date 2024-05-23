@@ -1,7 +1,20 @@
+"use client";
+
+import { useState } from "react";
 import Card from "@/components/shared/card";
 import Test from "@/app/test/page";
+import Modal from "@/components/shared/modal";
+import WebVitals from "./web-vitals";
 
-export default async function Home() {
+export default function Home() {
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState<React.ReactNode>(null);
+
+  const openModal = (content: React.ReactNode) => {
+    setModalContent(content);
+    setShowModal(true);
+  };
+
   return (
     <>
       <div className="z-10 w-full max-w-xl px-5 xl:px-0">
@@ -15,24 +28,48 @@ export default async function Home() {
           className="mt-6 animate-fade-up text-center text-gray-500 opacity-0 [text-wrap:balance] md:text-xl"
           style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
         >
-          Reviewing Mapbox, D3.js, and Airtable integration
+          Showcasing my skills by integrating Mapbox, D3.js, and Airtable
         </p>
       </div>
       <div className="my-10 grid w-full max-w-screen-xl animate-fade-up grid-cols-1 gap-5 px-5 md:grid-cols-3 xl:px-0">
-        {/* {features.map(({ title, description, demo, large }) => ( */}
-        <Card
-          key="Map"
-          title="Mapbox, D3.js, and Airtable Integration"
-          description="Showcasing my skills by integrating Mapbox, D3.js, and Airtable for an upcoming interview."
-          demo={
-            <div className="p-10">
-              <Test />
-            </div>
-          }
-          large={true}
-        />
-        {/* ))}  */}
+        {features.map(({ title, description, demo, large, modal }) => (
+          <Card
+            key={title}
+            title={title}
+            description={description}
+            demo={demo}
+            large={large}
+            onClick={() => openModal(modal)}
+          />
+        ))}
       </div>
+      <Modal showModal={showModal} setShowModal={setShowModal}>
+        <div className="h-full">{modalContent}</div> {/* Adicionado classe h-full */}
+      </Modal>
     </>
   );
 }
+
+const features = [
+  {
+    title: "Mapbox Integration",
+    description: "Showcasing my skills by integrating Mapbox.",
+    demo: <Test />,
+    large: false,
+    modal: <Test />,
+  },
+  {
+    title: "D3.js Integration",
+    description: "Showcasing my skills by integrating D3.js.",
+    demo: <WebVitals />,
+    large: false,
+    modal: <Test />,
+  },
+  {
+    title: "Airtable Integration",
+    description: "Showcasing my skills by integrating Airtable.",
+    demo: <Test/>,
+    large: false,
+    modal: <Test />,
+  },
+];
