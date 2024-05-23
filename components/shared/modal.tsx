@@ -29,19 +29,22 @@ export default function Modal({
         <Drawer.Portal>
           <Drawer.Content
             className={cn(
-              "fixed bottom-0 left-0 right-0 z-50 mt-24 rounded-t-[10px] border-t border-gray-200 bg-white",
+              "fixed bottom-0 left-0 right-0 z-50 mt-24 h-[80%] w-full rounded-t-[10px] border-t border-gray-200 bg-white", 
               className,
             )}
           >
             <div className="sticky top-0 z-20 flex w-full items-center justify-center rounded-t-[10px] bg-inherit">
-              <div className="my-3 h-1 w-12 rounded-full bg-gray-300" />
+              <div
+                className="my-3 h-1 w-12 rounded-full bg-gray-300"
+                onClick={handleClose}
+              />
             </div>
-            <button
+            {/* <button
               onClick={handleClose}
               className="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
             >
               <IoClose size={24} />
-            </button>
+            </button> */}
             {children}
           </Drawer.Content>
           <Drawer.Overlay />
@@ -58,19 +61,26 @@ export default function Modal({
         />
 
         <Dialog.Content
-          onOpenAutoFocus={(e: React.FocusEvent) => e.preventDefault()}
-          onCloseAutoFocus={(e: React.FocusEvent) => e.preventDefault()}
+          onOpenAutoFocus={(e) => e.preventDefault()}
+          onCloseAutoFocus={(e) => e.preventDefault()}
           className={cn(
             "animate-scale-in fixed inset-0 z-40 m-auto max-h-fit w-full max-w-md overflow-hidden border border-gray-200 bg-white p-0 shadow-xl md:rounded-2xl",
             className,
           )}
         >
-          <button
+          <div className="sticky top-0 z-20 flex w-full items-center justify-center rounded-t-[10px] bg-inherit">
+            <div
+              className="my-3 h-1 w-12 rounded-full bg-gray-300"
+              onClick={handleClose}
+            />
+
+            {/* <button
             onClick={handleClose}
-            className="absolute right-2 top-2 z-50 text-gray-500 hover:text-gray-700"
+            className="absolute left-2 top-2 z-50 text-gray-500 hover:text-gray-700"
           >
-            <IoClose size={24} />
-          </button>
+            <IoClose size={32} />
+          </button> */}
+          </div>
 
           {children}
         </Dialog.Content>

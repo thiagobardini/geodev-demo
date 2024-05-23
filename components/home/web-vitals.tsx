@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
 import { motion } from "framer-motion";
 import CountingNumbers from "@/components/shared/counting-numbers";
 
 export default function WebVitals() {
   return (
-    <div className="relative w-full h-full">
+    <div className="relative h-full w-full">
       <motion.svg
         className="absolute inset-0 m-auto"
         viewBox="0 0 100 100"

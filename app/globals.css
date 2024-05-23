@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.drawer {
+  transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}

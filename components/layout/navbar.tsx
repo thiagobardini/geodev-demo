@@ -33,14 +33,14 @@ export default function NavBar({ session }: { session: Session | null }) {
             <p>MAPC | Demo</p>
           </Link>
           <div className="flex items-center space-x-4">
-          {!session && (
-            <Link
-              href="/dashboard"
-              className="px-4 text-sm text-gray-600 transition-all hover:text-black"
-            >
-              Dashboard
-            </Link>
-          )}
+            {!session && (
+              <Link
+                href="/dashboard"
+                className="px-4 text-sm text-gray-600 transition-all hover:text-black"
+              >
+                Dashboard
+              </Link>
+            )}
             <>
               {session ? (
                 <UserDropdown session={session} />

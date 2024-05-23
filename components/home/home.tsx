@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Card from "@/components/shared/card";
-import Test from "@/app/test/page";
+import Map from "@/app/map/page";
 import Modal from "@/components/shared/modal";
 import WebVitals from "./web-vitals";
 
@@ -43,8 +43,9 @@ export default function Home() {
           />
         ))}
       </div>
-      <Modal showModal={showModal} setShowModal={setShowModal}>
-        <div className="h-full">{modalContent}</div> {/* Adicionado classe h-full */}
+      <Modal showModal={showModal} setShowModal={setShowModal} className="max-w-full max-h-[calc(100vh-100px)]">
+        <div className="h-full">{modalContent}</div>{" "}
+        {/* Adicionado classe h-full */}
       </Modal>
     </>
   );
@@ -54,22 +55,22 @@ const features = [
   {
     title: "Mapbox Integration",
     description: "Showcasing my skills by integrating Mapbox.",
-    demo: <Test />,
+    demo: <Map />,
     large: false,
-    modal: <Test />,
+    modal: <Map />,
   },
   {
     title: "D3.js Integration",
     description: "Showcasing my skills by integrating D3.js.",
     demo: <WebVitals />,
     large: false,
-    modal: <Test />,
+    modal: <Map />,
   },
   {
     title: "Airtable Integration",
     description: "Showcasing my skills by integrating Airtable.",
-    demo: <Test/>,
+    demo: <Map />,
     large: false,
-    modal: <Test />,
+    modal: <Map />,
   },
 ];
