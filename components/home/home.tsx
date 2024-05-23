@@ -22,13 +22,13 @@ export default function Home() {
           className="animate-fade-up bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-4xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm [text-wrap:balance] md:text-7xl md:leading-[5rem]"
           style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
         >
-          Maps
+          Full-Stack GeoDev
         </h1>
         <p
-          className="mt-6 animate-fade-up text-center text-gray-500 opacity-0 [text-wrap:balance] md:text-xl"
+          className="mt-6 animate-fade-up text-center text-gray-500 opacity-0  md:text-xl"
           style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
         >
-          Showcasing my skills by integrating Mapbox, D3.js, and Airtable
+          Building Digital Tools for Urban Planning and Public Policy
         </p>
       </div>
       <div className="my-10 grid w-full max-w-screen-xl animate-fade-up grid-cols-1 gap-5 px-5 md:grid-cols-3 xl:px-0">
@@ -43,27 +43,52 @@ export default function Home() {
           />
         ))}
       </div>
-      <Modal showModal={showModal} setShowModal={setShowModal} className="max-w-full max-h-[calc(100vh-100px)]">
-        <div className="h-full">{modalContent}</div>{" "}
-        {/* Adicionado classe h-full */}
+      <Modal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        className="max-h-[calc(100vh-100px)] max-w-full"
+      >
+        <div className="h-full">{modalContent}</div>
       </Modal>
     </>
   );
 }
 
+const demoTech = (
+  <div className="grid grid-flow-col grid-rows-3 gap-10 p-10">
+    <span className="font-mono font-semibold">Typescript</span>
+    <span className="font-mono font-semibold">React</span>
+    <span className="font-mono font-semibold">Mapbox API</span>
+    <span className="font-mono font-semibold">Mapbox Studio</span>
+    <span className="font-mono font-semibold">Mapbox GL JS</span>
+    <span className="font-mono font-semibold">Geospatial data</span>
+    <span className="font-mono font-semibold">Prisma - ORM</span>
+    <span className="font-mono font-semibold">Postgres</span>
+    <span className="font-mono font-semibold">NextAuth</span>
+    <span className="font-mono font-semibold">Vercel</span>
+  </div>
+);
+
 const features = [
   {
-    title: "Mapbox Integration",
+    title: "Mapbox integration",
     description: "Showcasing my skills by integrating Mapbox.",
     demo: <Map />,
     large: true,
     modal: <Map />,
   },
   {
-    title: "D3.js Integration",
+    title: "D3.js integration",
     description: "Showcasing my skills by integrating D3.js.",
     demo: <WebVitals />,
     large: false,
     modal: <Map />,
-  }
+  },
+  {
+    title: "Skills used",
+    description: "Main skills implemented in this project.",
+    demo: demoTech,
+    large: true,
+    modal: demoTech,
+  },
 ];

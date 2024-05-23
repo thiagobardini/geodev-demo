@@ -11,7 +11,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 export const metadata = {
   title: "MAPC | Demo",
   description:
-    "Showcasing my skills by integrating Mapbox, D3.js, and Airtable for an upcoming interview.",
+    "TBardini - Showcase of my skills and experience working with geospatial data, software, and APIs.",
   metadataBase: new URL("https://mapc-review.vercel.app/"),
 };
 
