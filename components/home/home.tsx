@@ -46,11 +46,14 @@ export default async function Home() {
           key="Map"
           title="Mapbox, D3.js, and Airtable Integration"
           description="Showcasing my skills by integrating Mapbox, D3.js, and Airtable for an upcoming interview."
-          demo={<div className="p-10"><Test /></div>}
+          demo={
+            <div className="p-10">
+              <Test />
+            </div>
+          }
           large={true}
         />
         {/* ))}  */}
-      
       </div>
     </>
   );
