@@ -21,22 +21,39 @@ export default function Page() {
   return (
     <>
       {!session ? (
-        <div className="z-10 w-full overflow-hidden shadow-xl md:max-w-md md:rounded-2xl md:border md:border-gray-200">
-          <div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
-            <h1>You are not logged in</h1>
-            <button
-              onClick={() => signIn("google")}
-              className="flex h-10 w-full items-center justify-center space-x-3 rounded-md border border-gray-200 bg-white text-sm text-black shadow-sm transition-all duration-75 hover:bg-gray-50 focus:outline-none"
-            >
-              {status === "loading" ? (
-                <LoadingDots color="#808080" />
-              ) : (
-                <>
-                  <Google className="h-5 w-5" />
-                  Sign In with Google
-                </>
-              )}
-            </button>
+        <div className="z-10 w-full max-w-xl px-5 md:px-0">
+          <div className="overflow-hidden rounded-2xl shadow-xl md:border md:border-gray-200">
+            <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center md:px-16">
+              <a href="https://www.tbardini.com">
+                <Image
+                  src="/images/tbtag.png"
+                  alt="TB Logo"
+                  className="h-10 w-10 rounded-full"
+                  width={20}
+                  height={20}
+                />
+              </a>
+              <h3 className="font-display text-2xl font-bold">Sign In</h3>
+              <p className="text-sm text-gray-500">
+                This is strictly for demo purposes - only your email and profile
+                picture will be stored.
+              </p>
+            </div>
+            <div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
+              <button
+                onClick={() => signIn("google")}
+                className="flex h-10 w-full items-center justify-center space-x-3 rounded-md border border-gray-200 bg-white text-sm text-black shadow-sm transition-all duration-75 hover:bg-gray-50 focus:outline-none"
+              >
+                {status === "loading" ? (
+                  <LoadingDots color="#808080" />
+                ) : (
+                  <>
+                    <Google className="h-5 w-5" />
+                    <p>Sign In with Google</p>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       ) : (
@@ -48,13 +65,6 @@ export default function Page() {
             >
               Welcome back, {session?.user?.name}
             </h1>
-            {/* <p
-              className="mt-6 animate-fade-up text-center text-gray-500 opacity-0 [text-wrap:balance] md:text-xl"
-              style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
-            >
-              An opinionated collection of components, hooks, and utilities for
-              your Next.js project.
-            </p> */}
           </div>
           <div className="my-10 grid w-full max-w-screen-xl animate-fade-up grid-cols-1 gap-5 px-5 md:grid-cols-3 xl:px-0">
             {features.map(({ title, description, demo, large }) => (

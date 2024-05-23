@@ -30,19 +30,29 @@ export default function NavBar({ session }: { session: Session | null }) {
               height="30"
               className="mr-2 rounded-sm"
             ></Image>
-            <p>MAPC | Review</p>
+            <p>MAPC | Demo</p>
           </Link>
-          <div>
-            {session ? (
-              <UserDropdown session={session} />
-            ) : (
-              <button
-                className="rounded-full border border-black bg-black p-1.5 px-4 text-sm text-white transition-all hover:bg-white hover:text-black"
-                onClick={() => setShowSignInModal(true)}
-              >
-                Sign In
-              </button>
-            )}
+          <div className="flex items-center space-x-4">
+          {!session && (
+            <Link
+              href="/dashboard"
+              className="px-4 text-sm text-gray-600 transition-all hover:text-black"
+            >
+              Dashboard
+            </Link>
+          )}
+            <>
+              {session ? (
+                <UserDropdown session={session} />
+              ) : (
+                <button
+                  className="rounded-full border border-black bg-black p-1.5 px-4 text-sm text-white transition-all hover:bg-white hover:text-black"
+                  onClick={() => setShowSignInModal(true)}
+                >
+                  Sign In
+                </button>
+              )}
+            </>
           </div>
         </div>
       </div>
