@@ -30,7 +30,8 @@ const DemoModal = ({
           </a>
           <h3 className="font-display text-2xl font-bold">TBardini</h3>
           <p className="text-sm text-gray-500">
-            TBardini - Showcase of my skills and experience working with geospatial data, software, and APIs.
+            TBardini - Showcase of my skills and experience working with
+            geospatial data, software, and APIs.
           </p>
         </div>
       </div>

@@ -5,6 +5,8 @@ import Link from "next/link";
 import useScroll from "@/lib/hooks/use-scroll";
 import { useSignInModal } from "./sign-in-modal";
 import UserDropdown from "./user-dropdown";
+import UserDropdownSignIn from "./user-dropdown-signin";
+
 import { Session } from "next-auth";
 
 export default function NavBar({ session }: { session: Session | null }) {
@@ -30,27 +32,16 @@ export default function NavBar({ session }: { session: Session | null }) {
               height="30"
               className="mr-2 rounded-sm"
             ></Image>
-            <p>MAPC | Demo</p>
+            <p>GeoDev | Demo</p>
           </Link>
           <div className="flex items-center space-x-4">
-            {!session && (
-              <Link
-                href="/dashboard"
-                className="px-4 text-sm text-gray-600 transition-all hover:text-black"
-              >
-                Dashboard
-              </Link>
-            )}
             <>
               {session ? (
-                <UserDropdown session={session} />
+                <>
+                  <UserDropdown session={session} />
+                </>
               ) : (
-                <button
-                  className="rounded-full border border-black bg-black p-1.5 px-4 text-sm text-white transition-all hover:bg-white hover:text-black"
-                  onClick={() => setShowSignInModal(true)}
-                >
-                  Sign In
-                </button>
+                <UserDropdownSignIn />
               )}
             </>
           </div>

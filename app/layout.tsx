@@ -9,7 +9,7 @@ import SessionWrapper from "@/components/utils/SessionProvider";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 export const metadata = {
-  title: "MAPC | Demo",
+  title: "GeoDev | Demo",
   description:
     "TBardini - Showcase of my skills and experience working with geospatial data, software, and APIs.",
   metadataBase: new URL("https://mapc-review.vercel.app/"),

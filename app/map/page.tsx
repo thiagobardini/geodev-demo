@@ -13,13 +13,13 @@ import ReactMapGl, {
 const Map = () => {
   const [viewport, setViewport] = useState({
     latitude: 42.395043,
-    longitude:  -71.161471,
+    longitude: -71.161471,
     zoom: 8,
     transitionDuration: 1000,
   });
 
   const [start, setStart] = useState([-71.061471, 42.355043]);
-  const [end, setEnd] = useState([-71.511931, 42.481902]); 
+  const [end, setEnd] = useState([-71.511931, 42.481902]);
   const [coords, setCoords] = useState([]);
   const [steps, setSteps] = useState([]);
 
@@ -71,7 +71,7 @@ const Map = () => {
       "line-opacity": 0.75,
     },
   };
-  const sharedLineStyle = {    
+  const sharedLineStyle = {
     id: "shared-tileset",
     type: "line",
     layout: {
@@ -127,7 +127,6 @@ const Map = () => {
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
       style={{ width: "100%", height: "100%" }}
     >
-
       <Source id="routeSource" type="geojson" data={geojson}>
         <Layer {...lineStyle} />
       </Source>

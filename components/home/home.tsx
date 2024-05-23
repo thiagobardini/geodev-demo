@@ -28,7 +28,7 @@ export default function Home() {
           className="mt-6 animate-fade-up text-center text-gray-500 opacity-0  md:text-xl"
           style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
         >
-          Building Digital Tools for Urban Planning and Public Policy
+          Designing Digital Tools for Urban Planning and Public Policy
         </p>
       </div>
       <div className="my-10 grid w-full max-w-screen-xl animate-fade-up grid-cols-1 gap-5 px-5 md:grid-cols-3 xl:px-0">
@@ -85,8 +85,8 @@ const features = [
     modal: <Map />,
   },
   {
-    title: "Skills used",
-    description: "Main skills implemented in this project.",
+    title: "Core Skills",
+    description: "Key Technologies Utilized in This Project",
     demo: demoTech,
     large: true,
     modal: demoTech,
