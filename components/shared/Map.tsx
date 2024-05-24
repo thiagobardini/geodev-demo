@@ -26,11 +26,6 @@ interface GeoJSONFeature {
   properties?: any;
 }
 
-interface GeoJSONPointFeatureCollection {
-  type: "FeatureCollection";
-  features: GeoJSONPointFeature[];
-}
-
 interface GeoJSONPointFeature {
   type: "Feature";
   geometry: {
@@ -55,6 +50,12 @@ const Map = ({ showFeatures = false }) => {
   const [end, setEnd] = useState([-71.511931, 42.481902]);
   const [coords, setCoords] = useState<number[][]>([]);
   const [steps, setSteps] = useState<any[]>([]);
+  const [layerVisibility, setLayerVisibility] = useState({
+    walkingTrails: "visible",
+    bikeFacilities: "visible",
+    landLineSystems: "visible",
+    sharedUsePaths: "visible",
+  });
 
   const GeolocateControlRef = useRef(null);
 
@@ -63,14 +64,24 @@ const Map = ({ showFeatures = false }) => {
   }, [end, GeolocateControlRef]);
 
   const getRoute = async () => {
+    console.log("Fetching route...");
     const response = await fetch(
       `https://api.mapbox.com/directions/v5/mapbox/cycling/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
     );
     const data = await response.json();
+    console.log("Route data:", data);
     const coords = data.routes[0].geometry.coordinates;
     setCoords(coords);
     const steps = data.routes[0].legs[0].steps;
     setSteps(steps);
+  };
+
+  const toggleLayerVisibility = (layerId: string) => {
+    console.log(`Toggling visibility for ${layerId}`);
+    setLayerVisibility((prevState) => ({
+      ...prevState,
+      [layerId]: prevState[layerId] === "visible" ? "none" : "visible",
+    }));
   };
 
   const geojson: GeoJSONFeatureCollection = {
@@ -82,11 +93,12 @@ const Map = ({ showFeatures = false }) => {
           type: "LineString",
           coordinates: coords,
         },
+        properties: {},
       },
     ],
   };
 
-  const endPoint: GeoJSONPointFeatureCollection = {
+  const endPoint: GeoJSONFeatureCollection = {
     type: "FeatureCollection",
     features: [
       {
@@ -95,6 +107,7 @@ const Map = ({ showFeatures = false }) => {
           type: "Point",
           coordinates: end,
         },
+        properties: {},
       },
     ],
   };
@@ -114,7 +127,6 @@ const Map = ({ showFeatures = false }) => {
   };
 
   const sharedLineStyle = {
-    id: "shared-tileset",
     type: "line" as const,
     layout: {
       "line-join": "round" as const,
@@ -137,9 +149,14 @@ const Map = ({ showFeatures = false }) => {
   };
 
   const handleClick = (e: any) => {
+    console.log("Map clicked at:", e.lngLat);
     const newEnd = e.lngLat;
     setEnd([newEnd.lng, newEnd.lat]);
   };
+
+  useEffect(() => {
+    console.log("Layer visibility state:", layerVisibility);
+  }, [layerVisibility]);
 
   return (
     <section className="relative h-full w-full">
@@ -158,12 +175,42 @@ const Map = ({ showFeatures = false }) => {
           <Layer {...layerEndpoint} />
         </Source>
 
-        <Source id="shared-tileset" type="vector" url="mapbox://tbardini.4p8uspq3">
+        <Source id="walkingTrails" type="vector" url="mapbox://tbardini.1i81xd">
           <Layer
+            id="walkingTrailsLayer"
+            source-layer="trans-walking-trails-1i81xd"
             {...sharedLineStyle}
-            source-layer="trans-shared-use-paths-9a2oo6"
+            layout={{ ...sharedLineStyle.layout, visibility: layerVisibility.walkingTrails }}
           />
         </Source>
+
+        <Source id="bikeFacilities" type="vector" url="mapbox://tbardini.22p2zm">
+          <Layer
+            id="bikeFacilitiesLayer"
+            source-layer="trans-bike-facilities-22p2zm"
+            {...sharedLineStyle}
+            layout={{ ...sharedLineStyle.layout, visibility: layerVisibility.bikeFacilities }}
+          />
+        </Source>
+
+        <Source id="landLineSystems" type="vector" url="mapbox://tbardini.710cn0">
+          <Layer
+            id="landLineSystemsLayer"
+            source-layer="trans-land-line-systems-710cn0"
+            {...sharedLineStyle}
+            layout={{ ...sharedLineStyle.layout, visibility: layerVisibility.landLineSystems }}
+          />
+        </Source>
+
+        <Source id="sharedUsePaths" type="vector" url="mapbox://tbardini.4p8uspq3">
+          <Layer
+            id="sharedUsePathsLayer"
+            source-layer="trans-shared-use-paths-9a2oo6"
+            {...sharedLineStyle}
+            layout={{ ...sharedLineStyle.layout, visibility: layerVisibility.sharedUsePaths }}
+          />
+        </Source>
+
         <GeolocateControl showAccuracyCircle={false} onGeolocate={(e) => setStart([e.coords.longitude, e.coords.latitude])} ref={GeolocateControlRef} />
         <FullscreenControl />
         <NavigationControl
@@ -174,6 +221,21 @@ const Map = ({ showFeatures = false }) => {
         <FullscreenControl />
       </ReactMapGl>
       {showFeatures && <InstructionsDrawer steps={steps} setEnd={setEnd} />}
+      <div className="absolute top-10 right-10 z-10 bg-white p-4 shadow-lg">
+        <h2 className="font-bold">Layers</h2>
+        <button onClick={() => toggleLayerVisibility('walkingTrails')} className="block mt-2">
+          {layerVisibility.walkingTrails === 'visible' ? "Hide" : "Show"} Walking Trails
+        </button>
+        <button onClick={() => toggleLayerVisibility('bikeFacilities')} className="block mt-2">
+          {layerVisibility.bikeFacilities === 'visible' ? "Hide" : "Show"} Bike Facilities
+        </button>
+        <button onClick={() => toggleLayerVisibility('landLineSystems')} className="block mt-2">
+          {layerVisibility.landLineSystems === 'visible' ? "Hide" : "Show"} Land Line Systems
+        </button>
+        <button onClick={() => toggleLayerVisibility('sharedUsePaths')} className="block mt-2">
+          {layerVisibility.sharedUsePaths === 'visible' ? "Hide" : "Show"} Shared Use Paths
+        </button>
+      </div>
     </section>
   );
 };
