@@ -10,7 +10,7 @@ import UserDropdownSignIn from "./user-dropdown-signin";
 import { Session } from "next-auth";
 
 export default function NavBar({ session }: { session: Session | null }) {
-  const { SignInModal, setShowSignInModal } = useSignInModal();
+  const { SignInModal } = useSignInModal();
   const scrolled = useScroll(50);
 
   return (

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Card from "@/components/shared/card";
-import Map from "@/app/map/page";
+import Map from "@/components/shared/Map";
 import Modal from "@/components/shared/modal";
 import WebVitals from "./web-vitals";
 
@@ -11,8 +11,10 @@ export default function Home() {
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
 
   const openModal = (content: React.ReactNode) => {
-    setModalContent(content);
-    setShowModal(true);
+    if (content !== "") {
+      setModalContent(content);
+      setShowModal(true);
+    }
   };
 
   return (
@@ -62,6 +64,7 @@ const demoTech = (
     <span className="font-mono font-semibold">Mapbox Studio</span>
     <span className="font-mono font-semibold">Mapbox GL JS</span>
     <span className="font-mono font-semibold">Geospatial data</span>
+    <span className="font-mono font-semibold">D3.js</span>
     <span className="font-mono font-semibold">Prisma - ORM</span>
     <span className="font-mono font-semibold">Postgres</span>
     <span className="font-mono font-semibold">NextAuth</span>
@@ -73,22 +76,35 @@ const features = [
   {
     title: "Mapbox integration",
     description: "Showcasing my skills by integrating Mapbox.",
-    demo: <Map />,
+    demo: <Map showFeatures={false} />,
     large: true,
-    modal: <Map />,
+    modal: <Map showFeatures={true}/>,
   },
   {
     title: "D3.js integration",
     description: "Showcasing my skills by integrating D3.js.",
     demo: <WebVitals />,
     large: false,
-    modal: <Map />,
+    modal: "", 
   },
   {
     title: "Core Skills",
     description: "Key Technologies Utilized in This Project",
     demo: demoTech,
     large: true,
-    modal: demoTech,
+    modal: (
+      <>
+        <div className="relative mx-auto flex h-[141px] max-w-full flex-col items-center justify-center bg-gray-50 pt-2 text-center">
+          <h2 className="bg-gradient-to-br from-black to-stone-500 bg-clip-text text-2xl font-extrabold tracking-tight text-transparent drop-shadow-md md:text-4xl">
+            Core Skills
+          </h2>
+          <h3 className="mt-2 text-lg font-medium text-gray-600 md:text-xl">
+            Key Technologies Utilized in This Project
+          </h3>
+        </div>
+        {demoTech}
+      </>
+    ),
+    
   },
 ];
