@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -13,6 +11,7 @@ import ReactMapGl, {
   Layer,
 } from "react-map-gl";
 import InstructionsDrawer from "./InstructionsDrawer";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const initialViewState = {
   latitude: 42.395043,
@@ -24,6 +23,7 @@ const initialViewState = {
 };
 
 const Map = ({ showFeatures = false }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [viewport, setViewport] = useState(initialViewState);
   const [start, setStart] = useState([-71.061471, 42.355043]);
   const [end, setEnd] = useState([-71.511931, 42.481902]);
@@ -252,49 +252,70 @@ const Map = ({ showFeatures = false }) => {
       {showFeatures && (
         <InstructionsDrawer steps={steps} setStart={setStart} setEnd={setEnd} />
       )}
-      <div className="absolute bottom-10 right-2 z-10 bg-white p-4 shadow-lg">
-        <h2 className="font-bold">Layers</h2>
-        <div className="mt-2 flex items-center">
-          <div
-            className="mr-2 h-4 w-4"
-            style={{ backgroundColor: "#913368" }}
-          ></div>
-          <button onClick={() => toggleLayerVisibility("walkingTrails")}>
-            {layerVisibility.walkingTrails === "visible" ? "Hide" : "Show"}{" "}
-            Walking Trails
+      {showFeatures && (
+        <div
+          className={`fixed right-0 bottom-16 z-50 h-fit transform transition-transform ${
+            isOpen ? "translate-x-0" : "translate-x-full"
+          } w-80  bg-slate-800 p-2 text-white  shadow-lg`}
+        >
+          <div className="flex items-center justify-between bg-gray-900 p-4">
+            <h2 className="text-lg font-semibold text-white">Layers</h2>
+            <button onClick={() => setIsOpen(false)}>
+              <X className="h-6 w-6 text-white" />
+            </button>
+          </div>
+          <div className="p-4">
+            <div className="mt-2 flex items-center">
+              <div
+                className="mr-2 h-4 w-4"
+                style={{ backgroundColor: "#913368" }}
+              ></div>
+              <button onClick={() => toggleLayerVisibility("walkingTrails")}>
+                {layerVisibility.walkingTrails === "visible" ? "Hide" : "Show"}{" "}
+                Walking Trails
+              </button>
+            </div>
+            <div className="mt-2 flex items-center">
+              <div
+                className="mr-2 h-4 w-4"
+                style={{ backgroundColor: "#92c6df" }}
+              ></div>
+              <button onClick={() => toggleLayerVisibility("bikeFacilities")}>
+                {layerVisibility.bikeFacilities === "visible" ? "Hide" : "Show"}{" "}
+                Bike Facilities
+              </button>
+            </div>
+            <div className="mt-2 flex items-center">
+              <div
+                className="mr-2 h-4 w-4"
+                style={{ backgroundColor: "hsl(50, 100%, 66%)" }}
+              ></div>
+              <button onClick={() => toggleLayerVisibility("landLineSystems")}>
+                {layerVisibility.landLineSystems === "visible"
+                  ? "Hide"
+                  : "Show"}{" "}
+                Land Line Systems
+              </button>
+            </div>
+            <div className="mt-2 flex items-center">
+              <div
+                className="mr-2 h-4 w-4"
+                style={{ backgroundColor: "#41ec74" }}
+              ></div>
+              <button onClick={() => toggleLayerVisibility("sharedUsePaths")}>
+                {layerVisibility.sharedUsePaths === "visible" ? "Hide" : "Show"}{" "}
+                Shared Use Paths
+              </button>
+            </div>
+          </div>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="absolute -left-8 top-1/2 -translate-y-1/2 transform rounded-l-md bg-gray-900 p-2 text-white shadow-md"
+          >
+            {isOpen ? <ChevronRight /> : <ChevronLeft />}
           </button>
         </div>
-        <div className="mt-2 flex items-center">
-          <div
-            className="mr-2 h-4 w-4"
-            style={{ backgroundColor: "#92c6df" }}
-          ></div>
-          <button onClick={() => toggleLayerVisibility("bikeFacilities")}>
-            {layerVisibility.bikeFacilities === "visible" ? "Hide" : "Show"}{" "}
-            Bike Facilities
-          </button>
-        </div>
-        <div className="mt-2 flex items-center">
-          <div
-            className="mr-2 h-4 w-4"
-            style={{ backgroundColor: "hsl(50, 100%, 66%)" }}
-          ></div>
-          <button onClick={() => toggleLayerVisibility("landLineSystems")}>
-            {layerVisibility.landLineSystems === "visible" ? "Hide" : "Show"}{" "}
-            Land Line Systems
-          </button>
-        </div>
-        <div className="mt-2 flex items-center">
-          <div
-            className="mr-2 h-4 w-4"
-            style={{ backgroundColor: "#41ec74" }}
-          ></div>
-          <button onClick={() => toggleLayerVisibility("sharedUsePaths")}>
-            {layerVisibility.sharedUsePaths === "visible" ? "Hide" : "Show"}{" "}
-            Shared Use Paths
-          </button>
-        </div>
-      </div>
+      )}
     </section>
   );
 };

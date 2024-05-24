@@ -9,7 +9,6 @@ import SessionWrapper from "@/components/utils/SessionProvider";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Script from "next/script";
 import Link from "next/link";
-import Head from "next/head";
 
 export const metadata = {
   title: "GeoDev | Demo",
@@ -26,14 +25,15 @@ export default async function RootLayout({
   return (
     <SessionWrapper>
       <html lang="en">
-        {/* <Script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js" />
-        <Script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js" />
-        <Link
-          rel="stylesheet"
-          href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
-          type="text/css"
-        /> */}
-
+        <head>
+          <Script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js" />
+          <Script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js" />
+          <link
+            rel="stylesheet"
+            href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+            type="text/css"
+          />
+        </head>
         <body className={cx(sfPro.variable, inter.variable)}>
           <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100" />
           <Suspense fallback="...">
