@@ -6,6 +6,7 @@ import ReactMapGl, {
   GeolocateControl,
   NavigationControl,
   Marker,
+  Popup,
   Source,
   Layer,
   ViewState,
@@ -51,22 +52,23 @@ const Map = ({ showFeatures = false }) => {
   const [coords, setCoords] = useState<number[][]>([]);
   const [steps, setSteps] = useState<any[]>([]);
   const [layerVisibility, setLayerVisibility] = useState({
-    walkingTrails: "visible",
-    bikeFacilities: "visible",
-    landLineSystems: "visible",
-    sharedUsePaths: "visible",
+    walkingTrails: "none",
+    bikeFacilities: "none",
+    landLineSystems: "none",
+    sharedUsePaths: "none",
   });
+  const [selectedMarker, setSelectedMarker] = useState<{ longitude: number, latitude: number, text: string } | null>(null);
 
   const GeolocateControlRef = useRef(null);
 
   useEffect(() => {
     getRoute();
-  }, [end, GeolocateControlRef]);
+  }, [start, end, GeolocateControlRef]);
 
   const getRoute = async () => {
     console.log("Fetching route...");
     const response = await fetch(
-      `https://api.mapbox.com/directions/v5/mapbox/cycling/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
+      `https://api.mapbox.com/directions/v5/mapbox/walking/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
     );
     const data = await response.json();
     console.log("Route data:", data);
@@ -158,6 +160,12 @@ const Map = ({ showFeatures = false }) => {
     console.log("Layer visibility state:", layerVisibility);
   }, [layerVisibility]);
 
+  const handleMarkerClick = (longitude: number, latitude: number, text: string) => {
+    console.log("Marker clicked at:", longitude, latitude);
+    setSelectedMarker({ longitude, latitude, text });
+    console.log("Selected marker:", selectedMarker);
+  };
+
   return (
     <section className="relative h-full w-full">
       <ReactMapGl
@@ -175,66 +183,109 @@ const Map = ({ showFeatures = false }) => {
           <Layer {...layerEndpoint} />
         </Source>
 
-        <Source id="walkingTrails" type="vector" url="mapbox://tbardini.1i81xd">
+        <Source id="composite" type="vector" url="mapbox://composite">
           <Layer
             id="walkingTrailsLayer"
-            source-layer="trans-walking-trails-1i81xd"
-            {...sharedLineStyle}
-            layout={{ ...sharedLineStyle.layout, visibility: layerVisibility.walkingTrails }}
+            source-layer="trans_walking_trails-1i81xd"
+            type="line"
+            paint={{
+              "line-color": "#913368",
+              "line-width": 2,
+            }}
+            layout={{ visibility: layerVisibility.walkingTrails }}
           />
         </Source>
 
-        <Source id="bikeFacilities" type="vector" url="mapbox://tbardini.22p2zm">
+        <Source id="composite" type="vector" url="mapbox://composite">
           <Layer
             id="bikeFacilitiesLayer"
-            source-layer="trans-bike-facilities-22p2zm"
-            {...sharedLineStyle}
-            layout={{ ...sharedLineStyle.layout, visibility: layerVisibility.bikeFacilities }}
+            source-layer="trans_bike_facilities-22p2zm"
+            type="line"
+            paint={{
+              "line-color": "#92c6df",
+              "line-offset": 1,
+              "line-width": 2,
+            }}
+            layout={{ visibility: layerVisibility.bikeFacilities }}
           />
         </Source>
 
-        <Source id="landLineSystems" type="vector" url="mapbox://tbardini.710cn0">
+        <Source id="composite" type="vector" url="mapbox://composite">
           <Layer
             id="landLineSystemsLayer"
-            source-layer="trans-land-line-systems-710cn0"
-            {...sharedLineStyle}
-            layout={{ ...sharedLineStyle.layout, visibility: layerVisibility.landLineSystems }}
+            source-layer="trans_land_line_systems-710cn0"
+            type="line"
+            paint={{
+              "line-color": "hsl(50, 100%, 66%)",
+              "line-width": 2,
+            }}
+            layout={{ visibility: layerVisibility.landLineSystems }}
           />
         </Source>
 
-        <Source id="sharedUsePaths" type="vector" url="mapbox://tbardini.4p8uspq3">
+        <Source id="composite" type="vector" url="mapbox://composite">
           <Layer
             id="sharedUsePathsLayer"
-            source-layer="trans-shared-use-paths-9a2oo6"
-            {...sharedLineStyle}
-            layout={{ ...sharedLineStyle.layout, visibility: layerVisibility.sharedUsePaths }}
+            source-layer="trans_shared_use_paths-9a2oo6"
+            type="line"
+            paint={{
+              "line-color": "#41ec74",
+              "line-offset": 3,
+              "line-width": 2,
+            }}
+            layout={{ visibility: layerVisibility.sharedUsePaths }}
           />
         </Source>
 
         <GeolocateControl showAccuracyCircle={false} onGeolocate={(e) => setStart([e.coords.longitude, e.coords.latitude])} ref={GeolocateControlRef} />
         <FullscreenControl />
         <NavigationControl
-          position="bottom-right"
+          position="top-right"
           style={{ bottom: "30px !important" }}
         />
-        <Marker longitude={start[0]} latitude={start[1]} />
-        <FullscreenControl />
+        <Marker longitude={start[0]} latitude={start[1]} onClick={() => handleMarkerClick(start[0], start[1], "Start Point")} />
+        <Marker longitude={end[0]} latitude={end[1]} onClick={() => handleMarkerClick(end[0], end[1], "End Point")} />
+        {selectedMarker && (
+          <Popup
+            longitude={selectedMarker.longitude}
+            latitude={selectedMarker.latitude}
+            onClose={() => setSelectedMarker(null)}
+            closeOnClick={false}
+            anchor="top"
+          >
+            <div>{selectedMarker.text}</div>
+            <div>lat: {selectedMarker.latitude}</div>
+            <div>lng: {selectedMarker.longitude}</div>
+          </Popup>
+        )}
       </ReactMapGl>
-      {showFeatures && <InstructionsDrawer steps={steps} setEnd={setEnd} />}
-      <div className="absolute top-10 right-10 z-10 bg-white p-4 shadow-lg">
+      {showFeatures && <InstructionsDrawer steps={steps} setStart={setStart} setEnd={setEnd} />}
+      <div className="absolute bottom-10 right-2 z-10 bg-white p-4 shadow-lg">
         <h2 className="font-bold">Layers</h2>
-        <button onClick={() => toggleLayerVisibility('walkingTrails')} className="block mt-2">
-          {layerVisibility.walkingTrails === 'visible' ? "Hide" : "Show"} Walking Trails
-        </button>
-        <button onClick={() => toggleLayerVisibility('bikeFacilities')} className="block mt-2">
-          {layerVisibility.bikeFacilities === 'visible' ? "Hide" : "Show"} Bike Facilities
-        </button>
-        <button onClick={() => toggleLayerVisibility('landLineSystems')} className="block mt-2">
-          {layerVisibility.landLineSystems === 'visible' ? "Hide" : "Show"} Land Line Systems
-        </button>
-        <button onClick={() => toggleLayerVisibility('sharedUsePaths')} className="block mt-2">
-          {layerVisibility.sharedUsePaths === 'visible' ? "Hide" : "Show"} Shared Use Paths
-        </button>
+        <div className="flex items-center mt-2">
+          <div className="w-4 h-4 mr-2" style={{ backgroundColor: "#913368" }}></div>
+          <button onClick={() => toggleLayerVisibility('walkingTrails')}>
+            {layerVisibility.walkingTrails === 'visible' ? "Hide" : "Show"} Walking Trails
+          </button>
+        </div>
+        <div className="flex items-center mt-2">
+          <div className="w-4 h-4 mr-2" style={{ backgroundColor: "#92c6df" }}></div>
+          <button onClick={() => toggleLayerVisibility('bikeFacilities')}>
+            {layerVisibility.bikeFacilities === 'visible' ? "Hide" : "Show"} Bike Facilities
+          </button>
+        </div>
+        <div className="flex items-center mt-2">
+          <div className="w-4 h-4 mr-2" style={{ backgroundColor: "hsl(50, 100%, 66%)" }}></div>
+          <button onClick={() => toggleLayerVisibility('landLineSystems')}>
+            {layerVisibility.landLineSystems === 'visible' ? "Hide" : "Show"} Land Line Systems
+          </button>
+        </div>
+        <div className="flex items-center mt-2">
+          <div className="w-4 h-4 mr-2" style={{ backgroundColor: "#41ec74" }}></div>
+          <button onClick={() => toggleLayerVisibility('sharedUsePaths')}>
+            {layerVisibility.sharedUsePaths === 'visible' ? "Hide" : "Show"} Shared Use Paths
+          </button>
+        </div>
       </div>
     </section>
   );

@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Instructions from './Instructions';
 import Places from './Places';
 
-const InstructionsDrawer = ({ steps, setEnd }) => {
+const InstructionsDrawer = ({ steps, setStart, setEnd }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -15,6 +15,9 @@ const InstructionsDrawer = ({ steps, setEnd }) => {
         </button>
       </div>
       <div className="p-4">
+        <h3 className="text-white">Start Point</h3>
+        <Places setEnd={setStart} />
+        <h3 className="text-white mt-4">End Point</h3>
         <Places setEnd={setEnd} />
         <div className="mt-4 overflow-y-auto max-h-[calc(100vh-64px)]">
           {steps.map((item, i) => (
