@@ -70,6 +70,7 @@ const demoTech = (
     <span className="font-mono font-semibold">Postgres</span>
     <span className="font-mono font-semibold">NextAuth</span>
     <span className="font-mono font-semibold">Vercel</span>
+    <span className="font-mono font-semibold">Framer Motion</span>
   </div>
 );
 
@@ -97,7 +98,7 @@ const features = [
           </h3>
         </div>
         <div className="flex justify-center">
-        <MultiLineChart />
+          <MultiLineChart />
         </div>
       </>
     ),

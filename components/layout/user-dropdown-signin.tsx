@@ -23,14 +23,14 @@ export default function UserDropdownSignIn() {
                   Hi there,
                 </p>
                 <p className="truncate text-sm text-gray-500">
-                Sign in to your dashboard.
+                  Sign in to your dashboard.
                 </p>
               </div>
               <button
                 className="relative flex w-full items-center justify-start space-x-2 rounded-md p-2 text-left text-sm transition-all duration-75 hover:bg-gray-100"
                 onClick={() => {
                   setShowSignInModal(true);
-                  setOpenPopover(false); 
+                  setOpenPopover(false);
                 }}
               >
                 <LogIn className="h-4 w-4" />

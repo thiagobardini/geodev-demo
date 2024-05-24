@@ -57,7 +57,11 @@ const Map = ({ showFeatures = false }) => {
     landLineSystems: "none",
     sharedUsePaths: "none",
   });
-  const [selectedMarker, setSelectedMarker] = useState<{ longitude: number, latitude: number, text: string } | null>(null);
+  const [selectedMarker, setSelectedMarker] = useState<{
+    longitude: number;
+    latitude: number;
+    text: string;
+  } | null>(null);
 
   const GeolocateControlRef = useRef(null);
 
@@ -68,7 +72,7 @@ const Map = ({ showFeatures = false }) => {
   const getRoute = async () => {
     console.log("Fetching route...");
     const response = await fetch(
-      `https://api.mapbox.com/directions/v5/mapbox/walking/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
+      `https://api.mapbox.com/directions/v5/mapbox/walking/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
     );
     const data = await response.json();
     console.log("Route data:", data);
@@ -160,7 +164,11 @@ const Map = ({ showFeatures = false }) => {
     console.log("Layer visibility state:", layerVisibility);
   }, [layerVisibility]);
 
-  const handleMarkerClick = (longitude: number, latitude: number, text: string) => {
+  const handleMarkerClick = (
+    longitude: number,
+    latitude: number,
+    text: string,
+  ) => {
     console.log("Marker clicked at:", longitude, latitude);
     setSelectedMarker({ longitude, latitude, text });
     console.log("Selected marker:", selectedMarker);
@@ -237,14 +245,26 @@ const Map = ({ showFeatures = false }) => {
           />
         </Source>
 
-        <GeolocateControl showAccuracyCircle={false} onGeolocate={(e) => setStart([e.coords.longitude, e.coords.latitude])} ref={GeolocateControlRef} />
+        <GeolocateControl
+          showAccuracyCircle={false}
+          onGeolocate={(e) => setStart([e.coords.longitude, e.coords.latitude])}
+          ref={GeolocateControlRef}
+        />
         <FullscreenControl />
         <NavigationControl
           position="top-right"
           style={{ bottom: "30px !important" }}
         />
-        <Marker longitude={start[0]} latitude={start[1]} onClick={() => handleMarkerClick(start[0], start[1], "Start Point")} />
-        <Marker longitude={end[0]} latitude={end[1]} onClick={() => handleMarkerClick(end[0], end[1], "End Point")} />
+        <Marker
+          longitude={start[0]}
+          latitude={start[1]}
+          onClick={() => handleMarkerClick(start[0], start[1], "Start Point")}
+        />
+        <Marker
+          longitude={end[0]}
+          latitude={end[1]}
+          onClick={() => handleMarkerClick(end[0], end[1], "End Point")}
+        />
         {selectedMarker && (
           <Popup
             longitude={selectedMarker.longitude}
@@ -259,31 +279,49 @@ const Map = ({ showFeatures = false }) => {
           </Popup>
         )}
       </ReactMapGl>
-      {showFeatures && <InstructionsDrawer steps={steps} setStart={setStart} setEnd={setEnd} />}
+      {showFeatures && (
+        <InstructionsDrawer steps={steps} setStart={setStart} setEnd={setEnd} />
+      )}
       <div className="absolute bottom-10 right-2 z-10 bg-white p-4 shadow-lg">
         <h2 className="font-bold">Layers</h2>
-        <div className="flex items-center mt-2">
-          <div className="w-4 h-4 mr-2" style={{ backgroundColor: "#913368" }}></div>
-          <button onClick={() => toggleLayerVisibility('walkingTrails')}>
-            {layerVisibility.walkingTrails === 'visible' ? "Hide" : "Show"} Walking Trails
+        <div className="mt-2 flex items-center">
+          <div
+            className="mr-2 h-4 w-4"
+            style={{ backgroundColor: "#913368" }}
+          ></div>
+          <button onClick={() => toggleLayerVisibility("walkingTrails")}>
+            {layerVisibility.walkingTrails === "visible" ? "Hide" : "Show"}{" "}
+            Walking Trails
           </button>
         </div>
-        <div className="flex items-center mt-2">
-          <div className="w-4 h-4 mr-2" style={{ backgroundColor: "#92c6df" }}></div>
-          <button onClick={() => toggleLayerVisibility('bikeFacilities')}>
-            {layerVisibility.bikeFacilities === 'visible' ? "Hide" : "Show"} Bike Facilities
+        <div className="mt-2 flex items-center">
+          <div
+            className="mr-2 h-4 w-4"
+            style={{ backgroundColor: "#92c6df" }}
+          ></div>
+          <button onClick={() => toggleLayerVisibility("bikeFacilities")}>
+            {layerVisibility.bikeFacilities === "visible" ? "Hide" : "Show"}{" "}
+            Bike Facilities
           </button>
         </div>
-        <div className="flex items-center mt-2">
-          <div className="w-4 h-4 mr-2" style={{ backgroundColor: "hsl(50, 100%, 66%)" }}></div>
-          <button onClick={() => toggleLayerVisibility('landLineSystems')}>
-            {layerVisibility.landLineSystems === 'visible' ? "Hide" : "Show"} Land Line Systems
+        <div className="mt-2 flex items-center">
+          <div
+            className="mr-2 h-4 w-4"
+            style={{ backgroundColor: "hsl(50, 100%, 66%)" }}
+          ></div>
+          <button onClick={() => toggleLayerVisibility("landLineSystems")}>
+            {layerVisibility.landLineSystems === "visible" ? "Hide" : "Show"}{" "}
+            Land Line Systems
           </button>
         </div>
-        <div className="flex items-center mt-2">
-          <div className="w-4 h-4 mr-2" style={{ backgroundColor: "#41ec74" }}></div>
-          <button onClick={() => toggleLayerVisibility('sharedUsePaths')}>
-            {layerVisibility.sharedUsePaths === 'visible' ? "Hide" : "Show"} Shared Use Paths
+        <div className="mt-2 flex items-center">
+          <div
+            className="mr-2 h-4 w-4"
+            style={{ backgroundColor: "#41ec74" }}
+          ></div>
+          <button onClick={() => toggleLayerVisibility("sharedUsePaths")}>
+            {layerVisibility.sharedUsePaths === "visible" ? "Hide" : "Show"}{" "}
+            Shared Use Paths
           </button>
         </div>
       </div>

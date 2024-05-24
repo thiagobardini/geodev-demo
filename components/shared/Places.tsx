@@ -18,7 +18,7 @@ function Places({ setEnd }) {
   const getPlaces = async () => {
     setIsLoading(true);
     const response = await fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
     );
     const data = await response.json();
     setPlaces(data.features);
@@ -46,11 +46,7 @@ function Places({ setEnd }) {
         {value && (
           <div onClick={() => setValue("")} className="cursor-pointer">
             {isLoading ? (
-              <img
-                className="h-5 w-5"
-                src={LoadingDots}
-                alt="loading gif"
-              />
+              <img className="h-5 w-5" src={LoadingDots} alt="loading gif" />
             ) : (
               <AiOutlineClose size={20} className="text-white" />
             )}
