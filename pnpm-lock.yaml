@@ -53,6 +53,9 @@ importers:
       d3:
         specifier: ^7.9.0
         version: 7.9.0
+      d3-array:
+        specifier: ^3.2.4
+        version: 3.2.4
       eslint:
         specifier: 8.31.0
         version: 8.31.0

@@ -1,6 +1,11 @@
 import React from "react";
 
-const Instructions = ({ step, no_ }) => {
+interface InstructionsProps {
+  step: string;
+  no_: number;
+}
+
+const Instructions: React.FC<InstructionsProps> = ({ step, no_ }) => {
   return (
     <article className="flex items-center justify-start gap-5">
       <div className="text-gray-400">{no_}</div>

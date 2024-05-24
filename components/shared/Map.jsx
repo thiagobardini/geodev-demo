@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -9,34 +11,10 @@ import ReactMapGl, {
   Popup,
   Source,
   Layer,
-  ViewState,
 } from "react-map-gl";
 import InstructionsDrawer from "./InstructionsDrawer";
 
-interface GeoJSONFeatureCollection {
-  type: "FeatureCollection";
-  features: GeoJSONFeature[];
-}
-
-interface GeoJSONFeature {
-  type: "Feature";
-  geometry: {
-    type: "LineString";
-    coordinates: number[][];
-  };
-  properties?: any;
-}
-
-interface GeoJSONPointFeature {
-  type: "Feature";
-  geometry: {
-    type: "Point";
-    coordinates: number[];
-  };
-  properties?: any;
-}
-
-const initialViewState: ViewState = {
+const initialViewState = {
   latitude: 42.395043,
   longitude: -71.161471,
   zoom: 8,
@@ -46,22 +24,18 @@ const initialViewState: ViewState = {
 };
 
 const Map = ({ showFeatures = false }) => {
-  const [viewport, setViewport] = useState<ViewState>(initialViewState);
+  const [viewport, setViewport] = useState(initialViewState);
   const [start, setStart] = useState([-71.061471, 42.355043]);
   const [end, setEnd] = useState([-71.511931, 42.481902]);
-  const [coords, setCoords] = useState<number[][]>([]);
-  const [steps, setSteps] = useState<any[]>([]);
+  const [coords, setCoords] = useState([]);
+  const [steps, setSteps] = useState([]);
   const [layerVisibility, setLayerVisibility] = useState({
     walkingTrails: "none",
     bikeFacilities: "none",
     landLineSystems: "none",
     sharedUsePaths: "none",
   });
-  const [selectedMarker, setSelectedMarker] = useState<{
-    longitude: number;
-    latitude: number;
-    text: string;
-  } | null>(null);
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
   const GeolocateControlRef = useRef(null);
 
@@ -82,7 +56,7 @@ const Map = ({ showFeatures = false }) => {
     setSteps(steps);
   };
 
-  const toggleLayerVisibility = (layerId: string) => {
+  const toggleLayerVisibility = (layerId) => {
     console.log(`Toggling visibility for ${layerId}`);
     setLayerVisibility((prevState) => ({
       ...prevState,
@@ -90,7 +64,7 @@ const Map = ({ showFeatures = false }) => {
     }));
   };
 
-  const geojson: GeoJSONFeatureCollection = {
+  const geojson = {
     type: "FeatureCollection",
     features: [
       {
@@ -104,7 +78,7 @@ const Map = ({ showFeatures = false }) => {
     ],
   };
 
-  const endPoint: GeoJSONFeatureCollection = {
+  const endPoint = {
     type: "FeatureCollection",
     features: [
       {
@@ -120,10 +94,10 @@ const Map = ({ showFeatures = false }) => {
 
   const lineStyle = {
     id: "roadLayer",
-    type: "line" as const,
+    type: "line",
     layout: {
-      "line-join": "round" as const,
-      "line-cap": "round" as const,
+      "line-join": "round",
+      "line-cap": "round",
     },
     paint: {
       "line-color": "blue",
@@ -133,10 +107,10 @@ const Map = ({ showFeatures = false }) => {
   };
 
   const sharedLineStyle = {
-    type: "line" as const,
+    type: "line",
     layout: {
-      "line-join": "round" as const,
-      "line-cap": "round" as const,
+      "line-join": "round",
+      "line-cap": "round",
     },
     paint: {
       "line-color": "blue",
@@ -147,14 +121,14 @@ const Map = ({ showFeatures = false }) => {
 
   const layerEndpoint = {
     id: "end",
-    type: "circle" as const,
+    type: "circle",
     paint: {
       "circle-radius": 10,
       "circle-color": "#f30",
     },
   };
 
-  const handleClick = (e: any) => {
+  const handleClick = (e) => {
     console.log("Map clicked at:", e.lngLat);
     const newEnd = e.lngLat;
     setEnd([newEnd.lng, newEnd.lat]);
@@ -164,11 +138,7 @@ const Map = ({ showFeatures = false }) => {
     console.log("Layer visibility state:", layerVisibility);
   }, [layerVisibility]);
 
-  const handleMarkerClick = (
-    longitude: number,
-    latitude: number,
-    text: string,
-  ) => {
+  const handleMarkerClick = (longitude, latitude, text) => {
     console.log("Marker clicked at:", longitude, latitude);
     setSelectedMarker({ longitude, latitude, text });
     console.log("Selected marker:", selectedMarker);

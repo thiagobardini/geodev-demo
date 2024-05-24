@@ -3,7 +3,13 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Instructions from "./Instructions";
 import Places from "./Places";
 
-const InstructionsDrawer = ({ steps, setStart, setEnd }) => {
+interface InstructionsDrawerProps {
+  steps: Array<{ maneuver: { instruction: string } }>;
+  setStart: (point: string) => void;
+  setEnd: (point: string) => void;
+}
+
+const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ steps, setStart, setEnd }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
