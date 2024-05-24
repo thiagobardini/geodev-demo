@@ -1,7 +1,8 @@
 <p align="center">
 <img src="https://www.tbardini.com/assets/TBardini-dot-dark-MIMyJ2zW.png" width="200" alt="Demo Report Logo">
 </p>
-</br>
+
+---
 
 # GeoDev
 
