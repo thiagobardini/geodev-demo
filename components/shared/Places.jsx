@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import { LoadingDots } from "@/components/shared/icons";
 
-function Places({ setEnd }) {
+function Places({ setEnd, placeholder }) {
   const [places, setPlaces] = useState([]);
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -33,10 +33,10 @@ function Places({ setEnd }) {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between rounded-md bg-slate-900 px-2 py-2 shadow-sm">
-        <AiOutlineSearch size={20} className="text-white" />
+        <AiOutlineSearch size={20} className="text-white mr-2" />
         <input
           className="w-full bg-transparent px-4 py-2 text-sm text-white placeholder-gray-400 outline-none"
-          placeholder="Enter Endpoint"
+          placeholder={placeholder}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           type="text"

@@ -3,14 +3,31 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Instructions from "./Instructions";
 import Places from "./Places";
 
-interface InstructionsDrawerProps {
-  steps: Array<{ maneuver: { instruction: string } }>;
-  setStart: (point: string) => void;
-  setEnd: (point: string) => void;
+interface Coordinates {
+  lat: number;
+  lng: number;
 }
 
-const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ steps, setStart, setEnd }) => {
+interface InstructionsDrawerProps {
+  steps: Array<{ maneuver: { instruction: string } }>;
+  setStart: (point: Coordinates) => void;
+  setEnd: (point: Coordinates) => void;
+  start: [number, number];  // [longitude, latitude]
+  end: [number, number];    // [longitude, latitude]
+  selectedPoint: string;
+  setSelectedPoint: (point: string) => void;
+}
+
+const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ steps, setStart, setEnd, start, end, selectedPoint, setSelectedPoint }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [travelMode, setTravelMode] = useState("driving");
+
+  const handleRedirect = () => {
+    if (start && end) {
+      const url = `https://www.google.com/maps/dir/?api=1&origin=${start[1]},${start[0]}&destination=${end[1]},${end[0]}&travelmode=${travelMode}`;
+      window.open(url, "_blank");
+    }
+  };
 
   return (
     <div
@@ -25,19 +42,41 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ steps, setStart
         </button>
       </div>
       <div className="p-4">
+        <p className="text-sm text-gray-400">
+          You can change the start point and end point by entering the locations in the inputs below. Click on the map to set the location. Use the selector to choose which point you want to change when clicking on the map.
+        </p>
+        <h3 className="mt-4 text-white">Directions</h3>
         <h3 className="text-white">Start Point</h3>
-        <Places setEnd={setStart} />
+        <Places placeholder="Enter Start Point" setEnd={(point: Coordinates) => setStart(point)} />
         <h3 className="mt-4 text-white">End Point</h3>
-        <Places setEnd={setEnd} />
-        <div className="mt-4 max-h-[calc(100vh-64px)] overflow-y-auto">
-          {steps.map((item, i) => (
-            <Instructions
-              key={i}
-              no_={i + 1}
-              step={item.maneuver.instruction}
-            />
-          ))}
-        </div>
+        <Places placeholder="Enter End Point" setEnd={(point: Coordinates) => setEnd(point)} />
+        
+        <h3 className="mt-4 text-white">Select Point to Change on Map</h3>
+        <select
+          className="mt-2 w-full p-2 rounded-md"
+          value={selectedPoint}
+          onChange={(e) => setSelectedPoint(e.target.value)}
+        >
+          <option value="start">Start Point</option>
+          <option value="end">End Point</option>
+        </select>
+
+        <h3 className="mt-4 text-white">Travel Mode</h3>
+        <select
+          className="mt-2 w-full p-2 rounded-md"
+          value={travelMode}
+          onChange={(e) => setTravelMode(e.target.value)}
+        >
+          <option value="driving">Driving</option>
+          <option value="walking">Walking</option>
+          <option value="bicycling">Bicycling</option>
+        </select>
+        <button
+          onClick={handleRedirect}
+          className="mt-4 w-full bg-blue-500 text-white p-2 rounded-md"
+        >
+          Open in Google Maps
+        </button>
       </div>
       <button
         onClick={() => setIsOpen(!isOpen)}
