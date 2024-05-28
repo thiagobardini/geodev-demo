@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import Instructions from "./Instructions";
+import { ChevronLeft, ChevronRight, X, Info } from "lucide-react";
 import Places from "./Places";
+import Tooltip from "@/components/shared/tooltip";
 
 interface Coordinates {
   lat: number;
@@ -41,17 +41,22 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ steps, setStart
           <X className="h-6 w-6 text-white" />
         </button>
       </div>
-      <div className="p-4">
-        <p className="text-sm text-gray-400">
-          You can change the start point and end point by entering the locations in the inputs below. Click on the map to set the location. Use the selector to choose which point you want to change when clicking on the map.
-        </p>
-        <h3 className="mt-4 text-white">Directions</h3>
-        <h3 className="text-white">Start Point</h3>
+      <div className="p-4 overflow-y-auto max-h-[calc(100vh-64px)]">
+        <div className="flex items-center">
+          <h3 className="text-white">Directions</h3>
+          <Tooltip content="You can change the start point and end point by entering the locations in the inputs below.">
+            <Info className="ml-2 h-5 w-5 text-gray-400" />
+          </Tooltip>
+        </div>
         <Places placeholder="Enter Start Point" setEnd={(point: Coordinates) => setStart(point)} />
-        <h3 className="mt-4 text-white">End Point</h3>
         <Places placeholder="Enter End Point" setEnd={(point: Coordinates) => setEnd(point)} />
-        
-        <h3 className="mt-4 text-white">Select Point to Change on Map</h3>
+
+        <div className="mt-4 flex items-center">
+          <h3 className="text-white">Select Point to Change on Map</h3>
+          <Tooltip  content="Use the selector to choose which point you want to change when clicking on the map.">
+            <Info className="ml-2 h-5 w-5 text-gray-400" />
+          </Tooltip>
+        </div>
         <select
           className="mt-2 w-full p-2 rounded-md"
           value={selectedPoint}
@@ -61,7 +66,12 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ steps, setStart
           <option value="end">End Point</option>
         </select>
 
-        <h3 className="mt-4 text-white">Travel Mode</h3>
+        <div className="mt-4 flex items-center">
+          <h3 className="text-white">Travel Mode</h3>
+          <Tooltip content="Select the mode of travel. Options are driving, walking, and bicycling.">
+            <Info className="ml-2 h-5 w-5 text-gray-400" />
+          </Tooltip>
+        </div>
         <select
           className="mt-2 w-full p-2 rounded-md"
           value={travelMode}
