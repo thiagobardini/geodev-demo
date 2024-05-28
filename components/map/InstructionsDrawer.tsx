@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, X, Info } from "lucide-react";
 import Places from "./Places";
 import Tooltip from "@/components/shared/tooltip";
+import Layers from "./Layers";
 
 interface Coordinates {
   lat: number;
@@ -16,9 +17,11 @@ interface InstructionsDrawerProps {
   end: [number, number];    // [longitude, latitude]
   selectedPoint: string;
   setSelectedPoint: (point: string) => void;
+  layerVisibility: { [key: string]: string };
+  toggleLayerVisibility: (layerId: string) => void;
 }
 
-const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ steps, setStart, setEnd, start, end, selectedPoint, setSelectedPoint }) => {
+const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ steps, setStart, setEnd, start, end, selectedPoint, setSelectedPoint, layerVisibility, toggleLayerVisibility }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [travelMode, setTravelMode] = useState("driving");
 
@@ -53,7 +56,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ steps, setStart
 
         <div className="mt-4 flex items-center">
           <h3 className="text-white">Select Point to Change on Map</h3>
-          <Tooltip  content="Use the selector to choose which point you want to change when clicking on the map.">
+          <Tooltip content="Use the selector to choose which point you want to change when clicking on the map.">
             <Info className="ml-2 h-5 w-5 text-gray-400" />
           </Tooltip>
         </div>
@@ -87,6 +90,13 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ steps, setStart
         >
           Open in Google Maps
         </button>
+        <div className="mt-4 flex items-center justify-between">
+          <h3 className="text-white">Layers</h3>
+        </div>
+        <Layers
+          layerVisibility={layerVisibility}
+          toggleLayerVisibility={toggleLayerVisibility}
+        />
       </div>
       <button
         onClick={() => setIsOpen(!isOpen)}

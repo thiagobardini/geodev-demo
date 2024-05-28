@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Card from "@/components/shared/card";
-import Map from "@/components/shared/Map";
+import Map from "@/components/map/map";
 import Modal from "@/components/shared/modal";
 import WebVitals from "./web-vitals";
 import MultiLineChart from "@/components/charts/multi-line-chart";
