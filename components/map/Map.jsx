@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import ReactMapGl, {
+import ReactMapboxGl, {
   FullscreenControl,
   GeolocateControl,
   NavigationControl,
@@ -15,7 +15,7 @@ import InstructionsDrawer from "./InstructionsDrawer";
 const initialViewState = {
   latitude: 42.395043,
   longitude: -71.161471,
-  zoom: 8,
+  zoom: 10,
   bearing: 0,
   pitch: 0,
   padding: { top: 0, bottom: 0, left: 0, right: 0 },
@@ -24,13 +24,13 @@ const initialViewState = {
 const Map = ({ showFeatures = false }) => {
   const [viewport, setViewport] = useState(initialViewState);
   const [start, setStart] = useState([-71.061471, 42.355043]);
-  const [end, setEnd] = useState([-71.511931, 42.481902]);
+  const [end, setEnd] = useState([-71.22424322006663, 42.38078912464982]);
   const [coords, setCoords] = useState([]);
   const [layerVisibility, setLayerVisibility] = useState({
-    walkingTrails: "none",
-    bikeFacilities: "none",
-    landLineSystems: "none",
-    sharedUsePaths: "none",
+    walkingTrails: "visible",
+    bikeFacilities: "visible",
+    landLineSystems: "visible",
+    sharedUsePaths: "visible",
   });
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [selectedPoint, setSelectedPoint] = useState("end");
@@ -159,21 +159,16 @@ const Map = ({ showFeatures = false }) => {
     <>
       <meta name="Mapbox" content="Mapbox Integration" />
       <section className="relative h-full w-full">
-        <ReactMapGl
+        <ReactMapboxGl
           {...viewport}
           onClick={handleClick}
           onMove={(event) => setViewport(event.viewState)}
           mapStyle="mapbox://styles/tbardini/clwfn2zwn02ei01qg6v221qw3"
+          // mapStyle="mapbox://styles/tbardini/clwf2kam301av01ql7iep9n6v"
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
           style={{ width: "100%", height: "100%" }}
+          addControl={true}
         >
-          <Source id="routeSource" type="geojson" data={geojson}>
-            <Layer {...lineStyle} />
-          </Source>
-          <Source id="endSource" type="geojson" data={endPoint}>
-            <Layer {...layerEndpoint} />
-          </Source>
-
           <Source id="composite" type="vector" url="mapbox://composite">
             <Layer
               id="walkingTrailsLayer"
@@ -181,7 +176,7 @@ const Map = ({ showFeatures = false }) => {
               type="line"
               paint={{
                 "line-color": "#913368",
-                "line-width": 2,
+                "line-width": 1,
               }}
               layout={{ visibility: layerVisibility.walkingTrails }}
             />
@@ -195,7 +190,7 @@ const Map = ({ showFeatures = false }) => {
               paint={{
                 "line-color": "#92c6df",
                 "line-offset": 1,
-                "line-width": 2,
+                "line-width": 1,
               }}
               layout={{ visibility: layerVisibility.bikeFacilities }}
             />
@@ -208,7 +203,7 @@ const Map = ({ showFeatures = false }) => {
               type="line"
               paint={{
                 "line-color": "hsl(50, 100%, 66%)",
-                "line-width": 2,
+                "line-width": 1,
               }}
               layout={{ visibility: layerVisibility.landLineSystems }}
             />
@@ -222,10 +217,17 @@ const Map = ({ showFeatures = false }) => {
               paint={{
                 "line-color": "#41ec74",
                 "line-offset": 3,
-                "line-width": 2,
+                "line-width": 1,
               }}
               layout={{ visibility: layerVisibility.sharedUsePaths }}
             />
+          </Source>
+
+          <Source id="routeSource" type="geojson" data={geojson}>
+            <Layer {...lineStyle} />
+          </Source>
+          <Source id="endSource" type="geojson" data={endPoint}>
+            <Layer {...layerEndpoint} />
           </Source>
 
           <GeolocateControl
@@ -263,7 +265,7 @@ const Map = ({ showFeatures = false }) => {
               <div>lng: {selectedMarker.longitude}</div>
             </Popup>
           )}
-        </ReactMapGl>
+        </ReactMapboxGl>
         {showFeatures && (
           <InstructionsDrawer
             getRoute={getRoute}
