@@ -32,7 +32,7 @@ function Places({ setEnd, placeholder }) {
 
   return (
     <div className="w-full">
-      <div className="flex items-center justify-between rounded-md bg-slate-900 px-2 py-2 shadow-sm">
+      <div className="flex items-center justify-between rounded-md px-2 py-2 shadow-sm">
         <AiOutlineSearch size={20} className="text-white mr-2" />
         <input
           className="w-full bg-transparent px-4 py-2 text-sm text-white placeholder-gray-400 outline-none"

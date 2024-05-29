@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, X, Info } from "lucide-react";
 import Places from "./Places";
 import Tooltip from "@/components/shared/tooltip";
@@ -10,7 +10,7 @@ interface Coordinates {
 }
 
 interface InstructionsDrawerProps {
-  steps: Array<{ maneuver: { instruction: string } }>;
+  getRoute: () => void;
   setStart: (point: Coordinates) => void;
   setEnd: (point: Coordinates) => void;
   start: [number, number];  // [longitude, latitude]
@@ -19,11 +19,15 @@ interface InstructionsDrawerProps {
   setSelectedPoint: (point: string) => void;
   layerVisibility: { [key: string]: string };
   toggleLayerVisibility: (layerId: string) => void;
+  distance: number;
+  duration: number;
+  travelMode: string;
+  setTravelMode: (mode: string) => void;
+  data: any;
 }
 
-const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ steps, setStart, setEnd, start, end, selectedPoint, setSelectedPoint, layerVisibility, toggleLayerVisibility }) => {
+const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ getRoute, setStart, setEnd, start, end, selectedPoint, setSelectedPoint, layerVisibility, toggleLayerVisibility, distance, duration, travelMode, setTravelMode, data }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [travelMode, setTravelMode] = useState("driving");
 
   const handleRedirect = () => {
     if (start && end) {
@@ -31,6 +35,13 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ steps, setStart
       window.open(url, "_blank");
     }
   };
+
+  useEffect(() => {
+    if (travelMode) {
+      // Recalcula a rota sempre que o modo de viagem for alterado
+      getRoute();
+    }
+  }, [travelMode]);
 
   return (
     <div
@@ -46,6 +57,16 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ steps, setStart
       </div>
       <div className="p-4 overflow-y-auto max-h-[calc(100vh-64px)]">
         <div className="flex items-center">
+          <h3 className="text-white">Layers</h3>
+          <Tooltip content="You can hide or show the trails using the buttons below.">
+            <Info className="ml-2 h-5 w-5 text-gray-400" />
+          </Tooltip>
+        </div>
+        <Layers
+          layerVisibility={layerVisibility}
+          toggleLayerVisibility={toggleLayerVisibility}
+        />
+        <div className="mt-4 flex items-center">
           <h3 className="text-white">Directions</h3>
           <Tooltip content="You can change the start point and end point by entering the locations in the inputs below.">
             <Info className="ml-2 h-5 w-5 text-gray-400" />
@@ -84,19 +105,16 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ steps, setStart
           <option value="walking">Walking</option>
           <option value="bicycling">Bicycling</option>
         </select>
+        <div className="mt-4 text-white">
+          <p>Distance: {(distance / 1000).toFixed(2)} km</p>
+          <p>Duration: {Math.ceil(duration)} minutes</p>
+        </div>
         <button
           onClick={handleRedirect}
           className="mt-4 w-full bg-blue-500 text-white p-2 rounded-md"
         >
           Open in Google Maps
         </button>
-        <div className="mt-4 flex items-center justify-between">
-          <h3 className="text-white">Layers</h3>
-        </div>
-        <Layers
-          layerVisibility={layerVisibility}
-          toggleLayerVisibility={toggleLayerVisibility}
-        />
       </div>
       <button
         onClick={() => setIsOpen(!isOpen)}

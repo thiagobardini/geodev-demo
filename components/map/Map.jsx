@@ -11,7 +11,6 @@ import ReactMapGl, {
   Layer,
 } from "react-map-gl";
 import InstructionsDrawer from "./InstructionsDrawer";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const initialViewState = {
   latitude: 42.395043,
@@ -37,24 +36,50 @@ const Map = ({ showFeatures = false }) => {
   });
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [selectedPoint, setSelectedPoint] = useState("end");
+  const [distance, setDistance] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [travelMode, setTravelMode] = useState("driving");
 
   const GeolocateControlRef = useRef(null);
 
   useEffect(() => {
     getRoute();
-  }, [start, end, GeolocateControlRef]);
+  }, [start, end, travelMode]);
 
   const getRoute = async () => {
     console.log("Fetching route...");
-    const response = await fetch(
-      `https://api.mapbox.com/directions/v5/mapbox/walking/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
-    );
-    const data = await response.json();
-    console.log("Route data:", data);
-    const coords = data.routes[0].geometry.coordinates;
-    setCoords(coords);
-    const steps = data.routes[0].legs[0].steps;
-    setSteps(steps);
+    try {
+      const response = await fetch(
+        `https://api.mapbox.com/directions/v5/mapbox/${travelMode}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
+      );
+      const data = await response.json();
+      console.log("Route data:", data);
+
+      if (data.routes && data.routes.length > 0) {
+        const route = data.routes[0];
+        const coords = route.geometry.coordinates;
+        setCoords(coords);
+        const steps = route.legs[0].steps;
+        setSteps(steps);
+        const distance = route.distance;
+        const duration = route.duration / 60; // Convertendo para minutos
+        setDistance(distance);
+        setDuration(duration);
+        console.log("Distance:", distance);
+        console.log("Duration:", duration);
+      } else {
+        setCoords([]);
+        setSteps([]);
+        setDistance(0);
+        setDuration(0);
+      }
+    } catch (error) {
+      console.error("Error fetching route data:", error);
+      setCoords([]);
+      setSteps([]);
+      setDistance(0);
+      setDuration(0);
+    }
   };
 
   const toggleLayerVisibility = (layerId) => {
@@ -95,19 +120,6 @@ const Map = ({ showFeatures = false }) => {
 
   const lineStyle = {
     id: "roadLayer",
-    type: "line",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "blue",
-      "line-width": 3,
-      "line-opacity": 0.75,
-    },
-  };
-
-  const sharedLineStyle = {
     type: "line",
     layout: {
       "line-join": "round",
@@ -260,7 +272,7 @@ const Map = ({ showFeatures = false }) => {
         </ReactMapGl>
         {showFeatures && (
           <InstructionsDrawer
-            steps={steps}
+            getRoute={getRoute}
             setStart={setStart}
             setEnd={setEnd}
             start={start}
@@ -269,6 +281,10 @@ const Map = ({ showFeatures = false }) => {
             setSelectedPoint={setSelectedPoint}
             layerVisibility={layerVisibility}
             toggleLayerVisibility={toggleLayerVisibility}
+            distance={distance}
+            duration={duration}
+            travelMode={travelMode}
+            setTravelMode={setTravelMode}
           />
         )}
       </section>
