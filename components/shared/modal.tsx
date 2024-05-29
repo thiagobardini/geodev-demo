@@ -3,6 +3,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { cn } from "@/lib/utils";
 import { Drawer } from "vaul";
+import {X} from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import useMediaQuery from "@/lib/hooks/use-media-query";
 
@@ -62,17 +63,17 @@ export default function Modal({
           )}
         >
           <div className="sticky top-0 z-20 flex w-full items-center justify-center rounded-t-[10px] bg-inherit">
-            <div
+            {/* <div
               className="my-3 h-1 w-12 rounded-full bg-gray-300"
               onClick={handleClose}
-            />
+            /> */}
 
-            {/* <button
+            <button
             onClick={handleClose}
-            className="absolute left-2 top-2 z-50 text-gray-500 hover:text-gray-700"
+            className="absolute right-2 top-1 z-50 text-gray-400 hover:text-gray-700"
           >
-            <IoClose size={32} />
-          </button> */}
+            <X size={24} />
+          </button>
           </div>
 
           {children}

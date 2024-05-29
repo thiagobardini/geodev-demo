@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, X, Info } from "lucide-react";
 import Places from "./Places";
 import Tooltip from "@/components/shared/tooltip";
 import Layers from "./Layers";
+import useMediaQuery from "@/lib/hooks/use-media-query";
 
 interface Coordinates {
   lat: number;
@@ -41,7 +42,14 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
   travelMode,
   setTravelMode,
 }) => {
+  const { isMobile } = useMediaQuery();
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isMobile) {
+      setIsOpen(true);
+    }
+  }, [isMobile, isOpen]);
 
   const handleRedirect = () => {
     if (start && end) {

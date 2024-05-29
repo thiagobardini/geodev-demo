@@ -49,7 +49,7 @@ export default function Home() {
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}
-        className="max-h-[calc(100vh-100px)] max-w-full"
+        className="h-full min-h-screen max-w-full"
       >
         <div className="h-full">{modalContent}</div>
       </Modal>
