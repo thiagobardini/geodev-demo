@@ -22,12 +22,10 @@ const initialViewState = {
 };
 
 const Map = ({ showFeatures = false }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [viewport, setViewport] = useState(initialViewState);
   const [start, setStart] = useState([-71.061471, 42.355043]);
   const [end, setEnd] = useState([-71.511931, 42.481902]);
   const [coords, setCoords] = useState([]);
-  const [steps, setSteps] = useState([]);
   const [layerVisibility, setLayerVisibility] = useState({
     walkingTrails: "none",
     bikeFacilities: "none",
@@ -47,10 +45,10 @@ const Map = ({ showFeatures = false }) => {
   }, [start, end, travelMode]);
 
   const getRoute = async () => {
-    console.log("Fetching route...");
+    const adjustedTravelMode = travelMode === "bicycling" ? "cycling" : travelMode;
     try {
       const response = await fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/${travelMode}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
+        `https://api.mapbox.com/directions/v5/mapbox/${adjustedTravelMode}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
       );
       const data = await response.json();
       console.log("Route data:", data);
@@ -59,14 +57,10 @@ const Map = ({ showFeatures = false }) => {
         const route = data.routes[0];
         const coords = route.geometry.coordinates;
         setCoords(coords);
-        const steps = route.legs[0].steps;
-        setSteps(steps);
         const distance = route.distance;
-        const duration = route.duration / 60; // Convertendo para minutos
+        const duration = route.duration / 60; 
         setDistance(distance);
         setDuration(duration);
-        console.log("Distance:", distance);
-        console.log("Duration:", duration);
       } else {
         setCoords([]);
         setSteps([]);
