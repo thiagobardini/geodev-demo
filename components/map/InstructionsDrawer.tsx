@@ -90,7 +90,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
           toggleLayerVisibility={toggleLayerVisibility}
         />
         <div className="my-6 flex items-center">
-          <div className="border-gray-100 flex-grow border-t"></div>
+          <div className="flex-grow border-t border-gray-100"></div>
         </div>
         <div className="mt-4 flex items-center">
           <h3 className="text-white">Directions</h3>

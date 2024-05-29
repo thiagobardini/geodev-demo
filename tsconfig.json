@@ -34,7 +34,10 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "types/**/*.d.ts",
-    "components/charts/lines-chart/index.tsx"
-, "components/charts/multi-line-chart/index.jsx", "components/map/Map.jsx", "components/map/Places.jsx"  ],
+    "components/charts/lines-chart/index.tsx",
+    "components/charts/multi-line-chart/index.jsx",
+    "components/map/Map.jsx",
+    "components/map/Places.jsx"
+  ],
   "exclude": ["node_modules"]
 }

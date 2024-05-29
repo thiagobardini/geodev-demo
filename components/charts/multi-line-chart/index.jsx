@@ -16,7 +16,11 @@ export default function MultiLineChart() {
   const xTicks = x.ticks(10);
   const yTicks = y.ticks(10);
 
-  const line = d3.line().x((_, i) => x(i)).y(d => y(d)).curve(d3.curveMonotoneX);
+  const line = d3
+    .line()
+    .x((_, i) => x(i))
+    .y((d) => y(d))
+    .curve(d3.curveMonotoneX);
 
   return (
     <svg width={width} height={height} style={{ backgroundColor: "white" }}>
@@ -26,7 +30,9 @@ export default function MultiLineChart() {
           <g>
             {xTicks.map((d, i) => (
               <g key={i}>
-                <Text dy={15} x={x(d)} y={0}>{d}</Text>
+                <Text dy={15} x={x(d)} y={0}>
+                  {d}
+                </Text>
                 <Line y1={0} y2={-innerHeight} x1={x(d)} x2={x(d)} />
               </g>
             ))}
@@ -37,7 +43,9 @@ export default function MultiLineChart() {
           <g>
             {yTicks.map((d, i) => (
               <g key={i}>
-                <Text dx={-10} x={0} y={y(d)}>{d}</Text>
+                <Text dx={-10} x={0} y={y(d)}>
+                  {d}
+                </Text>
                 <Line y1={y(d)} y2={y(d)} x1={0} x2={innerWidth} />
               </g>
             ))}
@@ -87,19 +95,9 @@ const Text = (props) => (
 );
 
 const Line = (props) => (
-  <line
-    stroke="black"
-    strokeWidth={1}
-    opacity={0.2}
-    {...props}
-  />
+  <line stroke="black" strokeWidth={1} opacity={0.2} {...props} />
 );
 
 const AxisPath = (props) => (
-  <path
-    stroke="black"
-    strokeWidth={1}
-    opacity={0.2}
-    {...props}
-  />
+  <path stroke="black" strokeWidth={1} opacity={0.2} {...props} />
 );

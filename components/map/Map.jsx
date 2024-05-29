@@ -45,10 +45,11 @@ const Map = ({ showFeatures = false }) => {
   }, [start, end, travelMode]);
 
   const getRoute = async () => {
-    const adjustedTravelMode = travelMode === "bicycling" ? "cycling" : travelMode;
+    const adjustedTravelMode =
+      travelMode === "bicycling" ? "cycling" : travelMode;
     try {
       const response = await fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/${adjustedTravelMode}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
+        `https://api.mapbox.com/directions/v5/mapbox/${adjustedTravelMode}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
       );
       const data = await response.json();
       console.log("Route data:", data);
@@ -58,7 +59,7 @@ const Map = ({ showFeatures = false }) => {
         const coords = route.geometry.coordinates;
         setCoords(coords);
         const distance = route.distance;
-        const duration = route.duration / 60; 
+        const duration = route.duration / 60;
         setDistance(distance);
         setDuration(duration);
       } else {

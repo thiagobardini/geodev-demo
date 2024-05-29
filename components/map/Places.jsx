@@ -28,13 +28,13 @@ function Places({ setEnd, placeholder }) {
 
   const handleClick = (place) => {
     setEnd(place.geometry.coordinates);
-    setValue(""); 
+    setValue("");
   };
 
   return (
     <div className="w-full">
       <div className="flex items-center justify-between rounded-md px-2 py-2 shadow-sm">
-        <AiOutlineSearch size={20} className="text-white mr-2" />
+        <AiOutlineSearch size={20} className="mr-2 text-white" />
         <input
           className="w-full bg-transparent px-4 py-2 text-sm text-white placeholder-gray-400 outline-none"
           placeholder={placeholder}

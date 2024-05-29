@@ -87,7 +87,7 @@ const features = [
             Mapbox
           </h2>
           <h3 className="mt-2 text-lg font-medium text-gray-600 md:text-xl">
-          Showcasing my skills by integrating Mapbox.
+            Showcasing my skills by integrating Mapbox.
           </h3>
         </div>
         <Map showFeatures={true} />,
