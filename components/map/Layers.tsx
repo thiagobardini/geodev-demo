@@ -27,10 +27,10 @@ const Layers: React.FC<LayersProps> = ({
           <label htmlFor="walking" className="font-medium text-white">
             Walking Trails
           </label>
-        <div
-          className="ml-2 h-1 w-6"
-          style={{ backgroundColor: "#913368" }}
-        ></div>
+          <div
+            className="ml-2 h-1 w-6"
+            style={{ backgroundColor: "#913368" }}
+          ></div>
         </div>
       </div>
       {/* Bike Trails */}
@@ -49,10 +49,10 @@ const Layers: React.FC<LayersProps> = ({
           <label htmlFor="bike" className="font-medium text-white">
             Bike Trails
           </label>
-        <div
-          className="ml-2 h-1 w-6"
-          style={{ backgroundColor: "#92c6df" }}
-        ></div>
+          <div
+            className="ml-2 h-1 w-6"
+            style={{ backgroundColor: "#92c6df" }}
+          ></div>
         </div>
       </div>
       {/* Land Line Systems */}
@@ -71,10 +71,10 @@ const Layers: React.FC<LayersProps> = ({
           <label htmlFor="landLine" className="font-medium text-white">
             Land Line Systems
           </label>
-        <div
-          className="ml-2 h-1 w-6"
-          style={{ backgroundColor: "hsl(50, 100%, 66%)" }}
-        ></div>
+          <div
+            className="ml-2 h-1 w-6"
+            style={{ backgroundColor: "hsl(50, 100%, 66%)" }}
+          ></div>
         </div>
       </div>
       {/* Shared Use Paths */}
@@ -91,12 +91,12 @@ const Layers: React.FC<LayersProps> = ({
         </div>
         <div className="ml-3 flex items-center text-sm leading-6">
           <label htmlFor="sharedUsePaths" className="font-medium text-white">
-          Shared Use Paths
+            Shared Use Paths
           </label>
-        <div
-          className="ml-2 h-1 w-6"
-          style={{ backgroundColor: "#41ec74" }}
-        ></div>
+          <div
+            className="ml-2 h-1 w-6"
+            style={{ backgroundColor: "#41ec74" }}
+          ></div>
         </div>
       </div>
     </div>

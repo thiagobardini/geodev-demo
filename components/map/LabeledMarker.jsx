@@ -1,4 +1,4 @@
-import { Marker } from 'react-map-gl';
+import { Marker } from "react-map-gl";
 
 const LabeledMarker = ({ longitude, latitude, label, onClick }) => (
   <Marker longitude={longitude} latitude={latitude} onClick={onClick}>

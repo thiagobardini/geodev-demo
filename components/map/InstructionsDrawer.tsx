@@ -122,11 +122,13 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
           </Tooltip>
         </div>
         <select
-          className="mt-2 w-full text-white p-2 bg-slate-800 shadow-inner text-sm"
+          className="mt-2 w-full bg-slate-800 p-2 text-sm text-white shadow-inner"
           value={selectedPoint}
           onChange={(e) => setSelectedPoint(e.target.value)}
         >
-          <option className="text-sm" value="start">Start Point</option>
+          <option className="text-sm" value="start">
+            Start Point
+          </option>
           <option value="end">End Point</option>
         </select>
 
@@ -137,7 +139,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
           </Tooltip>
         </div>
         <select
-          className="mt-2 w-full p-2 text-white bg-slate-800 shadow-inner text-sm"
+          className="mt-2 w-full bg-slate-800 p-2 text-sm text-white shadow-inner"
           value={travelMode}
           onChange={(e) => setTravelMode(e.target.value)}
         >
@@ -145,13 +147,13 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
           <option value="walking">Walking</option>
           <option value="bicycling">Bicycling</option>
         </select>
-        <div className="mt-4 text-white text-sm">
+        <div className="mt-4 text-sm text-white">
           <p>Distance: {(distance / 1609.34).toFixed(2)} miles</p>
           <p>Duration: {formatDuration(duration)}</p>
         </div>
         <button
           onClick={handleRedirect}
-          className="mt-4 w-full rounded-md bg-blue-500 p-2 text-white text-sm"
+          className="mt-4 w-full rounded-md bg-blue-500 p-2 text-sm text-white"
         >
           Open in Google Maps
         </button>
