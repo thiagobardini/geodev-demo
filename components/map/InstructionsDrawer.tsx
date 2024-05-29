@@ -117,16 +117,16 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
 
         <div className="mt-4 flex items-center">
           <h3 className="text-white">Select Point to Change on Map</h3>
-          <Tooltip content="Use the selector to choose which point you want to change when clicking on the map.">
+          <Tooltip content="Select 'Start Point' or 'End Point' below to set the corresponding marker on the map when you click instead of entering the address.">
             <Info className="ml-2 h-5 w-5 text-gray-400" />
           </Tooltip>
         </div>
         <select
-          className="mt-2 w-full rounded-md p-2"
+          className="mt-2 w-full text-white p-2 bg-slate-800 shadow-inner text-sm"
           value={selectedPoint}
           onChange={(e) => setSelectedPoint(e.target.value)}
         >
-          <option value="start">Start Point</option>
+          <option className="text-sm" value="start">Start Point</option>
           <option value="end">End Point</option>
         </select>
 
@@ -137,7 +137,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
           </Tooltip>
         </div>
         <select
-          className="mt-2 w-full rounded-md p-2"
+          className="mt-2 w-full p-2 text-white bg-slate-800 shadow-inner text-sm"
           value={travelMode}
           onChange={(e) => setTravelMode(e.target.value)}
         >
@@ -145,13 +145,13 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
           <option value="walking">Walking</option>
           <option value="bicycling">Bicycling</option>
         </select>
-        <div className="mt-4 text-white">
+        <div className="mt-4 text-white text-sm">
           <p>Distance: {(distance / 1609.34).toFixed(2)} miles</p>
           <p>Duration: {formatDuration(duration)}</p>
         </div>
         <button
           onClick={handleRedirect}
-          className="mt-4 w-full rounded-md bg-blue-500 p-2 text-white"
+          className="mt-4 w-full rounded-md bg-blue-500 p-2 text-white text-sm"
         >
           Open in Google Maps
         </button>

@@ -28,7 +28,7 @@ const Layers: React.FC<LayersProps> = ({
             Walking Trails
           </label>
         <div
-          className="ml-2 h-4 w-4"
+          className="ml-2 h-1 w-6"
           style={{ backgroundColor: "#913368" }}
         ></div>
         </div>
@@ -50,7 +50,7 @@ const Layers: React.FC<LayersProps> = ({
             Bike Trails
           </label>
         <div
-          className="ml-2 h-4 w-4"
+          className="ml-2 h-1 w-6"
           style={{ backgroundColor: "#92c6df" }}
         ></div>
         </div>
@@ -72,7 +72,7 @@ const Layers: React.FC<LayersProps> = ({
             Land Line Systems
           </label>
         <div
-          className="ml-2 h-4 w-4"
+          className="ml-2 h-1 w-6"
           style={{ backgroundColor: "hsl(50, 100%, 66%)" }}
         ></div>
         </div>
@@ -94,7 +94,7 @@ const Layers: React.FC<LayersProps> = ({
           Shared Use Paths
           </label>
         <div
-          className="ml-2 h-4 w-4"
+          className="ml-2 h-1 w-6"
           style={{ backgroundColor: "#41ec74" }}
         ></div>
         </div>
