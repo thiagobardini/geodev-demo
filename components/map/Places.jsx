@@ -21,13 +21,14 @@ function Places({ setEnd, placeholder }) {
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
     );
     const data = await response.json();
+    console.log("Places data:", data);
     setPlaces(data.features);
     setIsLoading(false);
   };
 
   const handleClick = (place) => {
     setEnd(place.geometry.coordinates);
-    setValue(""); // Clear the search input after selection
+    setValue(""); 
   };
 
   return (

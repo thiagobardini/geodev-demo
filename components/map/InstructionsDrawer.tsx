@@ -66,6 +66,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ getRoute, setSt
           layerVisibility={layerVisibility}
           toggleLayerVisibility={toggleLayerVisibility}
         />
+        
         <div className="mt-4 flex items-center">
           <h3 className="text-white">Directions</h3>
           <Tooltip content="You can change the start point and end point by entering the locations in the inputs below.">
@@ -106,7 +107,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({ getRoute, setSt
           <option value="bicycling">Bicycling</option>
         </select>
         <div className="mt-4 text-white">
-          <p>Distance: {(distance / 1000).toFixed(2)} km</p>
+        <p>Distance: {(distance / 1609.34).toFixed(2)} miles</p>
           <p>Duration: {Math.ceil(duration)} minutes</p>
         </div>
         <button
