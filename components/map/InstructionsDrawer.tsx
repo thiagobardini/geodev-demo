@@ -49,7 +49,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     if (!isMobile) {
       setIsOpen(true);
     }
-  }, [isMobile, isOpen]);
+  }, [isMobile]);
 
   const handleRedirect = () => {
     if (start && end) {
@@ -160,7 +160,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
         onClick={() => setIsOpen(!isOpen)}
         className="absolute -right-8 top-1/2 -translate-y-1/2 transform rounded-r-md bg-slate-900 p-2 text-white shadow-md"
       >
-        {isOpen ? <ChevronLeft /> : <ChevronRight />}
+        {!isOpen ? <ChevronLeft /> : <ChevronRight />}
       </button>
     </div>
   );
