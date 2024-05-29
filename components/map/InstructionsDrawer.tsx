@@ -86,7 +86,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
           <X className="h-6 w-6 text-white" />
         </button>
       </div>
-      <div className="max-h-[calc(100vh-64px)] overflow-y-auto p-4">
+      <div className="h-full min-h-screen overflow-y-auto p-4">
         <div className="flex items-center">
           <h3 className="text-white">Layers</h3>
           <Tooltip content="You can hide or show the trails using the buttons below.">
@@ -158,7 +158,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
       </div>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="absolute -right-8 top-1/2 -translate-y-1/2 transform rounded-r-md bg-slate-900 p-2 text-white shadow-md"
+        className="absolute -right-8 top-1/2 -translate-y-1/2 transform rounded-r-md bg-slate-800 p-2 text-white shadow-md"
       >
         {!isOpen ? <ChevronLeft /> : <ChevronRight />}
       </button>

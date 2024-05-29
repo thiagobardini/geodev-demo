@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { cn } from "@/lib/utils";
 import { Drawer } from "vaul";
-import {X} from "lucide-react";
+import { X } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import useMediaQuery from "@/lib/hooks/use-media-query";
 
@@ -69,11 +69,11 @@ export default function Modal({
             /> */}
 
             <button
-            onClick={handleClose}
-            className="absolute right-2 top-1 z-50 text-gray-400 hover:text-gray-700"
-          >
-            <X size={24} />
-          </button>
+              onClick={handleClose}
+              className="absolute right-2 top-1 z-50 text-gray-400 hover:text-gray-700"
+            >
+              <X size={24} />
+            </button>
           </div>
 
           {children}
