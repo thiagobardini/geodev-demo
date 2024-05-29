@@ -5,12 +5,12 @@ import ReactMapboxGl, {
   FullscreenControl,
   GeolocateControl,
   NavigationControl,
-  Marker,
   Popup,
   Source,
   Layer,
 } from "react-map-gl";
 import InstructionsDrawer from "./InstructionsDrawer";
+import LabeledMarker from "./LabeledMarker"; // Import the custom labeled marker component
 
 const initialViewState = {
   latitude: 42.395043,
@@ -70,7 +70,6 @@ const Map = ({ showFeatures = false }) => {
     } catch (error) {
       console.error("Error fetching route data:", error);
       setCoords([]);
-      setSteps([]);
       setDistance(0);
       setDuration(0);
     }
@@ -92,6 +91,20 @@ const Map = ({ showFeatures = false }) => {
         geometry: {
           type: "LineString",
           coordinates: coords,
+        },
+        properties: {},
+      },
+    ],
+  };
+
+  const startPoint = {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: start,
         },
         properties: {},
       },
@@ -126,7 +139,16 @@ const Map = ({ showFeatures = false }) => {
     },
   };
 
-  const layerEndpoint = {
+  const startPointStyle = {
+    id: "start",
+    type: "circle",
+    paint: {
+      "circle-radius": 10,
+      "circle-color": "green",
+    },
+  };
+
+  const endPointStyle = {
     id: "end",
     type: "circle",
     paint: {
@@ -164,7 +186,6 @@ const Map = ({ showFeatures = false }) => {
           onClick={handleClick}
           onMove={(event) => setViewport(event.viewState)}
           mapStyle="mapbox://styles/tbardini/clwfn2zwn02ei01qg6v221qw3"
-          // mapStyle="mapbox://styles/tbardini/clwf2kam301av01ql7iep9n6v"
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
           style={{ width: "100%", height: "100%" }}
           addControl={true}
@@ -226,8 +247,13 @@ const Map = ({ showFeatures = false }) => {
           <Source id="routeSource" type="geojson" data={geojson}>
             <Layer {...lineStyle} />
           </Source>
+
+          <Source id="startSource" type="geojson" data={startPoint}>
+            <Layer {...startPointStyle} />
+          </Source>
+
           <Source id="endSource" type="geojson" data={endPoint}>
-            <Layer {...layerEndpoint} />
+            <Layer {...endPointStyle} />
           </Source>
 
           <GeolocateControl
@@ -242,14 +268,18 @@ const Map = ({ showFeatures = false }) => {
             position="top-right"
             style={{ bottom: "30px !important" }}
           />
-          <Marker
+          <LabeledMarker
             longitude={start[0]}
             latitude={start[1]}
+            label="Start Point"
+            color="green"
             onClick={() => handleMarkerClick(start[0], start[1], "Start Point")}
           />
-          <Marker
+          <LabeledMarker
             longitude={end[0]}
             latitude={end[1]}
+            label="End Point"
+            color="#f30"
             onClick={() => handleMarkerClick(end[0], end[1], "End Point")}
           />
           {selectedMarker && (
