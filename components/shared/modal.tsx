@@ -28,7 +28,7 @@ export default function Modal({
         <Drawer.Portal>
           <Drawer.Content
             className={cn(
-              "fixed bottom-0 left-0 right-0 z-50 mt-24 h-[80%] w-full rounded-t-[10px] border-t border-gray-200 bg-white",
+              "fixed bottom-0 left-0 right-0 z-50 mt-24 h-full min-h-screen w-full rounded-t-[10px] border-t border-gray-200 bg-white",
               className,
             )}
           >

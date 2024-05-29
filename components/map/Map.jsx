@@ -64,7 +64,6 @@ const Map = ({ showFeatures = false }) => {
         setDuration(duration);
       } else {
         setCoords([]);
-        setSteps([]);
         setDistance(0);
         setDuration(0);
       }
