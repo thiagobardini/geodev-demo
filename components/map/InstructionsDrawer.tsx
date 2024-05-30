@@ -83,7 +83,6 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     >
       <div className="flex items-center justify-between bg-slate-900 p-4">
         <h2 className="text-lg font-semibold text-white">Instructions</h2>
-        
       </div>
       <div className="h-full min-h-screen overflow-y-auto p-4">
         <div className="flex items-center">
@@ -159,7 +158,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
       </div>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`absolute -right-12 top-1/2 -translate-y-1/2 transform rounded-r-md  bg-slate-800 text-center w-12 h-12 shadow-md`}
+        className={`absolute -right-12 top-1/2 h-12 w-12 -translate-y-1/2  transform rounded-r-md bg-slate-800 text-center shadow-md`}
         style={{ boxShadow: "0 0 0 2px rgba(0, 0, 0, .1)" }}
       >
         {!isOpen ? (
@@ -170,7 +169,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
             height={42}
           />
         ) : (
-          <X className="h-6 w-6 ml-3 text-white" />       
+          <X className="ml-3 h-6 w-6 text-white" />
         )}
       </button>
     </div>

@@ -11,7 +11,7 @@ import ReactMapboxGl, {
 } from "react-map-gl";
 import InstructionsDrawer from "./InstructionsDrawer";
 import LabeledMarker from "./LabeledMarker";
-import GeocoderControl from './geocoder-control';
+import GeocoderControl from "./geocoder-control";
 
 const initialViewState = {
   latitude: 42.395043,
@@ -192,7 +192,10 @@ const Map = ({ showFeatures = false }) => {
           style={{ width: "100%", height: "100%" }}
           addControl={true}
         >
-          <GeocoderControl mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN} position="top-right" />
+          <GeocoderControl
+            mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
+            position="top-right"
+          />
           <Source id="composite" type="vector" url="mapbox://composite">
             <Layer
               id="walkingTrailsLayer"
@@ -299,26 +302,24 @@ const Map = ({ showFeatures = false }) => {
             </Popup>
           )}
 
-          
           {showFeatures && (
-          <InstructionsDrawer
-            getRoute={getRoute}
-            setStart={setStart}
-            setEnd={setEnd}
-            start={start}
-            end={end}
-            selectedPoint={selectedPoint}
-            setSelectedPoint={setSelectedPoint}
-            layerVisibility={layerVisibility}
-            toggleLayerVisibility={toggleLayerVisibility}
-            distance={distance}
-            duration={duration}
-            travelMode={travelMode}
-            setTravelMode={setTravelMode}
-          />
-        )}
+            <InstructionsDrawer
+              getRoute={getRoute}
+              setStart={setStart}
+              setEnd={setEnd}
+              start={start}
+              end={end}
+              selectedPoint={selectedPoint}
+              setSelectedPoint={setSelectedPoint}
+              layerVisibility={layerVisibility}
+              toggleLayerVisibility={toggleLayerVisibility}
+              distance={distance}
+              duration={duration}
+              travelMode={travelMode}
+              setTravelMode={setTravelMode}
+            />
+          )}
         </ReactMapboxGl>
-   
       </section>
     </>
   );

@@ -7,7 +7,7 @@ import { Suspense } from "react";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import SessionWrapper from "@/components/utils/SessionProvider";
 import "mapbox-gl/dist/mapbox-gl.css";
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import Script from "next/script";
 
 export const metadata = {
