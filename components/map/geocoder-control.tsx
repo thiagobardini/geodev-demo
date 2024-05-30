@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useState } from "react";
 import { useControl, Marker, MarkerProps, ControlPosition } from "react-map-gl";
 import MapboxGeocoder, { GeocoderOptions } from "@mapbox/mapbox-gl-geocoder";
@@ -58,59 +57,59 @@ const GeocoderControl: React.FC<GeocoderControlProps> = (props) => {
     },
   );
 
-  if (typeof geocoder.getProximity === "function") {
+  if (geocoder) {
     if (
-      geocoder.getProximity() !== props.proximity &&
-      props.proximity !== undefined
+      props.proximity !== undefined &&
+      geocoder.getProximity() !== props.proximity
     ) {
       geocoder.setProximity(props.proximity);
     }
     if (
-      geocoder.getRenderFunction() !== props.render &&
-      props.render !== undefined
+      props.render !== undefined &&
+      geocoder.getRenderFunction() !== props.render
     ) {
       geocoder.setRenderFunction(props.render);
     }
     if (
-      geocoder.getLanguage() !== props.language &&
-      props.language !== undefined
+      props.language !== undefined &&
+      geocoder.getLanguage() !== props.language
     ) {
       geocoder.setLanguage(props.language);
     }
-    if (geocoder.getZoom() !== props.zoom && props.zoom !== undefined) {
+    if (props.zoom !== undefined && geocoder.getZoom() !== props.zoom) {
       geocoder.setZoom(props.zoom);
     }
-    if (geocoder.getFlyTo() !== props.flyTo && props.flyTo !== undefined) {
+    if (props.flyTo !== undefined && geocoder.getFlyTo() !== props.flyTo) {
       geocoder.setFlyTo(props.flyTo);
     }
     if (
-      geocoder.getPlaceholder() !== props.placeholder &&
-      props.placeholder !== undefined
+      props.placeholder !== undefined &&
+      geocoder.getPlaceholder() !== props.placeholder
     ) {
       geocoder.setPlaceholder(props.placeholder);
     }
     if (
-      geocoder.getCountries() !== props.countries &&
-      props.countries !== undefined
+      props.countries !== undefined &&
+      geocoder.getCountries() !== props.countries
     ) {
       geocoder.setCountries(props.countries);
     }
-    if (geocoder.getTypes() !== props.types && props.types !== undefined) {
+    if (props.types !== undefined && geocoder.getTypes() !== props.types) {
       geocoder.setTypes(props.types);
     }
     if (
-      geocoder.getMinLength() !== props.minLength &&
-      props.minLength !== undefined
+      props.minLength !== undefined &&
+      geocoder.getMinLength() !== props.minLength
     ) {
       geocoder.setMinLength(props.minLength);
     }
-    if (geocoder.getLimit() !== props.limit && props.limit !== undefined) {
+    if (props.limit !== undefined && geocoder.getLimit() !== props.limit) {
       geocoder.setLimit(props.limit);
     }
-    if (geocoder.getFilter() !== props.filter && props.filter !== undefined) {
+    if (props.filter !== undefined && geocoder.getFilter() !== props.filter) {
       geocoder.setFilter(props.filter);
     }
-    if (geocoder.getOrigin() !== props.origin && props.origin !== undefined) {
+    if (props.origin !== undefined && geocoder.getOrigin() !== props.origin) {
       geocoder.setOrigin(props.origin);
     }
   }
