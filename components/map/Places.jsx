@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import { LoadingDots } from "@/components/shared/icons";
 
-function Places({ setEnd, placeholder }) {
+const Places = ({ setEnd, placeholder }) => {
   const [places, setPlaces] = useState([]);
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +21,7 @@ function Places({ setEnd, placeholder }) {
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
     );
     const data = await response.json();
-    console.log("Places data:", data);
+
     setPlaces(data.features);
     setIsLoading(false);
   };
@@ -70,6 +70,6 @@ function Places({ setEnd, placeholder }) {
       )}
     </div>
   );
-}
+};
 
 export default Places;

@@ -4,6 +4,7 @@ import Places from "./Places";
 import Tooltip from "@/components/shared/tooltip";
 import Layers from "./Layers";
 import useMediaQuery from "@/lib/hooks/use-media-query";
+import Image from "next/image";
 
 interface Coordinates {
   lat: number;
@@ -82,9 +83,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     >
       <div className="flex items-center justify-between bg-slate-900 p-4">
         <h2 className="text-lg font-semibold text-white">Instructions</h2>
-        <button onClick={() => setIsOpen(false)}>
-          <X className="h-6 w-6 text-white" />
-        </button>
+        
       </div>
       <div className="h-full min-h-screen overflow-y-auto p-4">
         <div className="flex items-center">
@@ -160,9 +159,19 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
       </div>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="absolute -right-8 top-1/2 -translate-y-1/2 transform rounded-r-md bg-slate-800 p-2 text-white shadow-md"
+        className={`absolute -right-12 top-1/2 -translate-y-1/2 transform rounded-r-md  bg-slate-800 text-center w-12 h-12 shadow-md`}
+        style={{ boxShadow: "0 0 0 2px rgba(0, 0, 0, .1)" }}
       >
-        {!isOpen ? <ChevronLeft /> : <ChevronRight />}
+        {!isOpen ? (
+          <Image
+            src="icons/filter-icon-white.svg"
+            alt="Filter Icon"
+            width={42}
+            height={42}
+          />
+        ) : (
+          <X className="h-6 w-6 ml-3 text-white" />       
+        )}
       </button>
     </div>
   );

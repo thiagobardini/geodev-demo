@@ -10,7 +10,8 @@ import ReactMapboxGl, {
   Layer,
 } from "react-map-gl";
 import InstructionsDrawer from "./InstructionsDrawer";
-import LabeledMarker from "./LabeledMarker"; // Import the custom labeled marker component
+import LabeledMarker from "./LabeledMarker";
+import GeocoderControl from './geocoder-control';
 
 const initialViewState = {
   latitude: 42.395043,
@@ -38,6 +39,7 @@ const Map = ({ showFeatures = false }) => {
   const [duration, setDuration] = useState(0);
   const [travelMode, setTravelMode] = useState("driving");
 
+  const mapRef = useRef(null);
   const GeolocateControlRef = useRef(null);
 
   useEffect(() => {
@@ -185,11 +187,12 @@ const Map = ({ showFeatures = false }) => {
           {...viewport}
           onClick={handleClick}
           onMove={(event) => setViewport(event.viewState)}
-          mapStyle="mapbox://styles/tbardini/clwfn2zwn02ei01qg6v221qw3"
+          mapStyle={process.env.NEXT_PUBLIC_MAPBOX_STYLE_MONOCHROME}
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
           style={{ width: "100%", height: "100%" }}
           addControl={true}
         >
+          <GeocoderControl mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN} position="top-right" />
           <Source id="composite" type="vector" url="mapbox://composite">
             <Layer
               id="walkingTrailsLayer"
@@ -295,8 +298,9 @@ const Map = ({ showFeatures = false }) => {
               <div>lng: {selectedMarker.longitude}</div>
             </Popup>
           )}
-        </ReactMapboxGl>
-        {showFeatures && (
+
+          
+          {showFeatures && (
           <InstructionsDrawer
             getRoute={getRoute}
             setStart={setStart}
@@ -313,6 +317,8 @@ const Map = ({ showFeatures = false }) => {
             setTravelMode={setTravelMode}
           />
         )}
+        </ReactMapboxGl>
+   
       </section>
     </>
   );
