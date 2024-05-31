@@ -150,7 +150,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
         </div>
         <button
           onClick={handleRedirect}
-          className="mt-4 w-full rounded-md bg-blue-500 p-2 text-sm text-white"
+          className="mt-4 w-full rounded-md bg-indigo-500 p-2 text-sm text-white"
         >
           Open in Google Maps
         </button>
