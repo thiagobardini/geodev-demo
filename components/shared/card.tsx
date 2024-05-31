@@ -20,6 +20,7 @@ export default function Card({
         large ? "md:col-span-2" : ""
       }`}
       onClick={onClick}
+      style={{ cursor: 'pointer' }} 
     >
       <div className="flex h-60 items-center justify-center overflow-hidden">
         {demo}
