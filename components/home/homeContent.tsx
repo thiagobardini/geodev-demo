@@ -3,7 +3,7 @@ import MultiLineChart from "@/components/charts/multi-line-chart";
 import Image from "next/image";
 
 const demoTech = (
-  <div style={{ overflowX: "auto" }}>
+  <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
     <div className="grid grid-flow-col grid-rows-3 gap-10 p-10">
       <span className="font-mono font-semibold">Typescript</span>
       <span className="font-mono font-semibold">React</span>

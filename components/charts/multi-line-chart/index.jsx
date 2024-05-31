@@ -23,7 +23,7 @@ export default function MultiLineChart() {
     .curve(d3.curveMonotoneX);
 
   return (
-    <div style={{ overflowX: "auto" }}>
+    <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
       <svg width={width} height={height} style={{ backgroundColor: "white" }}>
         <g style={{ transform: `translate(${margin.left}px, ${margin.top}px)` }}>
           <g style={{ transform: `translate(0px, ${innerHeight}px)` }}>
