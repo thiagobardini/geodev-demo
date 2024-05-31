@@ -1,11 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import { LoadingDots } from "@/components/shared/icons";
+import Image from "next/image";
 
 const Places = ({ setEnd, placeholder }) => {
   const [places, setPlaces] = useState([]);
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const getPlaces = useCallback(async () => {
+    setIsLoading(true);
+    const response = await fetch(
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
+    );
+    const data = await response.json();
+
+    setPlaces(data.features);
+    setIsLoading(false);
+  }, [value]);
 
   useEffect(() => {
     if (value) {
@@ -13,18 +25,7 @@ const Places = ({ setEnd, placeholder }) => {
     } else {
       setPlaces([]);
     }
-  }, [value]);
-
-  const getPlaces = async () => {
-    setIsLoading(true);
-    const response = await fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
-    );
-    const data = await response.json();
-
-    setPlaces(data.features);
-    setIsLoading(false);
-  };
+  }, [value, getPlaces]);
 
   const handleClick = (place) => {
     setEnd(place.geometry.coordinates);
@@ -47,7 +48,7 @@ const Places = ({ setEnd, placeholder }) => {
         {value && (
           <div onClick={() => setValue("")} className="cursor-pointer">
             {isLoading ? (
-              <img className="h-5 w-5" src={LoadingDots} alt="loading gif" />
+              <Image className="h-5 w-5" src={LoadingDots} alt="loading gif" />
             ) : (
               <AiOutlineClose size={20} className="text-white" />
             )}

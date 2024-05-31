@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import ReactMapboxGl, {
   FullscreenControl,
   GeolocateControl,
@@ -41,11 +41,7 @@ const TrailMap = () => {
 
   const GeolocateControlRef = useRef(null);
 
-  useEffect(() => {
-    getRoute();
-  }, [start, end, travelMode]);
-
-  const getRoute = async () => {
+  const getRoute = useCallback(async () => {
     const adjustedTravelMode =
       travelMode === "bicycling" ? "cycling" : travelMode;
     try {
@@ -74,7 +70,11 @@ const TrailMap = () => {
       setDistance(0);
       setDuration(0);
     }
-  };
+  }, [start, end, travelMode]);
+
+  useEffect(() => {
+    getRoute();
+  }, [start, end, travelMode, getRoute]);
 
   const toggleLayerVisibility = (layerId) => {
     console.log(`Toggling visibility for ${layerId}`);
@@ -199,7 +199,7 @@ const TrailMap = () => {
                 <h1 className="text-2xl font-bold">TrailMap</h1>
                 <span>|</span>
                 <h2 className="text-sm">
-                  Metro Boston's Regional Walking and Cycling Map
+                  Metro Boston&#39;s Regional Walking and Cycling Map
                 </h2>
               </div>
             </div>

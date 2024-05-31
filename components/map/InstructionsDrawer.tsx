@@ -54,12 +54,6 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     }
   }, [isMobile]);
 
-  useEffect(() => {
-    if (!isMobile) {
-      setIsOpen(true);
-    }
-  }, [isMobile]);
-
   const handleRedirect = () => {
     if (start && end) {
       const url = `https://www.google.com/maps/dir/?api=1&origin=${start[1]},${start[0]}&destination=${end[1]},${end[0]}&travelmode=${travelMode}`;
@@ -68,11 +62,8 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
   };
 
   useEffect(() => {
-    if (travelMode) {
-      // Recalculate route when travel mode changes
-      getRoute();
-    }
-  }, [travelMode]);
+    getRoute();
+  }, [travelMode, getRoute]);
 
   const formatDuration = (minutes: number) => {
     const h = Math.floor(minutes / 60);
@@ -87,7 +78,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     <div
       className={`fixed left-0 top-[64px] z-50 h-full transform transition-transform ${
         isOpen ? "translate-x-0" : "-translate-x-full"
-      } w-2/3 bg-slate-800 shadow-lg sm:w-80`}
+      } sm:w-80 w-2/3 bg-slate-800 shadow-lg`}
     >
       <div className="flex items-center justify-between bg-slate-900 p-4">
         <h2 className="text-lg font-semibold text-white">Instructions</h2>
@@ -159,7 +150,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
         </div>
         <button
           onClick={handleRedirect}
-          className="mt-4 w-full rounded-md bg-indigo-500 p-2 text-sm text-white"
+          className="mt-4 w-full rounded-md bg-blue-500 p-2 text-sm text-white"
         >
           Open in Google Maps
         </button>
