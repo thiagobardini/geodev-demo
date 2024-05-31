@@ -79,7 +79,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     <div
       className={`fixed left-0 top-0 z-50 h-full transform transition-transform ${
         isOpen ? "translate-x-0" : "-translate-x-full"
-      } w-80 bg-slate-800 shadow-lg`}
+      } sm:w-80 w-2/3 bg-slate-800 shadow-lg`}
     >
       <div className="flex items-center justify-between bg-slate-900 p-4">
         <h2 className="text-lg font-semibold text-white">Instructions</h2>

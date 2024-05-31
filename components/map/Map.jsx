@@ -183,6 +183,16 @@ const Map = ({ showFeatures = false }) => {
     <>
       <meta name="Mapbox" content="Mapbox Integration" />
       <section className="relative h-full w-full">
+        {showFeatures && (
+          <div className="mx-auto flex max-w-full flex-col items-center justify-center bg-gray-50 pt-2 text-center">
+            <h2 className="bg-gradient-to-br from-black to-stone-500 bg-clip-text text-2xl font-extrabold tracking-tight text-transparent drop-shadow-md md:text-4xl">
+              Mapbox
+            </h2>
+            <h3 className="mt-2 text-lg font-medium text-gray-600 md:text-xl">
+              Showcasing my skills by integrating Mapbox.
+            </h3>
+          </div>
+        )}
         <ReactMapboxGl
           {...viewport}
           onClick={handleClick}
@@ -192,10 +202,13 @@ const Map = ({ showFeatures = false }) => {
           style={{ width: "100%", height: "100%" }}
           addControl={true}
         >
-          <GeocoderControl
-            mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
-            position="top-right"
-          />
+          {showFeatures && (
+            <GeocoderControl
+              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
+              position="top-right"
+              addTo={{backgroundColor: "bg-gray-800"}}
+            />
+          )}
           <Source id="composite" type="vector" url="mapbox://composite">
             <Layer
               id="walkingTrailsLayer"

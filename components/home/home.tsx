@@ -80,17 +80,10 @@ const features = [
     description: "Showcasing my skills by integrating Mapbox.",
     demo: <Map showFeatures={false} />,
     large: true,
+    isNotMobileModal: true,
     modal: (
       <>
-        <div className="relative mx-auto flex h-[141px] max-w-full flex-col items-center justify-center bg-gray-50 pt-2 text-center">
-          <h2 className="bg-gradient-to-br from-black to-stone-500 bg-clip-text text-2xl font-extrabold tracking-tight text-transparent drop-shadow-md md:text-4xl">
-            Mapbox
-          </h2>
-          <h3 className="mt-2 text-lg font-medium text-gray-600 md:text-xl">
-            Showcasing my skills by integrating Mapbox.
-          </h3>
-        </div>
-        <Map showFeatures={true} />,
+        <Map showFeatures={true} />
       </>
     ),
   },
@@ -99,6 +92,7 @@ const features = [
     description: "Showcasing my skills by integrating D3.js.",
     demo: <WebVitals />,
     large: false,
+    isNotMobileModal: false,
     modal: (
       <>
         <div className="relative mx-auto flex h-[141px] max-w-full flex-col items-center justify-center bg-gray-50 pt-2 text-center">
@@ -120,6 +114,7 @@ const features = [
     description: "Key Technologies Utilized in This Project",
     demo: demoTech,
     large: true,
+    isNotMobileModal: false,
     modal: (
       <>
         <div className="relative mx-auto flex h-[141px] max-w-full flex-col items-center justify-center bg-gray-50 pt-2 text-center">
