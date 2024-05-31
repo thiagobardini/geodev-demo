@@ -193,8 +193,7 @@ const TrailMap = () => {
           <div className="fixed left-0 right-0 top-0 z-20  flex items-center justify-center   px-4 pt-[64px] ">
             <div className=" border-y-2  border-y-indigo-500 bg-opacity-50">
               <div
-                className="flex h-auto items-center justify-center space-x-2  border-x border-b border-gray-200 bg-opacity-50 px-2 text-black"
-                style={{ backdropFilter: "saturate(180%) blur(20px)" }}
+                className="flex h-auto items-center justify-center space-x-2  border-x border-b border-gray-200 bg-opacity-50 px-2 text-black bg-white/50 backdrop-blur-xl"
               >
                 <h1 className="text-2xl font-bold">TrailMap</h1>
                 <span>|</span>
