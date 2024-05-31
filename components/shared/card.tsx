@@ -25,10 +25,16 @@ export default function Card({
         {demo}
       </div>
       <div className="relative mx-auto flex h-[141px] max-w-full flex-col items-center justify-center pt-2 text-center">
-        <h2 className="bg-gradient-to-br from-black to-stone-500 bg-clip-text font-display text-xl font-bold text-transparent [text-wrap:balance] md:text-3xl md:font-normal px-2" style={{ backdropFilter: "saturate(180%) blur(20px)" }}>
+        <h2
+          className="bg-gradient-to-br from-black to-stone-500 bg-clip-text px-2 font-display text-xl font-bold text-transparent [text-wrap:balance] md:text-3xl md:font-normal"
+          style={{ backdropFilter: "saturate(180%) blur(20px)" }}
+        >
           {title}
         </h2>
-        <div className="prose-sm mt-3 leading-normal text-gray-500 [text-wrap:balance] md:prose px-2" style={{ backdropFilter: "saturate(180%) blur(20px)" }}>
+        <div
+          className="prose-sm mt-3 px-2 leading-normal text-gray-500 [text-wrap:balance] md:prose"
+          style={{ backdropFilter: "saturate(180%) blur(20px)" }}
+        >
           <ReactMarkdown
             components={{
               a: ({ node, ...props }) => (

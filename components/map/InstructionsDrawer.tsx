@@ -45,7 +45,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
 }) => {
   const { isMobile } = useMediaQuery();
   const [isOpen, setIsOpen] = useState(false);
-  
+
   useEffect(() => {
     if (!isMobile) {
       setIsOpen(true);
@@ -87,7 +87,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     <div
       className={`fixed left-0 top-[64px] z-50 h-full transform transition-transform ${
         isOpen ? "translate-x-0" : "-translate-x-full"
-      } sm:w-80 w-2/3 bg-slate-800 shadow-lg`}
+      } w-2/3 bg-slate-800 shadow-lg sm:w-80`}
     >
       <div className="flex items-center justify-between bg-slate-900 p-4">
         <h2 className="text-lg font-semibold text-white">Instructions</h2>
