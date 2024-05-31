@@ -17,7 +17,7 @@ export default function Page() {
   return (
     <>
       {!session ? (
-        <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl border px-5 md:px-0">
+        <div className="z-10 w-full mt-[120px] max-w-md overflow-hidden rounded-2xl border px-5 md:px-0">
           <div>
             <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center md:px-16">
               <a href="https://www.tbardini.com">
@@ -54,7 +54,7 @@ export default function Page() {
         </div>
       ) : (
         <>
-          <div className="z-10 w-full max-w-xl px-5 xl:px-0">
+          <div className="z-10 w-full max-w-xl px-5 pt-[120px] xl:px-0">
             <h1
               className="animate-fade-up bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-3xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm [text-wrap:balance] md:text-7xl md:leading-[5rem]"
               style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}

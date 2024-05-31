@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="z-10 w-full max-w-xl px-5 pt-[120px] xl:px-0">
+      <div className="z-10 w-full max-w-xl px-5 xl:px-0">
         <h1
           className="animate-fade-up bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-4xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm [text-wrap:balance] md:text-7xl md:leading-[5rem]"
           style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
@@ -52,7 +52,7 @@ export default function Home() {
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}
-        className="h-full mt-24 max-w-full"
+        className="mt-24 h-full max-w-full"
       >
         <div>{modalContent}</div>
       </Modal>
