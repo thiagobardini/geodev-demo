@@ -45,6 +45,14 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
 }) => {
   const { isMobile } = useMediaQuery();
   const [isOpen, setIsOpen] = useState(false);
+  
+  useEffect(() => {
+    if (!isMobile) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  }, [isMobile]);
 
   useEffect(() => {
     if (!isMobile) {
@@ -77,14 +85,14 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
 
   return (
     <div
-      className={`fixed left-0 top-0 z-50 h-full transform transition-transform ${
+      className={`fixed left-0 top-[64px] z-50 h-full transform transition-transform ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       } sm:w-80 w-2/3 bg-slate-800 shadow-lg`}
     >
       <div className="flex items-center justify-between bg-slate-900 p-4">
         <h2 className="text-lg font-semibold text-white">Instructions</h2>
       </div>
-      <div className="h-full min-h-screen overflow-y-auto p-4">
+      <div className="h-full min-h-screen overflow-y-auto p-4 pb-40">
         <div className="flex items-center">
           <h3 className="text-white">Layers</h3>
           <Tooltip content="You can hide or show the trails using the buttons below.">
@@ -151,7 +159,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
         </div>
         <button
           onClick={handleRedirect}
-          className="mt-4 w-full rounded-md bg-blue-500 p-2 text-sm text-white"
+          className="mt-4 w-full rounded-md bg-indigo-500 p-2 text-sm text-white"
         >
           Open in Google Maps
         </button>
@@ -163,7 +171,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
       >
         {!isOpen ? (
           <Image
-            src="icons/filter-icon-white.svg"
+            src="/icons/filter-icon-white.svg"
             alt="Filter Icon"
             width={42}
             height={42}

@@ -1,7 +1,6 @@
-import Map from "@/components/map/Map";
 import WebVitals from "./web-vitals";
 import MultiLineChart from "@/components/charts/multi-line-chart";
-
+import Image from "next/image";
 
 const demoTech = (
   <div className="grid grid-flow-col grid-rows-3 gap-10 p-10">
@@ -22,16 +21,20 @@ const demoTech = (
 
 export const content = [
   {
-    title: "Mapbox integration",
-    description: "Showcasing my skills by integrating Mapbox.",
-    demo: <Map showFeatures={false} />,
+    title: "TrailMap",
+    description: "Metro Boston's Regional Walking and Cycling Map",
+    demo: (
+      <Image
+        alt="TrailMap Demo"
+        src="/gif/trailmap.gif"
+        objectFit="cover"
+        fill={true}
+      />
+    ),
     large: true,
     isNotMobileModal: true,
-    modal: (
-      <>
-        <Map showFeatures={true} />
-      </>
-    ),
+    mapName: "trailmap",
+    modal: "",
   },
   {
     title: "D3.js integration",
@@ -39,6 +42,7 @@ export const content = [
     demo: <WebVitals />,
     large: false,
     isNotMobileModal: false,
+    mapName: "",
     modal: (
       <>
         <div className="relative mx-auto flex h-[141px] max-w-full flex-col items-center justify-center bg-gray-50 pt-2 text-center">
@@ -61,6 +65,7 @@ export const content = [
     demo: demoTech,
     large: true,
     isNotMobileModal: false,
+    mapName: "",
     modal: (
       <>
         <div className="relative mx-auto flex h-[141px] max-w-full flex-col items-center justify-center bg-gray-50 pt-2 text-center">
@@ -75,4 +80,4 @@ export const content = [
       </>
     ),
   },
-]
+];

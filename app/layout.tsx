@@ -39,7 +39,8 @@ export default async function RootLayout({
           <Suspense fallback="...">
             <Nav />
           </Suspense>
-          <main className="flex min-h-[calc(100vh-120px)] w-full flex-col items-center  pt-[120px]">
+          <main className="flex  w-full flex-col items-center">
+          {/* <main className="flex min-h-[calc(100vh-120px)] w-full flex-col items-center  pt-[120px]"> */}
             {children}
           </main>
           <Footer />

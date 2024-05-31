@@ -22,7 +22,7 @@ const initialViewState = {
   padding: { top: 0, bottom: 0, left: 0, right: 0 },
 };
 
-const TrailMap = ({ showFeatures = false}) => {
+const TrailMap = () => {
   const [viewport, setViewport] = useState(initialViewState);
   const [start, setStart] = useState([-71.061471, 42.355043]);
   const [end, setEnd] = useState([-71.22424322006663, 42.38078912464982]);
@@ -134,7 +134,7 @@ const TrailMap = ({ showFeatures = false}) => {
       "line-cap": "round",
     },
     paint: {
-      "line-color": "blue",
+      "line-color": "#2124d7",
       "line-width": 3,
       "line-opacity": 0.75,
     },
@@ -180,7 +180,6 @@ const TrailMap = ({ showFeatures = false}) => {
 
   return (
     <>
-      <meta name="Mapbox" content="Mapbox Integration" />
       <section className="relative h-full w-full">
         <ReactMapboxGl
           {...viewport}
@@ -188,15 +187,28 @@ const TrailMap = ({ showFeatures = false}) => {
           onMove={(event) => setViewport(event.viewState)}
           mapStyle={process.env.NEXT_PUBLIC_MAPBOX_STYLE_MONOCHROME}
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
-          style={{ width: "100%", height: "100%", paddingTop: "5rem" }}
+          style={{ width: "100%", height: "100%" }}
           addControl={true}
         >
-          {showFeatures && (
-            <GeocoderControl
-              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
-              position="bottom-right"
-            />
-          )}
+          <div className="fixed left-0 right-0 top-0 z-20  flex items-center justify-center   px-4 pt-[64px] ">
+            <div className=" border-y-2  border-y-indigo-500 bg-opacity-50">
+              <div
+                className="flex h-auto items-center justify-center space-x-2  border-x border-b border-gray-200 bg-opacity-50 px-2 text-black"
+                style={{ backdropFilter: "saturate(180%) blur(20px)" }}
+              >
+                <h1 className="text-2xl font-bold">TrailMap</h1>
+                <span>|</span>
+                <h2 className="text-sm">
+                  Metro Boston's Regional Walking and Cycling Map
+                </h2>
+              </div>
+            </div>
+          </div>
+          <GeocoderControl
+            mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
+            position="bottom-right"
+          />
+
           <Source id="composite" type="vector" url="mapbox://composite">
             <Layer
               id="walkingTrailsLayer"
@@ -303,24 +315,21 @@ const TrailMap = ({ showFeatures = false}) => {
               <div>lng: {selectedMarker.longitude}</div>
             </Popup>
           )}
-
-          {showFeatures && (
-            <InstructionsDrawer
-              getRoute={getRoute}
-              setStart={setStart}
-              setEnd={setEnd}
-              start={start}
-              end={end}
-              selectedPoint={selectedPoint}
-              setSelectedPoint={setSelectedPoint}
-              layerVisibility={layerVisibility}
-              toggleLayerVisibility={toggleLayerVisibility}
-              distance={distance}
-              duration={duration}
-              travelMode={travelMode}
-              setTravelMode={setTravelMode}
-            />
-          )}
+          <InstructionsDrawer
+            getRoute={getRoute}
+            setStart={setStart}
+            setEnd={setEnd}
+            start={start}
+            end={end}
+            selectedPoint={selectedPoint}
+            setSelectedPoint={setSelectedPoint}
+            layerVisibility={layerVisibility}
+            toggleLayerVisibility={toggleLayerVisibility}
+            distance={distance}
+            duration={duration}
+            travelMode={travelMode}
+            setTravelMode={setTravelMode}
+          />
         </ReactMapboxGl>
       </section>
     </>
