@@ -22,6 +22,7 @@ export default function NavBar({ session }: { session: Session | null }) {
             ? "border-b border-gray-200 bg-white/50 backdrop-blur-xl"
             : "bg-white/0"
         } z-30 transition-all`}
+        style={{ backdropFilter: "saturate(180%) blur(20px)" }}
       >
         <div className="mx-5 flex h-16 w-full max-w-screen-xl items-center justify-between">
           <Link href="/" className="flex items-center font-display text-2xl">
