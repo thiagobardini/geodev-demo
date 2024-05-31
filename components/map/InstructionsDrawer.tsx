@@ -76,7 +76,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
 
   return (
     <div
-      className={`fixed left-0 top-[64px] z-50 h-full transform transition-transform ${
+      className={`fixed left-0 top-[64px] z-20 h-full transform transition-transform ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       } sm:w-80 w-2/3 bg-slate-800 shadow-lg`}
     >
