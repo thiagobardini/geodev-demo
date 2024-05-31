@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, X, Info } from "lucide-react";
+import { X, Info } from "lucide-react";
 import Places from "./Places";
 import Tooltip from "@/components/shared/tooltip";
 import Layers from "./Layers";

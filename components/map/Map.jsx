@@ -39,7 +39,6 @@ const Map = ({ showFeatures = false }) => {
   const [duration, setDuration] = useState(0);
   const [travelMode, setTravelMode] = useState("driving");
 
-  const mapRef = useRef(null);
   const GeolocateControlRef = useRef(null);
 
   useEffect(() => {
@@ -184,7 +183,7 @@ const Map = ({ showFeatures = false }) => {
       <meta name="Mapbox" content="Mapbox Integration" />
       <section className="relative h-full w-full">
         {showFeatures && (
-          <div className="mx-auto flex max-w-full flex-col items-center justify-center bg-gray-50 pt-2 text-center">
+          <div className="fixed left-0 right-0 top-0 z-10 mx-auto flex max-w-full flex-col items-center justify-center bg-gray-50 pt-2 text-center">
             <h2 className="bg-gradient-to-br from-black to-stone-500 bg-clip-text text-2xl font-extrabold tracking-tight text-transparent drop-shadow-md md:text-4xl">
               Mapbox
             </h2>
@@ -199,14 +198,13 @@ const Map = ({ showFeatures = false }) => {
           onMove={(event) => setViewport(event.viewState)}
           mapStyle={process.env.NEXT_PUBLIC_MAPBOX_STYLE_MONOCHROME}
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "100%", paddingTop: "5rem" }}
           addControl={true}
         >
           {showFeatures && (
             <GeocoderControl
               mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
-              position="top-right"
-              addTo={{backgroundColor: "bg-gray-800"}}
+              position="bottom-right"
             />
           )}
           <Source id="composite" type="vector" url="mapbox://composite">
@@ -281,10 +279,11 @@ const Map = ({ showFeatures = false }) => {
               setStart([e.coords.longitude, e.coords.latitude])
             }
             ref={GeolocateControlRef}
+            position="bottom-right"
           />
-          <FullscreenControl />
+          <FullscreenControl position="bottom-right" />
           <NavigationControl
-            position="top-right"
+            position="bottom-right"
             style={{ bottom: "30px !important" }}
           />
           <LabeledMarker

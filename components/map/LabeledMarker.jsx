@@ -1,10 +1,11 @@
 import { Marker } from "react-map-gl";
+import classes from "./Map.module.css";
 
 const LabeledMarker = ({ longitude, latitude, label, onClick }) => (
   <Marker longitude={longitude} latitude={latitude} onClick={onClick}>
-    <div className="marker-label-container">
-      <div className="marker-label">{label}</div>
-      <div className="marker-icon" />
+    <div className={classes.markerLabelContainer}>
+      <div className={classes.markerLabel}>{label}</div>
+      <div className={classes.markerIcon} />
     </div>
   </Marker>
 );
