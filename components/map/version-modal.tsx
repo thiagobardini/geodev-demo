@@ -1,4 +1,4 @@
-import { FC, Dispatch, SetStateAction } from "react";
+import { FC, Dispatch, SetStateAction, useEffect, useState } from "react";
 import Modal from "@/components/shared/modal";
 import Image from "next/image";
 
@@ -7,13 +7,44 @@ interface VersionModalProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
+interface VersionTexts {
+  versionLabel: string;
+  modalTitle: string;
+  implementedFeaturesTitle: string;
+  implementedFeaturesList: string[];
+  currentFeaturesTitle: string;
+  currentVersionLabel: string;
+  currentFeaturesList: string[];
+  upcomingFeaturesTitle: string;
+  upcomingVersions: {
+    versionLabel: string;
+    featuresList: string[];
+  }[];
+}
+
 const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
+  const [texts, setTexts] = useState<VersionTexts | null>(null);
+
+  useEffect(() => {
+    const fetchTexts = async () => {
+      const response = await fetch('/data/versionTexts.json');
+      const data = await response.json();
+      setTexts(data);
+    };
+
+    fetchTexts();
+  }, []);
+
+  if (!texts) {
+    return null; 
+  }
+
   return (
     <Modal showModal={showModal} setShowModal={setShowModal}>
-      <div className="z-50 max-h-screen w-full overflow-y-auto bg-white shadow-xl md:max-w-lg md:rounded-2xl md:border md:border-gray-200">
-        <div className="relative p-4 md:p-6">
+      <div className="z-50 max-h-screen w-full overflow-y-auto bg-white shadow-xl rounded-2xl border border-gray-200">
+        <div className="relative p-4">
           <div className="absolute left-2 top-3 text-sm font-semibold text-gray-600">
-            Version 2.0
+            {texts.versionLabel}
           </div>
           <div className="mb-4 flex justify-center">
             <Image
@@ -24,73 +55,57 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
               className="rounded-full border-2 border-gray-200"
             />
           </div>
-          <h2 className="mb-4 text-center text-xl font-bold text-gray-800 md:text-2xl">
-            Versions Overview
+          <h2 className="mb-4 text-center text-xl font-bold text-gray-800">
+            {texts.modalTitle}
           </h2>
 
           <div className="space-y-6">
             <details className="rounded-md border border-gray-200 p-3">
-              <summary className="cursor-pointer text-lg font-semibold text-gray-700 md:text-xl">
-                Implemented Features:
+              <summary className="cursor-pointer text-lg font-semibold text-gray-700">
+                {texts.implementedFeaturesTitle}
               </summary>
               <div className="mt-2">
-                <ul className="mt-2 list-inside list-disc text-sm text-gray-600 md:text-base">
-                  <li>User signup/signin</li>
-                  <li>Pin on the map for start and end points</li>
-                  <li>Search input for start and end points</li>
-                  <li>Legend: Show/hide trails</li>
-                  <li>Types of routes: Driving, walking, cycling</li>
-                  <li>Mobile and desktop views</li>
-                  <li>Button to open the route on Google Maps</li>
+                <ul className="mt-2 list-inside list-disc text-sm text-gray-600">
+                  {texts.implementedFeaturesList.map((feature, index) => (
+                    <li key={index}>{feature}</li>
+                  ))}
                 </ul>
               </div>
             </details>
 
             <details open className="rounded-md border border-gray-200 p-3">
-              <summary className="cursor-pointer text-lg font-semibold text-gray-700 md:text-xl">
-                Current Features:
+              <summary className="cursor-pointer text-lg font-semibold text-gray-700">
+                {texts.currentFeaturesTitle}
               </summary>
               <div className="mt-2">
-                <h3 className="text-md font-semibold text-gray-700 md:text-lg">
-                  Version 2:
+                <h3 className="text-md font-semibold text-gray-700">
+                  {texts.currentVersionLabel}
                 </h3>
-                <ul className="mt-2 list-inside list-disc text-sm text-gray-600 md:text-base">
-                  <li>
-                    Pin and display a pop-up card with the main trails in Metro
-                    Boston&apos;s Regional Trail Network.
-                  </li>
-                  <li>Layer: Show/hide trail entrances</li>
-                  <li>Show trail entrances name when approaching the pin</li>
-                  <li>UI improvements</li>
+                <ul className="mt-2 list-inside list-disc text-sm text-gray-600">
+                  {texts.currentFeaturesList.map((feature, index) => (
+                    <li key={index}>{feature}</li>
+                  ))}
                 </ul>
               </div>
             </details>
 
             <details className="rounded-md border border-gray-200 p-3">
-              <summary className="cursor-pointer text-lg font-semibold text-gray-700 md:text-xl">
-                Upcoming Features:
+              <summary className="cursor-pointer text-lg font-semibold text-gray-700">
+                {texts.upcomingFeaturesTitle}
               </summary>
               <div className="mt-2">
-                <div className="mb-4 md:mb-6">
-                  <h3 className="text-md font-semibold text-gray-700 md:text-lg">
-                    Version 3:
-                  </h3>
-                  <ul className="mt-2 list-inside list-disc text-sm text-gray-600 md:text-base">
-                    <li>
-                      After signing in, you will be able to save your best
-                      routes with start and end points
-                    </li>
-                    <li>
-                      After signing in, you will be able to save entrance
-                      bike/walking trails
-                    </li>
-                    <li>
-                      On the dashboard, you can visualize all your saved routes
-                      for different types: driving, walking, cycling
-                    </li>
-                    <li>UI improvements</li>
-                  </ul>
-                </div>
+                {texts.upcomingVersions.map((version, index) => (
+                  <div key={index} className="mb-4">
+                    <h3 className="text-md font-semibold text-gray-700">
+                      {version.versionLabel}
+                    </h3>
+                    <ul className="mt-2 list-inside list-disc text-sm text-gray-600">
+                      {version.featuresList.map((feature, i) => (
+                        <li key={i}>{feature}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             </details>
           </div>

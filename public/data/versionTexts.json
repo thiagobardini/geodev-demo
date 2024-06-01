@@ -1,0 +1,41 @@
+{
+  "versionLabel": "Version 2.0",
+  "modalTitle": "Versions Overview",
+  "implementedFeaturesTitle": "Implemented Features:",
+  "implementedFeaturesList": [
+    "User signup/signin",
+    "Pin on the map for start and end points",
+    "Search input for start and end points",
+    "Legend: Show/hide trails",
+    "Types of routes: Driving, walking, cycling",
+    "Mobile and desktop views",
+    "Button to open the route on Google Maps"
+  ],
+  "currentFeaturesTitle": "Current Features:",
+  "currentVersionLabel": "Version 2:",
+  "currentFeaturesList": [
+    "Pin and display a pop-up card with the main trails in Metro Boston's Regional Trail Network.",
+    "Layer: Show/hide trail entrances",
+    "Show trail entrances name when approaching the pin",
+    "UI improvements"
+  ],
+  "upcomingFeaturesTitle": "Upcoming Features:",
+  "upcomingVersions": [
+    {
+      "versionLabel": "Version 3:",
+      "featuresList": [
+        "Add different map styles: Satellite, Terrain, Light, Dark, Streets",
+        "Be able to show/hide labels such as street names, parks, etc."
+      ]
+    },
+    {
+      "versionLabel": "Version 4:",
+      "featuresList": [
+        "After signing in, you will be able to save your best routes with start and end points",
+        "After signing in, you will be able to save entrance bike/walking trails",
+        "On the dashboard, you can visualize all your saved routes for different types: driving, walking, cycling",
+        "UI improvements"
+      ]
+    }
+  ]
+}
