@@ -6,15 +6,15 @@ import useScroll from "@/lib/hooks/use-scroll";
 import { useSignInModal } from "./sign-in-modal";
 import UserDropdown from "./user-dropdown";
 import UserDropdownSignIn from "./user-dropdown-signin";
-import { usePathname } from 'next/navigation'
+import { usePathname } from "next/navigation";
 
 import { Session } from "next-auth";
 
 export default function NavBar({ session }: { session: Session | null }) {
   const { SignInModal } = useSignInModal();
   const scrolled = useScroll(50);
-  
-  const pathname = usePathname()
+
+  const pathname = usePathname();
   const isMapRoute = pathname.includes("map");
 
   return (

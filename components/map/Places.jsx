@@ -11,7 +11,7 @@ const Places = ({ setEnd, placeholder }) => {
   const getPlaces = useCallback(async () => {
     setIsLoading(true);
     const response = await fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
     );
     const data = await response.json();
 

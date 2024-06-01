@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import ReactMapboxGl, {
   FullscreenControl,
   GeolocateControl,
@@ -13,7 +13,7 @@ import InstructionsDrawer from "./InstructionsDrawer";
 import LabeledMarker from "./LabeledMarker";
 import GeocoderControl from "./geocoder-control";
 import VersionModal from "./version-modal";
-
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 const initialViewState = {
   latitude: 42.395043,
@@ -184,157 +184,158 @@ const TrailMap = () => {
     <>
       <VersionModal />
       <section className="relative h-full w-full">
-        <ReactMapboxGl
-          {...viewport}
-          onClick={handleClick}
-          onMove={(event) => setViewport(event.viewState)}
-          mapStyle={process.env.NEXT_PUBLIC_MAPBOX_STYLE_MONOCHROME}
-          mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
-          style={{ width: "100%", height: "100%" }}
-          addControl={true}
-        >
-          <div className="fixed left-0 right-0 top-0 z-20  flex items-center justify-center   px-4 pt-[64px] ">
-            <div className=" border-y-2  border-y-indigo-500 bg-opacity-50">
-              <div
-                className="flex h-auto items-center justify-center space-x-2  border-x border-b border-gray-200 bg-opacity-50 px-2 text-black bg-white/50 backdrop-blur-xl"
-              >
-                <h1 className="text-2xl font-bold">TrailMap</h1>
-                <span>|</span>
-                <h2 className="text-sm">
-                  Metro Boston&#39;s Regional Walking and Cycling Map
-                </h2>
+        <Suspense fallback={<LoadingSpinner />}>
+          <ReactMapboxGl
+            {...viewport}
+            onClick={handleClick}
+            onMove={(event) => setViewport(event.viewState)}
+            mapStyle={process.env.NEXT_PUBLIC_MAPBOX_STYLE_MONOCHROME}
+            mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
+            style={{ width: "100%", height: "100%" }}
+            addControl={true}
+          >
+            <div className="fixed left-0 right-0 top-0 z-20 flex items-center justify-center px-4 pt-[64px]">
+              <div className="border-y-2 border-y-indigo-500 bg-opacity-50">
+                <div className="flex h-auto items-center justify-center space-x-2 border-x border-b border-gray-200 bg-white/50 bg-opacity-50 px-2 text-black backdrop-blur-xl">
+                  <h1 className="text-2xl font-bold">TrailMap</h1>
+                  <span>|</span>
+                  <h2 className="text-sm">
+                    Metro Boston&#39;s Regional Walking and Cycling Map
+                  </h2>
+                </div>
               </div>
             </div>
-          </div>
 
-
-          <GeocoderControl
-            mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
-            position="bottom-right"
-          />
-
-          <Source id="composite" type="vector" url="mapbox://composite">
-            <Layer
-              id="walkingTrailsLayer"
-              source-layer="trans_walking_trails-1i81xd"
-              type="line"
-              paint={{
-                "line-color": "#913368",
-                "line-width": 1,
-              }}
-              layout={{ visibility: layerVisibility.walkingTrails }}
+            <GeocoderControl
+              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
+              position="bottom-right"
             />
-          </Source>
 
-          <Source id="composite" type="vector" url="mapbox://composite">
-            <Layer
-              id="bikeFacilitiesLayer"
-              source-layer="trans_bike_facilities-22p2zm"
-              type="line"
-              paint={{
-                "line-color": "#92c6df",
-                "line-offset": 1,
-                "line-width": 1,
-              }}
-              layout={{ visibility: layerVisibility.bikeFacilities }}
+            <Source id="composite" type="vector" url="mapbox://composite">
+              <Layer
+                id="walkingTrailsLayer"
+                source-layer="trans_walking_trails-1i81xd"
+                type="line"
+                paint={{
+                  "line-color": "#913368",
+                  "line-width": 1,
+                }}
+                layout={{ visibility: layerVisibility.walkingTrails }}
+              />
+            </Source>
+
+            <Source id="composite" type="vector" url="mapbox://composite">
+              <Layer
+                id="bikeFacilitiesLayer"
+                source-layer="trans_bike_facilities-22p2zm"
+                type="line"
+                paint={{
+                  "line-color": "#92c6df",
+                  "line-offset": 1,
+                  "line-width": 1,
+                }}
+                layout={{ visibility: layerVisibility.bikeFacilities }}
+              />
+            </Source>
+
+            <Source id="composite" type="vector" url="mapbox://composite">
+              <Layer
+                id="landLineSystemsLayer"
+                source-layer="trans_land_line_systems-710cn0"
+                type="line"
+                paint={{
+                  "line-color": "hsl(50, 100%, 66%)",
+                  "line-width": 1,
+                }}
+                layout={{ visibility: layerVisibility.landLineSystems }}
+              />
+            </Source>
+
+            <Source id="composite" type="vector" url="mapbox://composite">
+              <Layer
+                id="sharedUsePathsLayer"
+                source-layer="trans_shared_use_paths-9a2oo6"
+                type="line"
+                paint={{
+                  "line-color": "#41ec74",
+                  "line-offset": 3,
+                  "line-width": 1,
+                }}
+                layout={{ visibility: layerVisibility.sharedUsePaths }}
+              />
+            </Source>
+
+            <Source id="routeSource" type="geojson" data={geojson}>
+              <Layer {...lineStyle} />
+            </Source>
+
+            <Source id="startSource" type="geojson" data={startPoint}>
+              <Layer {...startPointStyle} />
+            </Source>
+
+            <Source id="endSource" type="geojson" data={endPoint}>
+              <Layer {...endPointStyle} />
+            </Source>
+
+            <GeolocateControl
+              showAccuracyCircle={false}
+              onGeolocate={(e) =>
+                setStart([e.coords.longitude, e.coords.latitude])
+              }
+              ref={GeolocateControlRef}
+              position="bottom-right"
             />
-          </Source>
-
-          <Source id="composite" type="vector" url="mapbox://composite">
-            <Layer
-              id="landLineSystemsLayer"
-              source-layer="trans_land_line_systems-710cn0"
-              type="line"
-              paint={{
-                "line-color": "hsl(50, 100%, 66%)",
-                "line-width": 1,
-              }}
-              layout={{ visibility: layerVisibility.landLineSystems }}
+            <FullscreenControl position="bottom-right" />
+            <NavigationControl
+              position="bottom-right"
+              style={{ bottom: "30px !important" }}
             />
-          </Source>
-
-          <Source id="composite" type="vector" url="mapbox://composite">
-            <Layer
-              id="sharedUsePathsLayer"
-              source-layer="trans_shared_use_paths-9a2oo6"
-              type="line"
-              paint={{
-                "line-color": "#41ec74",
-                "line-offset": 3,
-                "line-width": 1,
-              }}
-              layout={{ visibility: layerVisibility.sharedUsePaths }}
+            <LabeledMarker
+              longitude={start[0]}
+              latitude={start[1]}
+              label="Start Point"
+              color="green"
+              onClick={() =>
+                handleMarkerClick(start[0], start[1], "Start Point")
+              }
             />
-          </Source>
-
-          <Source id="routeSource" type="geojson" data={geojson}>
-            <Layer {...lineStyle} />
-          </Source>
-
-          <Source id="startSource" type="geojson" data={startPoint}>
-            <Layer {...startPointStyle} />
-          </Source>
-
-          <Source id="endSource" type="geojson" data={endPoint}>
-            <Layer {...endPointStyle} />
-          </Source>
-
-          <GeolocateControl
-            showAccuracyCircle={false}
-            onGeolocate={(e) =>
-              setStart([e.coords.longitude, e.coords.latitude])
-            }
-            ref={GeolocateControlRef}
-            position="bottom-right"
-          />
-          <FullscreenControl position="bottom-right" />
-          <NavigationControl
-            position="bottom-right"
-            style={{ bottom: "30px !important" }}
-          />
-          <LabeledMarker
-            longitude={start[0]}
-            latitude={start[1]}
-            label="Start Point"
-            color="green"
-            onClick={() => handleMarkerClick(start[0], start[1], "Start Point")}
-          />
-          <LabeledMarker
-            longitude={end[0]}
-            latitude={end[1]}
-            label="End Point"
-            color="#f30"
-            onClick={() => handleMarkerClick(end[0], end[1], "End Point")}
-          />
-          {selectedMarker && (
-            <Popup
-              longitude={selectedMarker.longitude}
-              latitude={selectedMarker.latitude}
-              onClose={() => setSelectedMarker(null)}
-              closeOnClick={false}
-              anchor="top"
-            >
-              <div>{selectedMarker.text}</div>
-              <div>lat: {selectedMarker.latitude}</div>
-              <div>lng: {selectedMarker.longitude}</div>
-            </Popup>
-          )}
-          <InstructionsDrawer
-            getRoute={getRoute}
-            setStart={setStart}
-            setEnd={setEnd}
-            start={start}
-            end={end}
-            selectedPoint={selectedPoint}
-            setSelectedPoint={setSelectedPoint}
-            layerVisibility={layerVisibility}
-            toggleLayerVisibility={toggleLayerVisibility}
-            distance={distance}
-            duration={duration}
-            travelMode={travelMode}
-            setTravelMode={setTravelMode}
-          />
-        </ReactMapboxGl>
+            <LabeledMarker
+              longitude={end[0]}
+              latitude={end[1]}
+              label="End Point"
+              color="#f30"
+              onClick={() => handleMarkerClick(end[0], end[1], "End Point")}
+            />
+            {selectedMarker && (
+              <Popup
+                longitude={selectedMarker.longitude}
+                latitude={selectedMarker.latitude}
+                onClose={() => setSelectedMarker(null)}
+                closeOnClick={false}
+                anchor="top"
+              >
+                <div>{selectedMarker.text}</div>
+                <div>lat: {selectedMarker.latitude}</div>
+                <div>lng: {selectedMarker.longitude}</div>
+              </Popup>
+            )}
+            <InstructionsDrawer
+              getRoute={getRoute}
+              setStart={setStart}
+              setEnd={setEnd}
+              start={start}
+              end={end}
+              selectedPoint={selectedPoint}
+              setSelectedPoint={setSelectedPoint}
+              layerVisibility={layerVisibility}
+              toggleLayerVisibility={toggleLayerVisibility}
+              distance={distance}
+              duration={duration}
+              travelMode={travelMode}
+              setTravelMode={setTravelMode}
+            />
+          </ReactMapboxGl>
+        </Suspense>
       </section>
     </>
   );

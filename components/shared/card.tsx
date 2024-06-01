@@ -1,5 +1,6 @@
-import { ReactNode } from "react";
+import React, { ReactNode, Suspense } from "react";
 import ReactMarkdown from "react-markdown";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 export default function Card({
   title,
@@ -20,20 +21,16 @@ export default function Card({
         large ? "md:col-span-2" : ""
       }`}
       onClick={onClick}
-      style={{ cursor: 'pointer' }} 
+      style={{ cursor: "pointer" }}
     >
       <div className="flex h-60 items-center justify-center overflow-hidden">
-        {demo}
+        <Suspense fallback={<LoadingSpinner />}>{demo}</Suspense>
       </div>
       <div className="relative mx-auto flex h-[141px] max-w-full flex-col items-center justify-center pt-2 text-center">
-        <h2
-          className="bg-gradient-to-br from-black to-stone-500 bg-clip-text px-2 font-display text-xl font-bold text-transparent [text-wrap:balance] md:text-3xl md:font-normal bg-white/50 backdrop-blur-xl"
-        >
+        <h2 className="bg-white/50 bg-gradient-to-br from-black to-stone-500 bg-clip-text px-2 font-display text-xl font-bold text-transparent backdrop-blur-xl [text-wrap:balance] md:text-3xl md:font-normal">
           {title}
         </h2>
-        <div
-          className="prose-sm mt-3 px-2 leading-normal text-gray-500 [text-wrap:balance] md:prose bg-white/50 backdrop-blur-xl"
-        >
+        <div className="prose-sm mt-3 bg-white/50 px-2 leading-normal text-gray-500 backdrop-blur-xl [text-wrap:balance] md:prose">
           <ReactMarkdown
             components={{
               a: ({ node, ...props }) => (

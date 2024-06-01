@@ -1,6 +1,8 @@
 import WebVitals from "./web-vitals";
 import MultiLineChart from "@/components/charts/multi-line-chart";
 import Image from "next/image";
+import React, { Suspense } from "react";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 const demoTech = (
   <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
@@ -26,12 +28,14 @@ export const content = [
     title: "TrailMap",
     description: "Metro Boston's Regional Walking and Cycling Map",
     demo: (
-      <Image
-        alt="TrailMap Demo"
-        src="/gif/trailmap.gif"
-        objectFit="cover"
-        fill={true}
-      />
+      <Suspense fallback={<LoadingSpinner />}>
+        <Image
+          alt="TrailMap Demo"
+          src="/gif/trailmap.gif"
+          layout="fill"
+          objectFit="cover"
+        />
+      </Suspense>
     ),
     large: true,
     isNotMobileModal: true,

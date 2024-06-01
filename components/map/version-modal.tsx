@@ -10,12 +10,12 @@ interface VersionModalProps {
 const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
   return (
     <Modal showModal={showModal} setShowModal={setShowModal}>
-      <div className="w-full max-h-screen overflow-y-auto z-50 shadow-xl md:max-w-lg md:rounded-2xl md:border md:border-gray-200 bg-white">
+      <div className="z-50 max-h-screen w-full overflow-y-auto bg-white shadow-xl md:max-w-lg md:rounded-2xl md:border md:border-gray-200">
         <div className="relative p-4 md:p-6">
-          <div className="absolute top-3 left-2 text-sm font-semibold text-gray-600">
+          <div className="absolute left-2 top-3 text-sm font-semibold text-gray-600">
             Version 1.7
           </div>
-          <div className="flex justify-center mb-4">
+          <div className="mb-4 flex justify-center">
             <Image
               src="/images/tbtag.png"
               alt="GeoDev 2021"
@@ -24,14 +24,20 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
               className="rounded-full border-2 border-gray-200"
             />
           </div>
-          <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">Current and Upcoming Versions</h2>
+          <h2 className="mb-4 text-center text-xl font-bold text-gray-800 md:text-2xl">
+            Current and Upcoming Versions
+          </h2>
 
           <div className="space-y-6">
-            <details open className="border border-gray-200 p-3 rounded-md">
-              <summary className="cursor-pointer text-lg md:text-xl font-semibold text-gray-700">Current Version:</summary>
+            <details open className="rounded-md border border-gray-200 p-3">
+              <summary className="cursor-pointer text-lg font-semibold text-gray-700 md:text-xl">
+                Current Version:
+              </summary>
               <div className="mt-2">
-                <h3 className="text-md md:text-lg font-semibold text-gray-700">Version 1 (Implemented):</h3>
-                <ul className="list-disc list-inside mt-2 text-gray-600 text-sm md:text-base">
+                <h3 className="text-md font-semibold text-gray-700 md:text-lg">
+                  Version 1 (Implemented):
+                </h3>
+                <ul className="mt-2 list-inside list-disc text-sm text-gray-600 md:text-base">
                   <li>User signup/signin</li>
                   <li>Pin on the map for start and end points</li>
                   <li>Search input for start and end points</li>
@@ -43,23 +49,41 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
               </div>
             </details>
 
-            <details className="border border-gray-200 p-3 rounded-md">
-              <summary className="cursor-pointer text-lg md:text-xl font-semibold text-gray-700">Upcoming Versions:</summary>
+            <details className="rounded-md border border-gray-200 p-3">
+              <summary className="cursor-pointer text-lg font-semibold text-gray-700 md:text-xl">
+                Upcoming Versions:
+              </summary>
               <div className="mt-2">
                 <div className="mb-4 md:mb-6">
-                  <h3 className="text-md md:text-lg font-semibold text-gray-700">Version 2:</h3>
-                  <ul className="list-disc list-inside mt-2 text-gray-600 text-sm md:text-base">
-                    <li>Pin and display a popup card with the main entrance bike/walking trails in Massachusetts</li>
+                  <h3 className="text-md font-semibold text-gray-700 md:text-lg">
+                    Version 2:
+                  </h3>
+                  <ul className="mt-2 list-inside list-disc text-sm text-gray-600 md:text-base">
+                    <li>
+                      Pin and display a popup card with the main entrance
+                      bike/walking trails in Massachusetts
+                    </li>
                     <li>UI improvements</li>
                   </ul>
                 </div>
 
                 <div className="mb-4 md:mb-6">
-                  <h3 className="text-md md:text-lg font-semibold text-gray-700">Version 3:</h3>
-                  <ul className="list-disc list-inside mt-2 text-gray-600 text-sm md:text-base">
-                    <li>After signing in, you will be able to save your best routes with start and end points</li>
-                    <li>After signing in, you will be able to save entrance bike/walking trails</li>
-                    <li>On the dashboard, you can visualize all your saved routes for different types: driving, walking, cycling</li>
+                  <h3 className="text-md font-semibold text-gray-700 md:text-lg">
+                    Version 3:
+                  </h3>
+                  <ul className="mt-2 list-inside list-disc text-sm text-gray-600 md:text-base">
+                    <li>
+                      After signing in, you will be able to save your best
+                      routes with start and end points
+                    </li>
+                    <li>
+                      After signing in, you will be able to save entrance
+                      bike/walking trails
+                    </li>
+                    <li>
+                      On the dashboard, you can visualize all your saved routes
+                      for different types: driving, walking, cycling
+                    </li>
                     <li>UI improvements</li>
                   </ul>
                 </div>
