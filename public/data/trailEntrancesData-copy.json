@@ -50,7 +50,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-71.076, 42.3151]
+        "coordinates": [-71.0760, 42.3151]
       },
       "properties": {
         "id": 4,
@@ -65,7 +65,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-71.125, 42.396]
+        "coordinates": [-71.1250, 42.3960]
       },
       "properties": {
         "id": 5,
@@ -80,7 +80,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-71.07, 42.347]
+        "coordinates": [-71.0700, 42.3470]
       },
       "properties": {
         "id": 6,

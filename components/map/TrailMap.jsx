@@ -23,6 +23,7 @@ import LabeledMarker from "./LabeledMarker";
 import GeocoderControl from "./geocoder-control";
 import VersionModal from "./version-modal";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
+import Image from "next/image"; // Import Image from next/image
 import {
   lineStyle,
   startPointStyle,
@@ -77,7 +78,7 @@ const TrailMap = () => {
       travelMode === "bicycling" ? "cycling" : travelMode;
     try {
       const response = await fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/${adjustedTravelMode}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
+        `https://api.mapbox.com/directions/v5/mapbox/${adjustedTravelMode}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
       );
       const data = await response.json();
       console.log("Route data:", data);
@@ -189,7 +190,7 @@ const TrailMap = () => {
           <Pin />
         </Marker>
       )),
-    [trailEntrancesData],
+    [trailEntrancesData]
   );
 
   return (
@@ -332,7 +333,7 @@ const TrailMap = () => {
                     {popupInfo.properties.activities.join(", ")}
                   </p>
                   <div className="my-2">
-                    <img
+                    <Image
                       src={popupInfo.properties.imageUrl}
                       alt={popupInfo.properties.name}
                       className="rounded"

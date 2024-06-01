@@ -11,7 +11,7 @@
         "id": 1,
         "name": "Charles River Bike Path",
         "activities": ["biking"],
-        "imageUrl": "https://cloudfront.traillink.com/photos/charles-river-bike-path_167992_sc.jpg",
+        "imageUrl": "/images/pins/charles-river-bike.png",
         "description": "A scenic bike path along the Charles River in Boston.",
         "url": "https://www.traillink.com/trail/charles-river-bike-path/"
       }
@@ -26,7 +26,7 @@
         "id": 2,
         "name": "Minuteman Bikeway",
         "activities": ["biking"],
-        "imageUrl": "https://freedomsway.org/wp-content/uploads/2022/01/arlington-ma_minuteman-bikeway-1.jpeg",
+        "imageUrl": "/images/pins/minuteman-bikeway.png",
         "description": "A popular bike trail connecting Cambridge and Bedford.",
         "url": "https://www.traillink.com/trail/minuteman-bikeway/"
       }
@@ -41,7 +41,7 @@
         "id": 3,
         "name": "Emerald Necklace",
         "activities": ["walking", "biking"],
-        "imageUrl": "https://greatruns.com/wp-content/uploads/2016/07/emerald-necklace-bike-and-running-paths-CP.png",
+        "imageUrl": "/images/pins/emerald-necklace.png",
         "description": "A chain of parks linked by parkways and waterways in Boston.",
         "url": "https://www.emeraldnecklace.org/"
       }
@@ -56,7 +56,7 @@
         "id": 4,
         "name": "Jamaica Pond",
         "activities": ["walking"],
-        "imageUrl": "https://jamaicaplainnews.com/wp-content/uploads/2019/11/IMG_0962-1170x878.jpg",
+        "imageUrl": "/images/pins/jamaicaplain.png",
         "description": "A large pond in the Emerald Necklace park system.",
         "url": "https://www.boston.gov/parks/jamaica-pond"
       }
@@ -71,7 +71,7 @@
         "id": 5,
         "name": "Fresh Pond",
         "activities": ["walking", "biking"],
-        "imageUrl": "https://urbnparks.com/wp-content/uploads/2020/09/Fresh-pond1.jpg",
+        "imageUrl": "/images/pins/freshpondreservation.png",
         "description": "A reservoir and public park in Cambridge.",
         "url": "https://www.cambridgema.gov/Water/freshpondreservation"
       }
@@ -86,7 +86,7 @@
         "id": 6,
         "name": "Boston Common",
         "activities": ["walking"],
-        "imageUrl": "https://www.ytravelblog.com/wp-content/uploads/2024/02/Boston-Common-.jpg",
+        "imageUrl": "/images/pins/boston-common.png",
         "description": "A central public park in downtown Boston.",
         "url": "https://www.boston.gov/parks/boston-common"
       }
@@ -101,7 +101,7 @@
         "id": 7,
         "name": "Harvard Yard",
         "activities": ["walking"],
-        "imageUrl": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/86/f1/46/caption.jpg?w=1200",
+        "imageUrl": "/images/pins/harvard-yard.png",
         "description": "The historic center of Harvard University.",
         "url": "https://www.harvard.edu"
       }
@@ -116,7 +116,7 @@
         "id": 8,
         "name": "Alewife Brook Reservation",
         "activities": ["walking", "biking"],
-        "imageUrl": "https://urbnparks.com/wp-content/uploads/2022/11/alewife-brook-reservation3.jpg",
+        "imageUrl": "/images/pins/alewife-brook.png",
         "description": "A multi-use path along Alewife Brook.",
         "url": "https://www.mass.gov/locations/alewife-brook-reservation"
       }
@@ -131,7 +131,7 @@
         "id": 9,
         "name": "Cambridge Crossing",
         "activities": ["biking"],
-        "imageUrl": "https://bikeitorhikeit.org/mass_c1.jpg",
+        "imageUrl": "/images/pins/cambridge-crossing.png",
         "description": "A new development with bike paths and green spaces.",
         "url": "https://www.cambridgecrossing.com"
       }
@@ -146,7 +146,7 @@
         "id": 10,
         "name": "Arnold Arboretum",
         "activities": ["walking"],
-        "imageUrl": "https://live.staticflickr.com/2916/14254700753_dcfcdd4534_z.jpg",
+        "imageUrl": "/images/pins/arnold-arboretum.png",
         "description": "A botanical garden in the Emerald Necklace.",
         "url": "https://arboretum.harvard.edu"
       }
