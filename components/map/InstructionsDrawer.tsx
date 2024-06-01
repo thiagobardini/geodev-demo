@@ -178,7 +178,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
             className="mt-8 cursor-pointer text-center text-sm font-semibold text-white underline"
             onClick={() => setShowVersionModal(true)}
           >
-            Version 1.7
+            Version 2.0
           </div>
         </div>
         {!isOpen && (
