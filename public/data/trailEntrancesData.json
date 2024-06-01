@@ -1,0 +1,155 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.52009109339605, 42.15674429166914]
+      },
+      "properties": {
+        "id": 1,
+        "name": "Charles River Bike Path",
+        "activities": ["biking"],
+        "imageUrl": "https://cloudfront.traillink.com/photos/charles-river-bike-path_167992_sc.jpg",
+        "description": "A scenic bike path along the Charles River in Boston.",
+        "url": "https://www.traillink.com/trail/charles-river-bike-path/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.21286625139037, 42.44055249627318]
+      },
+      "properties": {
+        "id": 2,
+        "name": "Minuteman Bikeway",
+        "activities": ["biking"],
+        "imageUrl": "https://freedomsway.org/wp-content/uploads/2022/01/arlington-ma_minuteman-bikeway-1.jpeg",
+        "description": "A popular bike trail connecting Cambridge and Bedford.",
+        "url": "https://www.traillink.com/trail/minuteman-bikeway/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.11690392189318, 42.32265402916652]
+      },
+      "properties": {
+        "id": 3,
+        "name": "Emerald Necklace",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://greatruns.com/wp-content/uploads/2016/07/emerald-necklace-bike-and-running-paths-CP.png",
+        "description": "A chain of parks linked by parkways and waterways in Boston.",
+        "url": "https://www.emeraldnecklace.org/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.11742243428274, 42.31625933176301]
+      },
+      "properties": {
+        "id": 4,
+        "name": "Jamaica Pond",
+        "activities": ["walking"],
+        "imageUrl": "https://jamaicaplainnews.com/wp-content/uploads/2019/11/IMG_0962-1170x878.jpg",
+        "description": "A large pond in the Emerald Necklace park system.",
+        "url": "https://www.boston.gov/parks/jamaica-pond"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.1439019056105, 42.3830466447695]
+      },
+      "properties": {
+        "id": 5,
+        "name": "Fresh Pond",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://urbnparks.com/wp-content/uploads/2020/09/Fresh-pond1.jpg",
+        "description": "A reservoir and public park in Cambridge.",
+        "url": "https://www.cambridgema.gov/Water/freshpondreservation"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.06570402798819, 42.35540644345338]
+      },
+      "properties": {
+        "id": 6,
+        "name": "Boston Common",
+        "activities": ["walking"],
+        "imageUrl": "https://www.ytravelblog.com/wp-content/uploads/2024/02/Boston-Common-.jpg",
+        "description": "A central public park in downtown Boston.",
+        "url": "https://www.boston.gov/parks/boston-common"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.11672174766319, 42.37453226321207]
+      },
+      "properties": {
+        "id": 7,
+        "name": "Harvard Yard",
+        "activities": ["walking"],
+        "imageUrl": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/86/f1/46/caption.jpg?w=1200",
+        "description": "The historic center of Harvard University.",
+        "url": "https://www.harvard.edu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.14369821445322, 42.397789632908726]
+      },
+      "properties": {
+        "id": 8,
+        "name": "Alewife Brook Reservation",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://urbnparks.com/wp-content/uploads/2022/11/alewife-brook-reservation3.jpg",
+        "description": "A multi-use path along Alewife Brook.",
+        "url": "https://www.mass.gov/locations/alewife-brook-reservation"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.07429755762709, 42.37236861999247 ]
+      },
+      "properties": {
+        "id": 9,
+        "name": "Cambridge Crossing",
+        "activities": ["biking"],
+        "imageUrl": "https://bikeitorhikeit.org/mass_c1.jpg",
+        "description": "A new development with bike paths and green spaces.",
+        "url": "https://www.cambridgecrossing.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.11977453614438, 42.30773029615937]
+      },
+      "properties": {
+        "id": 10,
+        "name": "Arnold Arboretum",
+        "activities": ["walking"],
+        "imageUrl": "https://live.staticflickr.com/2916/14254700753_dcfcdd4534_z.jpg",
+        "description": "A botanical garden in the Emerald Necklace.",
+        "url": "https://arboretum.harvard.edu"
+      }
+    }
+  ]
+}

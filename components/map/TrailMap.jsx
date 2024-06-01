@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback, Suspense } from "react";
+import { useState, useEffect, useRef, useCallback, Suspense, useMemo } from "react";
 import ReactMapboxGl, {
   FullscreenControl,
   GeolocateControl,
@@ -8,12 +8,20 @@ import ReactMapboxGl, {
   Popup,
   Source,
   Layer,
+  Marker,
+  ScaleControl
 } from "react-map-gl";
 import InstructionsDrawer from "./InstructionsDrawer";
 import LabeledMarker from "./LabeledMarker";
 import GeocoderControl from "./geocoder-control";
 import VersionModal from "./version-modal";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
+import {
+  lineStyle,
+  startPointStyle,
+  endPointStyle,
+} from "./map-styles/trailLinesLayerProps";
+import Pin from "./pin";
 
 const initialViewState = {
   latitude: 42.395043,
@@ -34,14 +42,28 @@ const TrailMap = () => {
     bikeFacilities: "visible",
     landLineSystems: "visible",
     sharedUsePaths: "visible",
+    trailEntrances: "visible",
   });
+  const [trailEntrancesData, setTrailEntrancesData] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [selectedPoint, setSelectedPoint] = useState("end");
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [travelMode, setTravelMode] = useState("driving");
+  const [travelMode, setTravelMode] = useState("walking");
+  const [popupInfo, setPopupInfo] = useState(null);
 
   const GeolocateControlRef = useRef(null);
+  const mapRef = useRef(null);
+
+  useEffect(() => {
+    const fetchTrailEntrancesData = async () => {
+      const response = await fetch('/data/trailEntrancesData.json');
+      const data = await response.json();
+      setTrailEntrancesData(data.features);
+    };
+
+    fetchTrailEntrancesData();
+  }, []);
 
   const getRoute = useCallback(async () => {
     const adjustedTravelMode =
@@ -128,45 +150,15 @@ const TrailMap = () => {
     ],
   };
 
-  const lineStyle = {
-    id: "roadLayer",
-    type: "line",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#2124d7",
-      "line-width": 3,
-      "line-opacity": 0.75,
-    },
-  };
-
-  const startPointStyle = {
-    id: "start",
-    type: "circle",
-    paint: {
-      "circle-radius": 10,
-      "circle-color": "green",
-    },
-  };
-
-  const endPointStyle = {
-    id: "end",
-    type: "circle",
-    paint: {
-      "circle-radius": 10,
-      "circle-color": "#f30",
-    },
+  const handleMarkerDragEnd = (event, setPoint) => {
+    const newLocation = [event.lngLat.lng, event.lngLat.lat];
+    setPoint(newLocation);
   };
 
   const handleClick = (e) => {
     console.log("TrailMap clicked at:", e.lngLat);
-    const newLocation = [e.lngLat.lng, e.lngLat.lat];
-    if (selectedPoint === "start") {
-      setStart(newLocation);
-    } else {
-      setEnd(newLocation);
+    if (popupInfo) {
+      setPopupInfo(null);
     }
   };
 
@@ -180,6 +172,25 @@ const TrailMap = () => {
     console.log("Selected marker:", selectedMarker);
   };
 
+  const pins = useMemo(
+    () =>
+      trailEntrancesData.map((trail, index) => (
+        <Marker
+          key={`marker-${index}`}
+          longitude={trail.geometry.coordinates[0]}
+          latitude={trail.geometry.coordinates[1]}
+          anchor="bottom"
+          onClick={(e) => {
+            e.originalEvent.stopPropagation();
+            setPopupInfo(trail);
+          }}
+        >
+          <Pin />
+        </Marker>
+      )),
+    [trailEntrancesData]
+  );
+
   return (
     <>
       <VersionModal />
@@ -187,6 +198,7 @@ const TrailMap = () => {
         <Suspense fallback={<LoadingSpinner />}>
           <ReactMapboxGl
             {...viewport}
+            ref={mapRef}
             onClick={handleClick}
             onMove={(event) => setViewport(event.viewState)}
             mapStyle={process.env.NEXT_PUBLIC_MAPBOX_STYLE_MONOCHROME}
@@ -210,7 +222,7 @@ const TrailMap = () => {
               mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
               position="bottom-right"
             />
-
+          
             <Source id="composite" type="vector" url="mapbox://composite">
               <Layer
                 id="walkingTrailsLayer"
@@ -277,6 +289,8 @@ const TrailMap = () => {
               <Layer {...endPointStyle} />
             </Source>
 
+            {layerVisibility.trailEntrances === "visible" && pins}
+
             <GeolocateControl
               showAccuracyCircle={false}
               onGeolocate={(e) =>
@@ -290,33 +304,54 @@ const TrailMap = () => {
               position="bottom-right"
               style={{ bottom: "30px !important" }}
             />
-            <LabeledMarker
+            <Marker
               longitude={start[0]}
               latitude={start[1]}
-              label="Start Point"
-              color="green"
-              onClick={() =>
-                handleMarkerClick(start[0], start[1], "Start Point")
-              }
-            />
-            <LabeledMarker
+              anchor="bottom"
+              draggable
+              onDragEnd={(e) => handleMarkerDragEnd(e, setStart)}
+            >
+              <div className="bg-green-500 text-white p-1 rounded-md">Start Point</div>
+              
+            </Marker>
+            <Marker
               longitude={end[0]}
               latitude={end[1]}
-              label="End Point"
-              color="#f30"
-              onClick={() => handleMarkerClick(end[0], end[1], "End Point")}
-            />
-            {selectedMarker && (
+              anchor="bottom"
+              draggable
+              onDragEnd={(e) => handleMarkerDragEnd(e, setEnd)}
+            >
+              <div className="bg-red-500 text-white p-1 rounded-md">End Point</div>
+            </Marker>
+            {popupInfo && (
               <Popup
-                longitude={selectedMarker.longitude}
-                latitude={selectedMarker.latitude}
-                onClose={() => setSelectedMarker(null)}
+                longitude={popupInfo.geometry.coordinates[0]}
+                latitude={popupInfo.geometry.coordinates[1]}
+                onClose={() => setPopupInfo(null)}
                 closeOnClick={false}
                 anchor="top"
               >
-                <div>{selectedMarker.text}</div>
-                <div>lat: {selectedMarker.latitude}</div>
-                <div>lng: {selectedMarker.longitude}</div>
+                <div className="p-2">
+                  <h3 className="font-semibold text-lg">{popupInfo.properties.name}</h3>
+                  <p className="text-sm">{popupInfo.properties.activities.join(', ')}</p>
+                  <div className="my-2">
+                    <img 
+                      src={popupInfo.properties.imageUrl} 
+                      alt={popupInfo.properties.name} 
+                      className="rounded"
+                      width={200}
+                      height={100}
+                    />
+                  </div>
+                  <a 
+                    href={popupInfo.properties.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-indigo-600 hover:text-indigo-800 text-sm"
+                  >
+                    More info
+                  </a>
+                </div>
               </Popup>
             )}
             <InstructionsDrawer

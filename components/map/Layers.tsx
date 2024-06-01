@@ -1,4 +1,5 @@
 import React from "react";
+import Pin from "./pin";
 
 interface LayersProps {
   layerVisibility: { [key: string]: string };
@@ -97,6 +98,27 @@ const Layers: React.FC<LayersProps> = ({
             className="ml-2 h-1 w-6"
             style={{ backgroundColor: "#41ec74" }}
           ></div>
+        </div>
+      </div>
+      {/* Trail Entrances */}
+      <div className="relative flex items-start">
+        <div className="flex h-6 items-center">
+          <input
+            id="trailEntrancesPath"
+            onClick={() => toggleLayerVisibility("trailEntrances")}
+            name="trailEntrancesPaths"
+            type="checkbox"
+            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            checked={layerVisibility.trailEntrances === "visible"}
+          />
+        </div>
+        <div className="ml-3 flex items-center text-sm leading-6">
+          <label htmlFor="trailEntrancesPath" className="font-medium text-white">
+            Trail Entrances
+          </label>
+          <div className="ml-2">
+            <Pin />
+          </div>
         </div>
       </div>
     </div>

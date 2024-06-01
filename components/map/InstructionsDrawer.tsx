@@ -106,28 +106,39 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
           <div className="my-6 flex items-center">
             <div className="flex-grow border-t border-gray-100"></div>
           </div>
-          <div className="mt-4 flex items-center">
-            <h3 className="text-white">Directions</h3>
-            <Tooltip content="You can change the start point and end point by entering the locations in the inputs below.">
-              <Info className="ml-2 h-5 w-5 text-gray-400" />
-            </Tooltip>
-          </div>
-          <Places
-            placeholder="Enter Start Point"
-            setEnd={(point: Coordinates) => setStart(point)}
-          />
-          <Places
-            placeholder="Enter End Point"
-            setEnd={(point: Coordinates) => setEnd(point)}
-          />
-
-          <div className="mt-4 flex items-center">
-            <h3 className="text-white">Select Point to Change on Map</h3>
-            <Tooltip content="Select 'Start Point' or 'End Point' below to set the corresponding marker on the map when you click instead of entering the address.">
-              <Info className="ml-2 h-5 w-5 text-gray-400" />
-            </Tooltip>
-          </div>
-          <select
+          <section className="mt-2">
+            <div className=" flex items-center">
+              <h3 className="text-white">Directions</h3>
+              <Tooltip content="You can change the start point and end point by entering the locations in the inputs below.">
+                <Info className="ml-2 h-5 w-5 text-gray-400" />
+              </Tooltip>
+            </div>
+            <Places
+              placeholder="Enter Start Point"
+              setEnd={(point: Coordinates) => setStart(point)}
+            />
+            <Places
+              placeholder="Enter End Point"
+              setEnd={(point: Coordinates) => setEnd(point)}
+            />
+          </section>
+          <section className="pt-2">
+            <div className="flex items-center">
+              <h3 className="text-white">Draggable Markers</h3>
+              <Tooltip content="Drag the markers to change the start and end points.">
+                <Info className="ml-2 h-5 w-5 text-gray-400" />
+              </Tooltip>
+            </div>
+            <div className="mt-2 flex items-center justify-start gap-4">
+              <div className="rounded-md bg-green-500 p-1 text-white">
+                Start Point
+              </div>
+              <div className="rounded-md bg-red-500 p-1 text-white">
+                End Point
+              </div>
+            </div>
+          </section>
+          {/* <select
             className="mt-2 w-full bg-slate-800 p-2 text-sm text-white shadow-inner"
             value={selectedPoint}
             onChange={(e) => setSelectedPoint(e.target.value)}
@@ -136,7 +147,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
               Start Point
             </option>
             <option value="end">End Point</option>
-          </select>
+          </select> */}
 
           <div className="mt-4 flex items-center">
             <h3 className="text-white">Travel Mode</h3>

@@ -1,0 +1,305 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.52009109339605, 42.15674429166914]
+      },
+      "properties": {
+        "id": 1,
+        "name": "Charles River Bike Path",
+        "activities": ["biking"],
+        "imageUrl": "https://cloudfront.traillink.com/photos/charles-river-bike-path_167992_sc.jpg",
+        "description": "A scenic bike path along the Charles River in Boston.",
+        "url": "https://www.traillink.com/trail/charles-river-bike-path/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.1627, 42.4194]
+      },
+      "properties": {
+        "id": 2,
+        "name": "Minuteman Bikeway",
+        "activities": ["biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/84/Minuteman_Commuter_Bikeway_Lexington.jpg",
+        "description": "A popular bike trail connecting Cambridge and Bedford.",
+        "url": "https://www.traillink.com/trail/minuteman-bikeway/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.0995, 42.3221]
+      },
+      "properties": {
+        "id": 3,
+        "name": "Emerald Necklace",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/15/Emerald_Necklace_Greenway_Boston.jpg",
+        "description": "A chain of parks linked by parkways and waterways in Boston.",
+        "url": "https://www.emeraldnecklace.org/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.0760, 42.3151]
+      },
+      "properties": {
+        "id": 4,
+        "name": "Jamaica Pond",
+        "activities": ["walking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/24/Jamaica_Pond_in_Spring.jpg",
+        "description": "A large pond in the Emerald Necklace park system.",
+        "url": "https://www.boston.gov/parks/jamaica-pond"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.1250, 42.3960]
+      },
+      "properties": {
+        "id": 5,
+        "name": "Fresh Pond",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/77/Fresh_Pond_reservoir.jpg",
+        "description": "A reservoir and public park in Cambridge.",
+        "url": "https://www.cambridgema.gov/Water/freshpondreservation"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.0700, 42.3470]
+      },
+      "properties": {
+        "id": 6,
+        "name": "Boston Common",
+        "activities": ["walking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/30/Boston_Common_-_November_2016.jpg",
+        "description": "A central public park in downtown Boston.",
+        "url": "https://www.boston.gov/parks/boston-common"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.0961, 42.3762]
+      },
+      "properties": {
+        "id": 7,
+        "name": "Harvard Yard",
+        "activities": ["walking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Harvard_Yard%2C_Harvard_University.jpg",
+        "description": "The historic center of Harvard University.",
+        "url": "https://www.harvard.edu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.0847, 42.4075]
+      },
+      "properties": {
+        "id": 8,
+        "name": "Alewife Brook Greenway",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Alewife_Brook_Greenway.jpg",
+        "description": "A multi-use path along Alewife Brook.",
+        "url": "https://www.traillink.com/trail/alewife-brook-greenway/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.1112, 42.3605]
+      },
+      "properties": {
+        "id": 9,
+        "name": "Cambridge Crossing",
+        "activities": ["biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Cambridge_Crossing.jpg",
+        "description": "A new development with bike paths and green spaces.",
+        "url": "https://www.cambridgecrossing.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.0817, 42.3121]
+      },
+      "properties": {
+        "id": 10,
+        "name": "Arnold Arboretum",
+        "activities": ["walking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Arnold_Arboretum_lilac_collection.jpg",
+        "description": "A botanical garden in the Emerald Necklace.",
+        "url": "https://arboretum.harvard.edu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.8438, 42.4223]
+      },
+      "properties": {
+        "id": 11,
+        "name": "Lynn Woods",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/14/Lynn_Woods.jpg",
+        "description": "A large municipal forest park in Lynn.",
+        "url": "https://www.lynnma.gov/departments/lynnwoods.shtml"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.9595, 42.5673]
+      },
+      "properties": {
+        "id": 12,
+        "name": "Bradley Palmer State Park",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/32/Bradley_Palmer_State_Park.jpg",
+        "description": "A state park with trails and bridle paths.",
+        "url": "https://www.mass.gov/locations/bradley-palmer-state-park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.3334, 42.7008]
+      },
+      "properties": {
+        "id": 13,
+        "name": "Great Brook Farm State Park",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Great_Brook_Farm_State_Park.jpg",
+        "description": "A state park with trails and a working dairy farm.",
+        "url": "https://www.mass.gov/locations/great-brook-farm-state-park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-72.6288, 42.5917]
+      },
+      "properties": {
+        "id": 14,
+        "name": "Norwottuck Rail Trail",
+        "activities": ["biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/34/Norwottuck_Rail_Trail.jpg",
+        "description": "A bike trail connecting Northampton and Amherst.",
+        "url": "https://www.mass.gov/locations/norwottuck-rail-trail"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.1655, 42.1947]
+      },
+      "properties": {
+        "id": 15,
+        "name": "Beartown State Forest",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/52/Beartown_State_Forest.jpg",
+        "description": "A state forest with trails and a pond.",
+        "url": "https://www.mass.gov/locations/beartown-state-forest"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.8486, 42.1294]
+      },
+      "properties": {
+        "id": 16,
+        "name": "Wompatuck State Park",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Wompatuck_State_Park.jpg",
+        "description": "A state park with trails and campgrounds.",
+        "url": "https://www.mass.gov/locations/wompatuck-state-park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.7014, 41.9584]
+      },
+      "properties": {
+        "id": 17,
+        "name": "Myles Standish State Forest",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/02/Myles_Standish_State_Forest.jpg",
+        "description": "A state forest with trails and campgrounds.",
+        "url": "https://www.mass.gov/locations/myles-standish-state-forest"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.1124, 42.4591]
+      },
+      "properties": {
+        "id": 18,
+        "name": "Middlesex Fells Reservation",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Middlesex_Fells_Reservation.jpg",
+        "description": "A large park with trails near Boston.",
+        "url": "https://www.mass.gov/locations/middlesex-fells-reservation"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-72.6885, 42.1865]
+      },
+      "properties": {
+        "id": 19,
+        "name": "Holyoke Range State Park",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/41/Holyoke_Range_State_Park.jpg",
+        "description": "A state park with trails and scenic views.",
+        "url": "https://www.mass.gov/locations/holyoke-range-state-park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-71.2101, 42.3635]
+      },
+      "properties": {
+        "id": 20,
+        "name": "Callahan State Park",
+        "activities": ["walking", "biking"],
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Callahan_State_Park.jpg",
+        "description": "A state park with trails and open spaces.",
+        "url": "https://www.mass.gov/locations/callahan-state-park"
+      }
+    }
+  ]
+}
