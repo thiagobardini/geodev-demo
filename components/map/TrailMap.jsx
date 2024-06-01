@@ -40,6 +40,12 @@ const initialViewState = {
   padding: { top: 0, bottom: 0, left: 0, right: 0 },
 };
 
+const ImageWithFallback = ({ src, alt, width, height, className }) => (
+  <Suspense fallback={<LoadingSpinner />}>
+    <Image src={src} alt={alt} width={width} height={height} className={className} />
+  </Suspense>
+);
+
 const TrailMap = () => {
   const [viewport, setViewport] = useState(initialViewState);
   const [start, setStart] = useState([-71.061471, 42.355043]);
@@ -333,8 +339,8 @@ const TrailMap = () => {
                     {popupInfo.properties.activities.join(", ")}
                   </p>
                   <div className="my-2">
-                    <Image
-                      src={popupInfo.properties.imageUrl}
+                    <ImageWithFallback
+                      src={popupInfo.properties.imageUrl.replace('./', '/')} 
                       alt={popupInfo.properties.name}
                       className="rounded"
                       width={200}
