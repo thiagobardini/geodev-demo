@@ -12,6 +12,8 @@ import ReactMapboxGl, {
 import InstructionsDrawer from "./InstructionsDrawer";
 import LabeledMarker from "./LabeledMarker";
 import GeocoderControl from "./geocoder-control";
+import VersionModal from "./version-modal";
+
 
 const initialViewState = {
   latitude: 42.395043,
@@ -180,6 +182,7 @@ const TrailMap = () => {
 
   return (
     <>
+      <VersionModal />
       <section className="relative h-full w-full">
         <ReactMapboxGl
           {...viewport}
@@ -203,6 +206,8 @@ const TrailMap = () => {
               </div>
             </div>
           </div>
+
+
           <GeocoderControl
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
             position="bottom-right"
