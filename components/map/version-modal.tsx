@@ -18,7 +18,7 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
           <div className="mb-4 flex justify-center">
             <Image
               src="/images/tbtag.png"
-              alt="GeoDev 2021"
+              alt="GeoDev"
               width="100"
               height="100"
               className="rounded-full border-2 border-gray-200"
