@@ -189,7 +189,7 @@ const TrailMap = () => {
           <Pin />
         </Marker>
       )),
-    [trailEntrancesData]
+    [trailEntrancesData],
   );
 
   return (
