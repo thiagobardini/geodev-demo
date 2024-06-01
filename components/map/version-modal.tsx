@@ -55,7 +55,10 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
                   Version 2:
                 </h3>
                 <ul className="mt-2 list-inside list-disc text-sm text-gray-600 md:text-base">
-                  <li>Pin and display a popup card with the main entrance bike/walking trails in Massachusetts</li>
+                  <li>
+                    Pin and display a popup card with the main entrance
+                    bike/walking trails in Massachusetts
+                  </li>
                   <li>Layer: Show/hide trail entrances</li>
                   <li>Show trail entrances name when approaching the pin</li>
                   <li>UI improvements</li>
@@ -73,9 +76,18 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
                     Version 3:
                   </h3>
                   <ul className="mt-2 list-inside list-disc text-sm text-gray-600 md:text-base">
-                    <li>After signing in, you will be able to save your best routes with start and end points</li>
-                    <li>After signing in, you will be able to save entrance bike/walking trails</li>
-                    <li>On the dashboard, you can visualize all your saved routes for different types: driving, walking, cycling</li>
+                    <li>
+                      After signing in, you will be able to save your best
+                      routes with start and end points
+                    </li>
+                    <li>
+                      After signing in, you will be able to save entrance
+                      bike/walking trails
+                    </li>
+                    <li>
+                      On the dashboard, you can visualize all your saved routes
+                      for different types: driving, walking, cycling
+                    </li>
                     <li>UI improvements</li>
                   </ul>
                 </div>

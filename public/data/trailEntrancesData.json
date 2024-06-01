@@ -125,7 +125,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-71.07429755762709, 42.37236861999247 ]
+        "coordinates": [-71.07429755762709, 42.37236861999247]
       },
       "properties": {
         "id": 9,

@@ -113,7 +113,10 @@ const Layers: React.FC<LayersProps> = ({
           />
         </div>
         <div className="ml-3 flex items-center text-sm leading-6">
-          <label htmlFor="trailEntrancesPath" className="font-medium text-white">
+          <label
+            htmlFor="trailEntrancesPath"
+            className="font-medium text-white"
+          >
             Trail Entrances
           </label>
           <div className="ml-2">

@@ -1,6 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback, Suspense, useMemo } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  Suspense,
+  useMemo,
+} from "react";
 import ReactMapboxGl, {
   FullscreenControl,
   GeolocateControl,
@@ -9,7 +16,7 @@ import ReactMapboxGl, {
   Source,
   Layer,
   Marker,
-  ScaleControl
+  ScaleControl,
 } from "react-map-gl";
 import InstructionsDrawer from "./InstructionsDrawer";
 import LabeledMarker from "./LabeledMarker";
@@ -57,7 +64,7 @@ const TrailMap = () => {
 
   useEffect(() => {
     const fetchTrailEntrancesData = async () => {
-      const response = await fetch('/data/trailEntrancesData.json');
+      const response = await fetch("/data/trailEntrancesData.json");
       const data = await response.json();
       setTrailEntrancesData(data.features);
     };
@@ -188,7 +195,7 @@ const TrailMap = () => {
           <Pin />
         </Marker>
       )),
-    [trailEntrancesData]
+    [trailEntrancesData],
   );
 
   return (
@@ -222,7 +229,7 @@ const TrailMap = () => {
               mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
               position="bottom-right"
             />
-          
+
             <Source id="composite" type="vector" url="mapbox://composite">
               <Layer
                 id="walkingTrailsLayer"
@@ -311,8 +318,9 @@ const TrailMap = () => {
               draggable
               onDragEnd={(e) => handleMarkerDragEnd(e, setStart)}
             >
-              <div className="bg-green-500 text-white p-1 rounded-md">Start Point</div>
-              
+              <div className="rounded-md bg-green-500 p-1 text-white">
+                Start Point
+              </div>
             </Marker>
             <Marker
               longitude={end[0]}
@@ -321,7 +329,9 @@ const TrailMap = () => {
               draggable
               onDragEnd={(e) => handleMarkerDragEnd(e, setEnd)}
             >
-              <div className="bg-red-500 text-white p-1 rounded-md">End Point</div>
+              <div className="rounded-md bg-red-500 p-1 text-white">
+                End Point
+              </div>
             </Marker>
             {popupInfo && (
               <Popup
@@ -332,22 +342,26 @@ const TrailMap = () => {
                 anchor="top"
               >
                 <div className="p-2">
-                  <h3 className="font-semibold text-lg">{popupInfo.properties.name}</h3>
-                  <p className="text-sm">{popupInfo.properties.activities.join(', ')}</p>
+                  <h3 className="text-lg font-semibold">
+                    {popupInfo.properties.name}
+                  </h3>
+                  <p className="text-sm">
+                    {popupInfo.properties.activities.join(", ")}
+                  </p>
                   <div className="my-2">
-                    <img 
-                      src={popupInfo.properties.imageUrl} 
-                      alt={popupInfo.properties.name} 
+                    <img
+                      src={popupInfo.properties.imageUrl}
+                      alt={popupInfo.properties.name}
                       className="rounded"
                       width={200}
                       height={100}
                     />
                   </div>
-                  <a 
-                    href={popupInfo.properties.url} 
-                    target="_blank" 
+                  <a
+                    href={popupInfo.properties.url}
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="text-indigo-600 hover:text-indigo-800 text-sm"
+                    className="text-sm text-indigo-600 hover:text-indigo-800"
                   >
                     More info
                   </a>
