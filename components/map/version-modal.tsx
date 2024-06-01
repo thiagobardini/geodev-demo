@@ -56,8 +56,8 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
                 </h3>
                 <ul className="mt-2 list-inside list-disc text-sm text-gray-600 md:text-base">
                   <li>
-                    Pin and display a popup card with the main entrance
-                    bike/walking trails in Massachusetts
+                    Pin and display a pop-up card with the main trails in Metro
+                    Boston's Regional Trail Network.
                   </li>
                   <li>Layer: Show/hide trail entrances</li>
                   <li>Show trail entrances name when approaching the pin</li>

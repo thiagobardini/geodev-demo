@@ -86,10 +86,8 @@ const TrailMap = () => {
         const route = data.routes[0];
         const coords = route.geometry.coordinates;
         setCoords(coords);
-        const distance = route.distance;
-        const duration = route.duration / 60;
-        setDistance(distance);
-        setDuration(duration);
+        setDistance(route.distance);
+        setDuration(route.duration / 60);
       } else {
         setCoords([]);
         setDistance(0);
@@ -108,7 +106,6 @@ const TrailMap = () => {
   }, [start, end, travelMode, getRoute]);
 
   const toggleLayerVisibility = (layerId) => {
-    console.log(`Toggling visibility for ${layerId}`);
     setLayerVisibility((prevState) => ({
       ...prevState,
       [layerId]: prevState[layerId] === "visible" ? "none" : "visible",
@@ -163,7 +160,6 @@ const TrailMap = () => {
   };
 
   const handleClick = (e) => {
-    console.log("TrailMap clicked at:", e.lngLat);
     if (popupInfo) {
       setPopupInfo(null);
     }
@@ -174,9 +170,7 @@ const TrailMap = () => {
   }, [layerVisibility]);
 
   const handleMarkerClick = (longitude, latitude, text) => {
-    console.log("Marker clicked at:", longitude, latitude);
     setSelectedMarker({ longitude, latitude, text });
-    console.log("Selected marker:", selectedMarker);
   };
 
   const pins = useMemo(
@@ -195,7 +189,7 @@ const TrailMap = () => {
           <Pin />
         </Marker>
       )),
-    [trailEntrancesData],
+    [trailEntrancesData]
   );
 
   return (
@@ -298,19 +292,6 @@ const TrailMap = () => {
 
             {layerVisibility.trailEntrances === "visible" && pins}
 
-            <GeolocateControl
-              showAccuracyCircle={false}
-              onGeolocate={(e) =>
-                setStart([e.coords.longitude, e.coords.latitude])
-              }
-              ref={GeolocateControlRef}
-              position="bottom-right"
-            />
-            <FullscreenControl position="bottom-right" />
-            <NavigationControl
-              position="bottom-right"
-              style={{ bottom: "30px !important" }}
-            />
             <Marker
               longitude={start[0]}
               latitude={start[1]}
@@ -322,6 +303,7 @@ const TrailMap = () => {
                 Start Point
               </div>
             </Marker>
+
             <Marker
               longitude={end[0]}
               latitude={end[1]}
@@ -333,6 +315,7 @@ const TrailMap = () => {
                 End Point
               </div>
             </Marker>
+
             {popupInfo && (
               <Popup
                 longitude={popupInfo.geometry.coordinates[0]}
@@ -368,6 +351,21 @@ const TrailMap = () => {
                 </div>
               </Popup>
             )}
+
+            <GeolocateControl
+              showAccuracyCircle={false}
+              onGeolocate={(e) =>
+                setStart([e.coords.longitude, e.coords.latitude])
+              }
+              ref={GeolocateControlRef}
+              position="bottom-right"
+            />
+            <FullscreenControl position="bottom-right" />
+            <NavigationControl
+              position="bottom-right"
+              style={{ bottom: "30px !important" }}
+            />
+
             <InstructionsDrawer
               getRoute={getRoute}
               setStart={setStart}
