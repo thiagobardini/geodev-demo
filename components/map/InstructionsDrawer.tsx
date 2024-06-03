@@ -114,7 +114,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
                 setTravelMode={setTravelMode}
                 ref={dropdownRef}
               />
-              <div className="flex flex-col items-center justify-center h-[70px]">
+              <div className="flex h-[70px] flex-col items-center justify-center">
                 <RouteInfo
                   distance={distance}
                   duration={duration}
@@ -125,7 +125,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
             </div>
           </section>
           <section className="mt-12">
-          <OpenInGoogleMapsButton onClick={handleRedirect} />
+            <OpenInGoogleMapsButton onClick={handleRedirect} />
           </section>
           <VersionInfo onClick={() => setShowVersionModal(true)} />
         </div>
@@ -141,7 +141,6 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
   );
 };
 
-// Subcomponents
 const Header: React.FC<{ onClose: () => void }> = ({ onClose }) => (
   <div className="relative flex items-center justify-between bg-slate-900 p-4">
     <h2 className="text-lg font-semibold text-white">Instructions</h2>

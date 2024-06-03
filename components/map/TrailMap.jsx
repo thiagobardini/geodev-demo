@@ -220,7 +220,12 @@ const TrailMap = () => {
             style={{ width: "100%", height: "100%" }}
             addControl={true}
           >
-            <Header travelMode={travelMode} setTravelMode={setTravelMode} distance={distance} duration={duration} />
+            <Header
+              travelMode={travelMode}
+              setTravelMode={setTravelMode}
+              distance={distance}
+              duration={duration}
+            />
             {/* <GeocoderControl
               mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
               position="bottom-right"

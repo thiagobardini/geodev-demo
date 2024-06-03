@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
-import Lottie from "lottie-react";
+import dynamic from "next/dynamic";
+
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import bicycle from "../../../public/animations/Bicycle.json";
 import car from "../../../public/animations/Car.json";
 import walking from "../../../public/animations/Running.json";
@@ -63,7 +65,7 @@ const TravelModeDropdown = forwardRef<TravelModeDropdownHandle, TravelModeDropdo
         {dropdownOpen && (
           <div className="absolute top-12 left-0 bg-white border border-gray-200 rounded shadow-lg z-10 transition-opacity duration-300 ease-in-out" style={{ opacity: dropdownOpen ? 1 : 0 }}>
             {otherOptions.map(option => (
-              <div key={option.mode} onClick={() => { setTravelMode(option.mode); setDropdownOpen(false); }} className="flex items-center px-4 py-2  hover:bg-gray-100 cursor-pointer">
+              <div key={option.mode} onClick={() => { setTravelMode(option.mode); setDropdownOpen(false); }} className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
                 <Lottie animationData={option.animationData} style={{ ...option.dropdownSize, transition: "all 0.3s ease-in-out" }} />
                 <span className="ml-2">{option.label}</span>
               </div>
@@ -74,5 +76,7 @@ const TravelModeDropdown = forwardRef<TravelModeDropdownHandle, TravelModeDropdo
     );
   }
 );
+
+TravelModeDropdown.displayName = "TravelModeDropdown";
 
 export default TravelModeDropdown;

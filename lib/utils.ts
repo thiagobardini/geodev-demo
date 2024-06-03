@@ -68,7 +68,10 @@ export const truncate = (str: string, length: number) => {
   return `${str.slice(0, length)}...`;
 };
 
-export const formatDuration = (minutes: number, abbreviate: boolean = false) => {
+export const formatDuration = (
+  minutes: number,
+  abbreviate: boolean = false,
+) => {
   const h = Math.floor(minutes / 60);
   const m = Math.ceil(minutes % 60);
   if (abbreviate) {

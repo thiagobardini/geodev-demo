@@ -27,7 +27,7 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
 
   useEffect(() => {
     const fetchTexts = async () => {
-      const response = await fetch('/data/versionTexts.json');
+      const response = await fetch("/data/versionTexts.json");
       const data = await response.json();
       setTexts(data);
     };
@@ -36,12 +36,12 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
   }, []);
 
   if (!texts) {
-    return null; 
+    return null;
   }
 
   return (
     <Modal showModal={showModal} setShowModal={setShowModal}>
-      <div className="z-50 max-h-screen w-full overflow-y-auto bg-white shadow-xl rounded-2xl border border-gray-200">
+      <div className="z-50 max-h-screen w-full overflow-y-auto rounded-2xl border border-gray-200 bg-white shadow-xl">
         <div className="relative p-4">
           <div className="absolute left-2 top-3 text-sm font-semibold text-gray-600">
             {texts.versionLabel}
