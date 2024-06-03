@@ -67,3 +67,18 @@ export const truncate = (str: string, length: number) => {
   if (!str || str.length <= length) return str;
   return `${str.slice(0, length)}...`;
 };
+
+export const formatDuration = (minutes: number, abbreviate: boolean = false) => {
+  const h = Math.floor(minutes / 60);
+  const m = Math.ceil(minutes % 60);
+  if (abbreviate) {
+    if (h > 0) {
+      return `${h}h ${m}m`;
+    }
+    return `${m}m`;
+  }
+  if (h > 0) {
+    return `${h} hour${h > 1 ? "s" : ""} ${m} minute${m > 1 ? "s" : ""}`;
+  }
+  return `${m} minute${m > 1 ? "s" : ""}`;
+};

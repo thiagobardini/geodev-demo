@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { X, Info } from "lucide-react";
 import Places from "./Places";
 import Tooltip from "@/components/shared/tooltip";
@@ -6,6 +6,8 @@ import Layers from "./Layers";
 import useMediaQuery from "@/lib/hooks/use-media-query";
 import Image from "next/image";
 import VersionModal from "./version-modal";
+import TravelModeDropdown, { TravelModeDropdownHandle } from "./shared/TravelModeDropdown";
+import { formatDuration } from "@/lib/utils";
 
 interface Coordinates {
   lat: number;
@@ -45,9 +47,29 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
   const { isMobile } = useMediaQuery();
   const [isOpen, setIsOpen] = useState(false);
   const [showVersionModal, setShowVersionModal] = useState(true);
+  const dropdownRef = useRef<TravelModeDropdownHandle>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsOpen(!isMobile);
+  }, [isMobile]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMobile && drawerRef.current && !drawerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isMobile) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [isMobile]);
 
   const handleRedirect = () => {
@@ -61,18 +83,10 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     getRoute();
   }, [travelMode, getRoute]);
 
-  const formatDuration = (minutes: number) => {
-    const h = Math.floor(minutes / 60);
-    const m = Math.ceil(minutes % 60);
-    if (h > 0) {
-      return `${h} hour${h > 1 ? "s" : ""} ${m} minute${m > 1 ? "s" : ""}`;
-    }
-    return `${m} minute${m > 1 ? "s" : ""}`;
-  };
-
   return (
     <>
       <div
+        ref={drawerRef}
         className={`fixed left-0 top-[64px] z-20 h-full transform transition-transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } w-2/3 bg-slate-800 shadow-lg sm:w-80`}
@@ -86,16 +100,33 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
           <Divider />
           <DirectionsSection setStart={setStart} setEnd={setEnd} />
           <DraggableMarkersSection />
-          <TravelModeSection
-            travelMode={travelMode}
-            setTravelMode={setTravelMode}
-          />
-          <RouteInfo
-            distance={distance}
-            duration={duration}
-            formatDuration={formatDuration}
-          />
+
+          <section className="my-4 h-[60px]">
+            <div className="flex items-center">
+              <h3 className="text-white">Travel Mode</h3>
+              <Tooltip content="Select the mode of travel. Options are driving, walking, and bicycling.">
+                <Info className="ml-2 h-5 w-5 text-gray-400" />
+              </Tooltip>
+            </div>
+            <div className="flex h-auto items-center space-x-2 ">
+              <TravelModeDropdown
+                travelMode={travelMode}
+                setTravelMode={setTravelMode}
+                ref={dropdownRef}
+              />
+              <div className="flex flex-col items-center justify-center h-[70px]">
+                <RouteInfo
+                  distance={distance}
+                  duration={duration}
+                  formatDuration={formatDuration}
+                  onClick={() => dropdownRef.current?.toggleDropdown()}
+                />
+              </div>
+            </div>
+          </section>
+          <section className="mt-12">
           <OpenInGoogleMapsButton onClick={handleRedirect} />
+          </section>
           <VersionInfo onClick={() => setShowVersionModal(true)} />
         </div>
         {!isOpen && <OpenDrawerButton onClick={() => setIsOpen(true)} />}
@@ -181,46 +212,22 @@ const DraggableMarkersSection: React.FC = () => (
   </section>
 );
 
-const TravelModeSection: React.FC<{
-  travelMode: string;
-  setTravelMode: (mode: string) => void;
-}> = ({ travelMode, setTravelMode }) => (
-  <section className="mt-4">
-    <div className="flex items-center">
-      <h3 className="text-white">Travel Mode</h3>
-      <Tooltip content="Select the mode of travel. Options are driving, walking, and bicycling.">
-        <Info className="ml-2 h-5 w-5 text-gray-400" />
-      </Tooltip>
-    </div>
-    <select
-      className="mt-2 w-full bg-slate-800 p-2 text-sm text-white shadow-inner"
-      value={travelMode}
-      onChange={(e) => setTravelMode(e.target.value)}
-    >
-      <option value="driving">Driving</option>
-      <option value="walking">Walking</option>
-      <option value="bicycling">Bicycling</option>
-    </select>
-  </section>
-);
-
 const RouteInfo: React.FC<{
   distance: number;
   duration: number;
   formatDuration: (minutes: number) => string;
-}> = ({ distance, duration, formatDuration }) => (
-  <div className="mt-4 text-sm text-white">
+  onClick: () => void;
+}> = ({ distance, duration, formatDuration, onClick }) => (
+  <div onClick={onClick} className="mt-4 cursor-pointer text-sm text-white">
     <p>Distance: {(distance / 1609.34).toFixed(2)} miles</p>
     <p>Duration: {formatDuration(duration)}</p>
   </div>
 );
 
-const OpenInGoogleMapsButton: React.FC<{ onClick: () => void }> = ({
-  onClick,
-}) => (
+const OpenInGoogleMapsButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
   <button
     onClick={onClick}
-    className="mt-4 w-full rounded-md bg-indigo-500 p-2 text-sm text-white"
+    className="mt-4 w-full rounded-md bg-indigo-600 p-2 text-sm text-white"
   >
     Open in Google Maps
   </button>

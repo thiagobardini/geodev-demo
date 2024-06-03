@@ -16,20 +16,20 @@ import ReactMapboxGl, {
   Source,
   Layer,
   Marker,
-  ScaleControl,
 } from "react-map-gl";
 import InstructionsDrawer from "./InstructionsDrawer";
 import LabeledMarker from "./LabeledMarker";
 import GeocoderControl from "./geocoder-control";
 import VersionModal from "./version-modal";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
-import Image from "next/image"; // Import Image from next/image
+import Image from "next/image";
 import {
   lineStyle,
   startPointStyle,
   endPointStyle,
 } from "./map-styles/trailLinesLayerProps";
 import Pin from "./pin";
+import Header from "./Header";
 
 const initialViewState = {
   latitude: 42.395043,
@@ -42,7 +42,13 @@ const initialViewState = {
 
 const ImageWithFallback = ({ src, alt, width, height, className }) => (
   <Suspense fallback={<LoadingSpinner />}>
-    <Image src={src} alt={alt} width={width} height={height} className={className} />
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      className={className}
+    />
   </Suspense>
 );
 
@@ -201,7 +207,7 @@ const TrailMap = () => {
 
   return (
     <>
-      <VersionModal />
+      {/* <VersionModal /> */}
       <section className="relative h-full w-full">
         <Suspense fallback={<LoadingSpinner />}>
           <ReactMapboxGl
@@ -214,22 +220,11 @@ const TrailMap = () => {
             style={{ width: "100%", height: "100%" }}
             addControl={true}
           >
-            <div className="fixed left-0 right-0 top-0 z-20 flex items-center justify-center px-4 pt-[64px]">
-              <div className="border-y-2 border-y-indigo-500 bg-opacity-50">
-                <div className="flex h-auto items-center justify-center space-x-2 border-x border-b border-gray-200 bg-white/50 bg-opacity-50 px-2 text-black backdrop-blur-xl">
-                  <h1 className="text-2xl font-bold">TrailMap</h1>
-                  <span>|</span>
-                  <h2 className="text-sm">
-                    Metro Boston&#39;s Regional Walking and Cycling Map
-                  </h2>
-                </div>
-              </div>
-            </div>
-
-            <GeocoderControl
+            <Header travelMode={travelMode} setTravelMode={setTravelMode} distance={distance} duration={duration} />
+            {/* <GeocoderControl
               mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
               position="bottom-right"
-            />
+            /> */}
 
             <Source id="composite" type="vector" url="mapbox://composite">
               <Layer
@@ -340,7 +335,7 @@ const TrailMap = () => {
                   </p>
                   <div className="my-2">
                     <ImageWithFallback
-                      src={popupInfo.properties.imageUrl.replace('./', '/')} 
+                      src={popupInfo.properties.imageUrl.replace("./", "/")}
                       alt={popupInfo.properties.name}
                       className="rounded"
                       width={200}

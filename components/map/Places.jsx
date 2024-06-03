@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import { LoadingDots } from "@/components/shared/icons";
 import Image from "next/image";
+import { GeolocateControl } from "react-map-gl";
 
 const Places = ({ setEnd, placeholder }) => {
   const [places, setPlaces] = useState([]);
