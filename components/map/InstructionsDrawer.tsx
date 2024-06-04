@@ -124,7 +124,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
               </div>
             </div>
           </section>
-          <section className="mt-12">
+          <section className="mt-10">
             <OpenInGoogleMapsButton onClick={handleRedirect} />
           </section>
           <VersionInfo onClick={() => setShowVersionModal(true)} />
