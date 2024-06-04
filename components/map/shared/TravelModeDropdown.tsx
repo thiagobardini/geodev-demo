@@ -37,7 +37,7 @@ const TravelModeDropdown = forwardRef<TravelModeDropdownHandle, TravelModeDropdo
 
     useEffect(() => {
       if (dropdownOpen) {
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside, { passive: true });
       } else {
         document.removeEventListener("mousedown", handleClickOutside);
       }

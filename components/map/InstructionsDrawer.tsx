@@ -62,7 +62,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     };
 
     if (isMobile) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside, { passive: true });
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }

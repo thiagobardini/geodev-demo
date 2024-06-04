@@ -3,6 +3,8 @@ import MultiLineChart from "@/components/charts/multi-line-chart";
 import Image from "next/image";
 import React, { Suspense } from "react";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
+import Lottie from "lottie-react";
+import mapIcon from "../../public/animations/Map.json";
 
 const demoTech = (
   <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
@@ -25,15 +27,29 @@ const demoTech = (
 
 export const content = [
   {
-    title: "TrailMap",
+    title: (
+      <div className="flex items-center space-x-2 justify-center">
+      <Lottie
+      animationData={mapIcon}
+      style={{
+        height: "100px",
+        width: "auto",
+        position: "relative",
+      }}
+      loop={false}
+    />
+      TrailMap
+      </div>
+    ),
     description: "Metro Boston's Regional Walking and Cycling Map",
     demo: (
       <Suspense fallback={<LoadingSpinner />}>
         <Image
           alt="TrailMap Demo"
           src="/gif/trailmap.gif"
-          layout="fill"
-          objectFit="cover"
+          fill
+          style={{ objectFit: "cover" }}
+          unoptimized
         />
       </Suspense>
     ),
