@@ -21,6 +21,7 @@ import InstructionsDrawer from "./InstructionsDrawer";
 import LabeledMarker from "./LabeledMarker";
 import GeocoderControl from "./geocoder-control";
 import VersionModal from "./version-modal";
+import useMediaQuery from "@/lib/hooks/use-media-query";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import Image from "next/image";
 import {
@@ -28,7 +29,7 @@ import {
   startPointStyle,
   endPointStyle,
 } from "./map-styles/trailLinesLayerProps";
-import Pin from "./pin";
+import Pin from "./map-styles/pin";
 import Header from "./Header";
 
 const initialViewState = {
@@ -71,6 +72,8 @@ const TrailMap = () => {
   const [duration, setDuration] = useState(0);
   const [travelMode, setTravelMode] = useState("walking");
   const [popupInfo, setPopupInfo] = useState(null);
+
+  const { isMobile } = useMediaQuery();
 
   const GeolocateControlRef = useRef(null);
   const mapRef = useRef(null);
@@ -358,20 +361,37 @@ const TrailMap = () => {
                 </div>
               </Popup>
             )}
-
-            <GeolocateControl
-              showAccuracyCircle={false}
-              onGeolocate={(e) =>
-                setStart([e.coords.longitude, e.coords.latitude])
-              }
-              ref={GeolocateControlRef}
-              position="bottom-right"
-            />
-            <FullscreenControl position="bottom-right" />
-            <NavigationControl
-              position="bottom-right"
-              style={{ bottom: "30px !important" }}
-            />
+            <div className="absolute h-full">
+              <NavigationControl
+                position="bottom-right"
+                style={{
+                  position: "relative",
+                  bottom: isMobile ? "80px" : 0,
+                  right: 0,
+                }}
+              />
+              <GeolocateControl
+                showAccuracyCircle={false}
+                onGeolocate={(e) =>
+                  setStart([e.coords.longitude, e.coords.latitude])
+                }
+                ref={GeolocateControlRef}
+                position="bottom-right"
+                style={{
+                  position: "relative",
+                  bottom: isMobile ? "80px" : 0,
+                  right: 0,
+                }}
+              />
+              <FullscreenControl
+                position="bottom-right"
+                style={{
+                  position: "relative",
+                  bottom: isMobile ? "80px" : 0,
+                  right: 0,
+                }}
+              />
+            </div>
 
             <InstructionsDrawer
               getRoute={getRoute}

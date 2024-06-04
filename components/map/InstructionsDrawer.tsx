@@ -123,6 +123,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
                 />
               </div>
             </div>
+      
           </section>
           <section className="mt-10">
             <OpenInGoogleMapsButton onClick={handleRedirect} />
@@ -244,7 +245,7 @@ const VersionInfo: React.FC<{ onClick: () => void }> = ({ onClick }) => (
 const OpenDrawerButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
   <button
     onClick={onClick}
-    className={`absolute -right-12 top-1/2 h-12 w-12 -translate-y-1/2 transform rounded-r-md bg-slate-800 text-center shadow-md`}
+    className={`absolute -right-12 top-[45vh] h-12 w-12 -translate-y-1/2 transform rounded-r-md bg-slate-800 text-center shadow-md`}
     style={{ boxShadow: "0 0 0 2px rgba(0, 0, 0, .1)" }}
   >
     <Image

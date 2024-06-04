@@ -1,5 +1,5 @@
 import React from "react";
-import Pin from "./pin";
+import Pin from "./map-styles/pin";
 
 interface LayersProps {
   layerVisibility: { [key: string]: string };
