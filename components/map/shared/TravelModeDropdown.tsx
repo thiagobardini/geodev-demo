@@ -22,7 +22,7 @@ const TravelModeDropdown = forwardRef<TravelModeDropdownHandle, TravelModeDropdo
 
     const travelOptions = [
       { mode: 'driving', label: 'Driving', animationData: car, mainSize: { height: "60px", width: "60px" }, dropdownSize: { height: "30px", width: "30px" } },
-      { mode: 'walking', label: 'Walking', animationData: walking, mainSize: { height: "50px", width: "50px" }, dropdownSize: { height: "25px", width: "25px" } },
+      { mode: 'walking', label: 'Walking', animationData: walking, mainSize: { height: "50px", width: "50px", marginLeft: "10px" }, dropdownSize: { height: "25px", width: "25px" } },
       { mode: 'bicycling', label: 'Bicycling', animationData: bicycle, mainSize: { height: "70px", width: "70px" }, dropdownSize: { height: "35px", width: "35px" } },
     ];
 

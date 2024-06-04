@@ -6,7 +6,9 @@ import Layers from "./Layers";
 import useMediaQuery from "@/lib/hooks/use-media-query";
 import Image from "next/image";
 import VersionModal from "./version-modal";
-import TravelModeDropdown, { TravelModeDropdownHandle } from "./shared/TravelModeDropdown";
+import TravelModeDropdown, {
+  TravelModeDropdownHandle,
+} from "./shared/TravelModeDropdown";
 import { formatDuration } from "@/lib/utils";
 
 interface Coordinates {
@@ -56,13 +58,19 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (isMobile && drawerRef.current && !drawerRef.current.contains(event.target as Node)) {
+      if (
+        isMobile &&
+        drawerRef.current &&
+        !drawerRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
 
     if (isMobile) {
-      document.addEventListener("mousedown", handleClickOutside, { passive: true });
+      document.addEventListener("mousedown", handleClickOutside, {
+        passive: true,
+      });
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
@@ -101,7 +109,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
           <DirectionsSection setStart={setStart} setEnd={setEnd} />
           <DraggableMarkersSection />
 
-          <section className="my-4 h-[60px]">
+          <section className="relative my-4">
             <div className="flex items-center">
               <h3 className="text-white">Travel Mode</h3>
               <Tooltip content="Select the mode of travel. Options are driving, walking, and bicycling.">
@@ -109,23 +117,26 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
               </Tooltip>
             </div>
             <div className="flex h-auto items-center space-x-2 ">
-              <TravelModeDropdown
-                travelMode={travelMode}
-                setTravelMode={setTravelMode}
-                ref={dropdownRef}
-              />
-              <div className="flex h-[70px] flex-col items-center justify-center">
+              <div className="min-w-[70px]">
+              <div className="absolute top-[25px]">
+                <TravelModeDropdown
+                  travelMode={travelMode}
+                  setTravelMode={setTravelMode}
+                  ref={dropdownRef}
+                />
+              </div>
+              </div>
+              <div className="flex flex-col items-center justify-center">
                 <RouteInfo
                   distance={distance}
                   duration={duration}
-                  formatDuration={formatDuration}
                   onClick={() => dropdownRef.current?.toggleDropdown()}
+                  isMobile={isMobile}
                 />
               </div>
             </div>
-      
           </section>
-          <section className="mt-10">
+          <section className="mt-6">
             <OpenInGoogleMapsButton onClick={handleRedirect} />
           </section>
           <VersionInfo onClick={() => setShowVersionModal(true)} />
@@ -215,16 +226,27 @@ const DraggableMarkersSection: React.FC = () => (
 const RouteInfo: React.FC<{
   distance: number;
   duration: number;
-  formatDuration: (minutes: number) => string;
   onClick: () => void;
-}> = ({ distance, duration, formatDuration, onClick }) => (
+  isMobile?: boolean;
+}> = ({ distance, duration, onClick, isMobile }) => (
   <div onClick={onClick} className="mt-4 cursor-pointer text-sm text-white">
-    <p>Distance: {(distance / 1609.34).toFixed(2)} miles</p>
-    <p>Duration: {formatDuration(duration)}</p>
+    {isMobile ? (
+      <>
+        <p>Dist: {(distance / 1609.34).toFixed(2)} mi</p>
+        <p>Dur: {formatDuration(duration, true)}</p>
+      </>
+    ) : (
+      <>
+        <p>Distance: {(distance / 1609.34).toFixed(2)} miles</p>
+        <p>Duration: {formatDuration(duration)}</p>
+      </>
+    )}
   </div>
 );
 
-const OpenInGoogleMapsButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
+const OpenInGoogleMapsButton: React.FC<{ onClick: () => void }> = ({
+  onClick,
+}) => (
   <button
     onClick={onClick}
     className="mt-4 w-full rounded-md bg-indigo-600 p-2 text-sm text-white"

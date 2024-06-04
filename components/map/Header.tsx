@@ -48,20 +48,25 @@ const Header: React.FC<HeaderProps> = ({
             <h1 className="text-2xl font-bold">TrailMap</h1>
             <div className={classes.divider}></div>
             <h2 className="text-sm">
-            Metro Boston&#39;s Regional Walking and Cycling Map
+              Metro Boston&#39;s Regional Walking and Cycling Map
             </h2>
           </div>
         </div>
       </div>
 
-      <div className="mt-2 flex h-[70px] w-full items-center justify-center">
+      <div className="mt-1 flex h-full w-full items-center justify-center">
         <div className="w-full max-w-screen-sm border-b-2 bg-opacity-50">
-          <div className="relative flex h-auto items-center justify-center space-x-2 border-x border-b border-gray-200 bg-white/50 bg-opacity-50 px-2 text-black backdrop-blur-xl">
-            <TravelModeDropdown
-              travelMode={travelMode}
-              setTravelMode={setTravelMode}
-              ref={dropdownRef}
-            />
+          <div className="relative flex h-[50px] items-center justify-center space-x-2 border-x border-b border-gray-200 bg-white/50 bg-opacity-50 px-2 text-black backdrop-blur-xl">
+            <div className="min-w-[70px] bg-slate-600">
+              
+            <div className="absolute top-[-3px]">
+              <TravelModeDropdown
+                travelMode={travelMode}
+                setTravelMode={setTravelMode}
+                ref={dropdownRef}
+              />
+            </div>
+            </div>
             <div className="flex flex-col items-center justify-center">
               <h2 className="text-sm font-bold">
                 {travelMode.charAt(0).toUpperCase() + travelMode.slice(1)}{" "}
