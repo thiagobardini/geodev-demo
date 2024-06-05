@@ -10,6 +10,10 @@ const Layers: React.FC<LayersProps> = ({
   layerVisibility,
   toggleLayerVisibility,
 }) => {
+  const handleChange = (layerId: string) => () => {
+    toggleLayerVisibility(layerId);
+  };
+
   return (
     <div className="mt-1">
       {/* Walking Trails */}
@@ -17,7 +21,7 @@ const Layers: React.FC<LayersProps> = ({
         <div className="flex h-6 items-center">
           <input
             id="walking"
-            onClick={() => toggleLayerVisibility("walkingTrails")}
+            onChange={handleChange("walkingTrails")}
             name="walking"
             type="checkbox"
             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -39,7 +43,7 @@ const Layers: React.FC<LayersProps> = ({
         <div className="flex h-6 items-center">
           <input
             id="bike"
-            onClick={() => toggleLayerVisibility("bikeFacilities")}
+            onChange={handleChange("bikeFacilities")}
             name="bike"
             type="checkbox"
             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -61,7 +65,7 @@ const Layers: React.FC<LayersProps> = ({
         <div className="flex h-6 items-center">
           <input
             id="landLine"
-            onClick={() => toggleLayerVisibility("landLineSystems")}
+            onChange={handleChange("landLineSystems")}
             name="landLine"
             type="checkbox"
             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -83,7 +87,7 @@ const Layers: React.FC<LayersProps> = ({
         <div className="flex h-6 items-center">
           <input
             id="sharedUsePaths"
-            onClick={() => toggleLayerVisibility("sharedUsePaths")}
+            onChange={handleChange("sharedUsePaths")}
             name="sharedUsePaths"
             type="checkbox"
             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -105,7 +109,7 @@ const Layers: React.FC<LayersProps> = ({
         <div className="flex h-6 items-center">
           <input
             id="trailEntrancesPath"
-            onClick={() => toggleLayerVisibility("trailEntrances")}
+            onChange={handleChange("trailEntrances")}
             name="trailEntrancesPaths"
             type="checkbox"
             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
