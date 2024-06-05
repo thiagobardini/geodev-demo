@@ -118,13 +118,13 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
             </div>
             <div className="flex h-auto items-center space-x-2 ">
               <div className="min-w-[70px]">
-              <div className="absolute top-[25px]">
-                <TravelModeDropdown
-                  travelMode={travelMode}
-                  setTravelMode={setTravelMode}
-                  ref={dropdownRef}
-                />
-              </div>
+                <div className="absolute top-[25px]">
+                  <TravelModeDropdown
+                    travelMode={travelMode}
+                    setTravelMode={setTravelMode}
+                    ref={dropdownRef}
+                  />
+                </div>
               </div>
               <div className="flex flex-col items-center justify-center">
                 <RouteInfo

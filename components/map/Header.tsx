@@ -58,14 +58,13 @@ const Header: React.FC<HeaderProps> = ({
         <div className="w-full max-w-screen-sm border-b-2 bg-opacity-50">
           <div className="relative flex h-[50px] items-center justify-center space-x-2 border-x border-b border-gray-200 bg-white/50 bg-opacity-50 px-2 text-black backdrop-blur-xl">
             <div className="min-w-[70px] bg-slate-600">
-              
-            <div className="absolute top-[-3px]">
-              <TravelModeDropdown
-                travelMode={travelMode}
-                setTravelMode={setTravelMode}
-                ref={dropdownRef}
-              />
-            </div>
+              <div className="absolute top-[-3px]">
+                <TravelModeDropdown
+                  travelMode={travelMode}
+                  setTravelMode={setTravelMode}
+                  ref={dropdownRef}
+                />
+              </div>
             </div>
             <div className="flex flex-col items-center justify-center">
               <h2 className="text-sm font-bold">

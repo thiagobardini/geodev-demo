@@ -4,16 +4,16 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        port: "",
+        pathname: "/**",
       },
       {
-        protocol: 'https',
-        hostname: 'vercel.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "vercel.com",
+        port: "",
+        pathname: "/**",
       },
     ],
   },
@@ -25,7 +25,7 @@ const nextConfig = {
         permanent: false,
       },
     ];
-  }
+  },
 };
 
 module.exports = nextConfig;
