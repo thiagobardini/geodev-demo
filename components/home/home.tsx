@@ -36,18 +36,22 @@ export default function Home() {
         </p>
       </div>
       <div className="my-10 grid w-full max-w-screen-xl animate-fade-up grid-cols-1 gap-5 px-5 md:grid-cols-3 xl:px-0">
-        {content.map(({ title, description, demo, large, modal, mapName }) => (
-          <Card
-            key={title}
-            title={title}
-            description={description}
-            demo={demo}
-            large={large}
-            onClick={() => {
-              modal === "" ? router.push(`/map/${mapName}`) : openModal(modal);
-            }}
-          />
-        ))}
+        {content.map(
+          ({ title, description, demo, large, modal, mapName, id }) => (
+            <Card
+              key={id}
+              title={title}
+              description={description}
+              demo={demo}
+              large={large}
+              onClick={() => {
+                modal === ""
+                  ? router.push(`/map/${mapName}`)
+                  : openModal(modal);
+              }}
+            />
+          ),
+        )}
       </div>
       <Modal
         showModal={showModal}

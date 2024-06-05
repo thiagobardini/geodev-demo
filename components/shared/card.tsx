@@ -3,12 +3,14 @@ import ReactMarkdown from "react-markdown";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 export default function Card({
+  id,
   title,
   description,
   demo,
   large,
   onClick,
 }: {
+  id?: number | string;
   title: string;
   description: string;
   demo: ReactNode;
@@ -17,6 +19,7 @@ export default function Card({
 }) {
   return (
     <div
+      key={id}
       className={`relative col-span-1 h-96 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md ${
         large ? "md:col-span-2" : ""
       }`}

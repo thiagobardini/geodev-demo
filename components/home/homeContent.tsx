@@ -3,8 +3,6 @@ import MultiLineChart from "@/components/charts/multi-line-chart";
 import Image from "next/image";
 import React, { Suspense } from "react";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
-import Lottie from "lottie-react";
-import mapIcon from "../../public/animations/Map.json";
 
 const demoTech = (
   <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
@@ -27,20 +25,8 @@ const demoTech = (
 
 export const content = [
   {
-    title: (
-      <div className="flex items-center space-x-2 justify-center">
-      <Lottie
-      animationData={mapIcon}
-      style={{
-        height: "100px",
-        width: "auto",
-        position: "relative",
-      }}
-      loop={false}
-    />
-      TrailMap
-      </div>
-    ),
+    id: 1,
+    title: "TrailMap",
     description: "Metro Boston's Regional Walking and Cycling Map",
     demo: (
       <Suspense fallback={<LoadingSpinner />}>
@@ -59,6 +45,7 @@ export const content = [
     modal: "",
   },
   {
+    id: 2,
     title: "D3.js integration",
     description: "Showcasing my skills by integrating D3.js.",
     demo: <WebVitals />,
@@ -82,6 +69,7 @@ export const content = [
     ),
   },
   {
+    id: 3,
     title: "Core Skills",
     description: "Key Technologies Utilized in This Project",
     demo: demoTech,
