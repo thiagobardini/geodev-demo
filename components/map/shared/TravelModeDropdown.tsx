@@ -8,9 +8,10 @@ import React, {
 import dynamic from "next/dynamic";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
-import bicycle from "@/components/modal-animations/Bicycle.json";
-import car from "@/components/modal-animations/Car.json";
-import walking from "@/components/modal-animations/Running.json";
+
+const bicycle = require('@/components/animations/Bicycle.json');
+const car = require('@/components/animations/Car.json');
+const walking = require('@/components/animations/Running.json');
 
 interface TravelModeDropdownProps {
   travelMode: string;

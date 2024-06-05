@@ -1,10 +1,14 @@
 import React from "react";
-import Lottie from "lottie-react";
-import endPoint from "@/components/modal-animations/end-point.json";
-import startPoint from "@/components/modal-animations/start-point.json";
+import dynamic from "next/dynamic";
+
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 function UserPin({ text, tooltip = true }: { text: string, tooltip?: boolean }) {
   const bgColor = text === "End Point" ? "bg-red-100" : "bg-green-100";
+
+  const animationData = text === "End Point"
+    ? require('@/components/animations/end-point.json')
+    : require('@/components/animations/start-point.json');
 
   return (
     <div className="relative flex items-center justify-center group">
@@ -16,7 +20,7 @@ function UserPin({ text, tooltip = true }: { text: string, tooltip?: boolean }) 
         </div>
       )}
       <Lottie
-        animationData={text === "End Point" ? endPoint : startPoint}
+        animationData={animationData}
         loop={true}
         initialSegment={[20, 117]}
         style={{
@@ -31,4 +35,3 @@ function UserPin({ text, tooltip = true }: { text: string, tooltip?: boolean }) 
 }
 
 export default UserPin;
-
