@@ -96,7 +96,7 @@ const TrailMap = () => {
         `https://api.mapbox.com/directions/v5/mapbox/${adjustedTravelMode}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
       );
       const data = await response.json();
-      console.log("Route data:", data);
+      // console.log("Route data:", data);
 
       if (data.routes && data.routes.length > 0) {
         const route = data.routes[0];
@@ -182,7 +182,7 @@ const TrailMap = () => {
   };
 
   useEffect(() => {
-    console.log("Layer visibility state:", layerVisibility);
+    // console.log("Layer visibility state:", layerVisibility);
   }, [layerVisibility]);
 
   const handleMarkerClick = (longitude, latitude, text) => {
