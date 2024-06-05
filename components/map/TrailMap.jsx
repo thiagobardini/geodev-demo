@@ -294,7 +294,7 @@ const TrailMap = () => {
             </Source>
 
             {layerVisibility.trailEntrances === "visible" && pins}
-              
+
             <Marker
               longitude={start[0]}
               latitude={start[1]}
@@ -302,7 +302,7 @@ const TrailMap = () => {
               draggable
               onDragEnd={(e) => handleMarkerDragEnd(e, setStart)}
             >
-              <UserPin text="Start Point" />
+              <UserPin text="Start Point" size="40px" />
             </Marker>
 
             <Marker
@@ -312,9 +312,8 @@ const TrailMap = () => {
               draggable
               onDragEnd={(e) => handleMarkerDragEnd(e, setEnd)}
             >
-              <UserPin text="End Point" />
+              <UserPin text="End Point" size="40px"/>
             </Marker>
-
 
             {popupInfo && (
               <Popup

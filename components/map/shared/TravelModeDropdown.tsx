@@ -9,9 +9,9 @@ import dynamic from "next/dynamic";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
-const bicycle = require('@/components/animations/Bicycle.json');
-const car = require('@/components/animations/Car.json');
-const walking = require('@/components/animations/Running.json');
+const bicycle = require("@/components/animations/Bicycle.json");
+const car = require("@/components/animations/Car.json");
+const walking = require("@/components/animations/Running.json");
 
 interface TravelModeDropdownProps {
   travelMode: string;

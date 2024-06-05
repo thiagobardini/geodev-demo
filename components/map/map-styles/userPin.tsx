@@ -3,18 +3,27 @@ import dynamic from "next/dynamic";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
-function UserPin({ text, tooltip = true }: { text: string, tooltip?: boolean }) {
+function UserPin({
+  text,
+  tooltip = true,
+  size = "30px",
+}: {
+  text: string;
+  tooltip?: boolean;
+  size?: string;
+}) {
   const bgColor = text === "End Point" ? "bg-red-100" : "bg-green-100";
 
-  const animationData = text === "End Point"
-    ? require('@/components/animations/end-point.json')
-    : require('@/components/animations/start-point.json');
+  const animationData =
+    text === "End Point"
+      ? require("@/components/animations/end-point.json")
+      : require("@/components/animations/start-point.json");
 
   return (
-    <div className="relative flex items-center justify-center group">
+    <div className="group relative flex items-center justify-center">
       {tooltip && (
         <div
-          className={`absolute font-bold w-auto max-w-fit text-xs text-gray-800 rounded-md ${bgColor} p-1 -top-4 transform translate-x-[0px] -translate-y-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+          className={`absolute w-auto max-w-fit rounded-md text-xs font-bold text-gray-800 ${bgColor} -top-4 -translate-y-1/2 translate-x-[0px] transform whitespace-nowrap p-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
         >
           {text}
         </div>
@@ -24,8 +33,8 @@ function UserPin({ text, tooltip = true }: { text: string, tooltip?: boolean }) 
         loop={true}
         initialSegment={[20, 117]}
         style={{
-          height: "40px",
-          width: "40px",
+          height: size,
+          width: size,
           paddingBottom: "5px",
           transition: "all 0.3s ease-in-out",
         }}

@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import { LoadingDots } from "@/components/shared/icons";
 import Image from "next/image";
-import { GeolocateControl } from "react-map-gl";
+import UserPin from "@/components/map/map-styles/userPin";
 
 const Places = ({ setEnd, placeholder }) => {
   const [places, setPlaces] = useState([]);
@@ -36,7 +36,14 @@ const Places = ({ setEnd, placeholder }) => {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between rounded-md px-2 py-2 shadow-sm">
-        <AiOutlineSearch size={20} className="mr-2 text-white" />
+        {/* <AiOutlineSearch size={20} className="mr-2 text-white" /> */}
+        <div className="mr-1">
+          {placeholder === "Enter End Point" ? (
+            <UserPin text="End Point" tooltip={false} />
+          ) : (
+            <UserPin text="Start Point" tooltip={false} />
+          )}
+        </div>
         <input
           className="w-full bg-transparent px-4 py-2 text-sm text-white placeholder-gray-400 outline-none"
           placeholder={placeholder}

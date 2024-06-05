@@ -218,11 +218,11 @@ const DraggableMarkersSection: React.FC = () => (
       </Tooltip>
     </div>
     <div className="mt-2 flex items-center justify-start gap-4">
-      <div className="flex items-center">
+      <div className="flex items-center mr-1">
         <UserPin text="Start Point" tooltip={false} />
         <div className="h-fit rounded-md text-white">Start Point</div>
       </div>
-      <div className="flex items-center">
+      <div className="flex items-center mr-1">
         <UserPin text="End Point" tooltip={false} />
         <div className="h-fit rounded-md  text-white">End Point</div>
       </div>
