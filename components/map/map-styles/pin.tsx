@@ -6,17 +6,19 @@ const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,
 
 function Pin({ size = 20, color = "#11b4da" }) {
   return (
-    <svg
-      height={size}
-      viewBox="0 0 24 24"
-      style={{
-        cursor: "pointer",
-        fill: color,
-        stroke: "none",
-      }}
-    >
-      <path d={ICON} />
-    </svg>
+    <div className="z-10">
+      <svg
+        height={size}
+        viewBox="0 0 24 24"
+        style={{
+          cursor: "pointer",
+          fill: color,
+          stroke: "none",
+        }}
+      >
+        <path d={ICON} />
+      </svg>
+    </div>
   );
 }
 

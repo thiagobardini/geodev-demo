@@ -19,8 +19,6 @@ import ReactMapboxGl, {
 } from "react-map-gl";
 import InstructionsDrawer from "./InstructionsDrawer";
 import LabeledMarker from "./LabeledMarker";
-import GeocoderControl from "./geocoder-control";
-import VersionModal from "./version-modal";
 import useMediaQuery from "@/lib/hooks/use-media-query";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import Image from "next/image";
@@ -31,6 +29,7 @@ import {
 } from "./map-styles/trailLinesLayerProps";
 import Pin from "./map-styles/pin";
 import Header from "./Header";
+import UserPin from "./map-styles/userPin";
 
 const initialViewState = {
   latitude: 42.395043,
@@ -55,8 +54,8 @@ const ImageWithFallback = ({ src, alt, width, height, className }) => (
 
 const TrailMap = () => {
   const [viewport, setViewport] = useState(initialViewState);
-  const [start, setStart] = useState([-71.061471, 42.355043]);
-  const [end, setEnd] = useState([-71.22424322006663, 42.38078912464982]);
+  const [end, setEnd] = useState([-71.061471, 42.355043]);
+  const [start, setStart] = useState([-71.22424322006663, 42.38078912464982]);
   const [coords, setCoords] = useState([]);
   const [layerVisibility, setLayerVisibility] = useState({
     walkingTrails: "visible",
@@ -66,7 +65,6 @@ const TrailMap = () => {
     trailEntrances: "visible",
   });
   const [trailEntrancesData, setTrailEntrancesData] = useState([]);
-  const [selectedMarker, setSelectedMarker] = useState(null);
   const [selectedPoint, setSelectedPoint] = useState("end");
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -185,10 +183,6 @@ const TrailMap = () => {
     // console.log("Layer visibility state:", layerVisibility);
   }, [layerVisibility]);
 
-  const handleMarkerClick = (longitude, latitude, text) => {
-    setSelectedMarker({ longitude, latitude, text });
-  };
-
   const pins = useMemo(
     () =>
       trailEntrancesData.map((trail, index) => (
@@ -210,7 +204,6 @@ const TrailMap = () => {
 
   return (
     <>
-      {/* <VersionModal /> */}
       <section className="relative h-full w-full">
         <Suspense fallback={<LoadingSpinner />}>
           <ReactMapboxGl
@@ -300,8 +293,6 @@ const TrailMap = () => {
               <Layer {...endPointStyle} />
             </Source>
 
-            {layerVisibility.trailEntrances === "visible" && pins}
-
             <Marker
               longitude={start[0]}
               latitude={start[1]}
@@ -309,9 +300,7 @@ const TrailMap = () => {
               draggable
               onDragEnd={(e) => handleMarkerDragEnd(e, setStart)}
             >
-              <div className="rounded-md bg-green-500 p-1 text-white">
-                Start Point
-              </div>
+              <UserPin text="Start Point" />
             </Marker>
 
             <Marker
@@ -321,10 +310,10 @@ const TrailMap = () => {
               draggable
               onDragEnd={(e) => handleMarkerDragEnd(e, setEnd)}
             >
-              <div className="rounded-md bg-red-500 p-1 text-white">
-                End Point
-              </div>
+              <UserPin text="End Point" />
             </Marker>
+
+            {layerVisibility.trailEntrances === "visible" && pins}
 
             {popupInfo && (
               <Popup

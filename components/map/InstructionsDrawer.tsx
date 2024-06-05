@@ -10,6 +10,7 @@ import TravelModeDropdown, {
   TravelModeDropdownHandle,
 } from "./shared/TravelModeDropdown";
 import { formatDuration } from "@/lib/utils";
+import UserPin from "./map-styles/userPin";
 
 interface Coordinates {
   lat: number;
@@ -212,13 +213,19 @@ const DraggableMarkersSection: React.FC = () => (
   <section className="pt-2">
     <div className="flex items-center">
       <h3 className="text-white">Draggable Markers</h3>
-      <Tooltip content="Drag the markers to change the start and end points.">
+      <Tooltip content="Drag the markers to change the start  and end points.">
         <Info className="ml-2 h-5 w-5 text-gray-400" />
       </Tooltip>
     </div>
     <div className="mt-2 flex items-center justify-start gap-4">
-      <div className="rounded-md bg-green-500 p-1 text-white">Start Point</div>
-      <div className="rounded-md bg-red-500 p-1 text-white">End Point</div>
+      <div className="flex items-center">
+        <UserPin text="Start Point" tooltip={false} />
+        <div className="h-fit rounded-md text-white">Start Point</div>
+      </div>
+      <div className="flex items-center">
+        <UserPin text="End Point" tooltip={false} />
+        <div className="h-fit rounded-md  text-white">End Point</div>
+      </div>
     </div>
   </section>
 );
