@@ -105,7 +105,7 @@ const Layers: React.FC<LayersProps> = ({
         </div>
       </div>
       {/* Trail Entrances */}
-      <div className="relative flex items-start">
+      {/* <div className="relative flex items-start">
         <div className="flex h-6 items-center">
           <input
             id="trailEntrancesPath"
@@ -127,7 +127,7 @@ const Layers: React.FC<LayersProps> = ({
             <Pin />
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

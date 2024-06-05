@@ -293,6 +293,8 @@ const TrailMap = () => {
               <Layer {...endPointStyle} />
             </Source>
 
+            {layerVisibility.trailEntrances === "visible" && pins}
+              
             <Marker
               longitude={start[0]}
               latitude={start[1]}
@@ -313,7 +315,6 @@ const TrailMap = () => {
               <UserPin text="End Point" />
             </Marker>
 
-            {layerVisibility.trailEntrances === "visible" && pins}
 
             {popupInfo && (
               <Popup
