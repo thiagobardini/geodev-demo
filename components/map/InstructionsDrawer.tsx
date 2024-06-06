@@ -101,7 +101,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
         } w-2/3 bg-slate-800 shadow-lg sm:w-80`}
       >
         <Header onClose={() => setIsOpen(false)} />
-        <div className="h-full min-h-screen overflow-y-auto p-4 pb-40">
+        <div className="h-full min-h-screen overflow-y-auto p-4">
           <LayersSection
             layerVisibility={layerVisibility}
             toggleLayerVisibility={toggleLayerVisibility}
@@ -256,7 +256,7 @@ const OpenInGoogleMapsButton: React.FC<{ onClick: () => void }> = ({
 }) => (
   <button
     onClick={onClick}
-    className="mt-4 w-full rounded-md bg-indigo-600 p-2 text-sm text-white"
+    className="mt-3 w-full rounded-md bg-indigo-600 p-2 text-sm text-white"
   >
     Open in Google Maps
   </button>
@@ -264,7 +264,8 @@ const OpenInGoogleMapsButton: React.FC<{ onClick: () => void }> = ({
 
 const VersionInfo: React.FC<{ onClick: () => void }> = ({ onClick }) => (
   <div
-    className="my-8 cursor-pointer text-center text-sm font-semibold text-white underline"
+    className="mt-8 mb-[124px]
+     cursor-pointer text-center text-sm font-semibold text-white underline"
     onClick={onClick}
   >
     Version 2.0
