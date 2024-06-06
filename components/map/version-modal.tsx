@@ -65,7 +65,7 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
                 {texts.implementedFeaturesTitle}
               </summary>
               <div className="mt-2">
-                <ul className="mt-2 list-inside list-disc text-sm text-gray-600">
+                <ul className="mt-2 list-inside list-none text-sm text-gray-600">
                   {texts.implementedFeaturesList.map((feature, index) => (
                     <li key={index}>{feature}</li>
                   ))}
@@ -81,7 +81,7 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
                 <h3 className="text-md font-semibold text-gray-700">
                   {texts.currentVersionLabel}
                 </h3>
-                <ul className="mt-2 list-inside list-disc text-sm text-gray-600">
+                <ul className="mt-2 list-inside list-none text-sm text-gray-600">
                   {texts.currentFeaturesList.map((feature, index) => (
                     <li key={index}>{feature}</li>
                   ))}
@@ -99,7 +99,7 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
                     <h3 className="text-md font-semibold text-gray-700">
                       {version.versionLabel}
                     </h3>
-                    <ul className="mt-2 list-inside list-disc text-sm text-gray-600">
+                    <ul className="mt-2 list-inside list-none text-sm text-gray-600">
                       {version.featuresList.map((feature, i) => (
                         <li key={i}>{feature}</li>
                       ))}
