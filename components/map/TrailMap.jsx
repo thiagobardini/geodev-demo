@@ -24,8 +24,10 @@ import UserPin from "./map-styles/userPin";
 import PinsTrailsEntrance from "./PinsTrailsEntrance";
 
 const initialViewState = {
-  latitude: 42.395043,
-  longitude: -71.161471,
+  latitude: 42.362,
+  longitude: -71.075,
+  // latitude: 42.395043,
+  // longitude: -71.161471,
   zoom: 11,
   bearing: 0,
   pitch: 0,
@@ -46,7 +48,8 @@ const ImageWithFallback = ({ src, alt, width, height, className }) => (
 
 const TrailMap = () => {
   const [viewport, setViewport] = useState(initialViewState);
-  const [end, setEnd] = useState([-71.061471, 42.355043]);
+  // const [end, setEnd] = useState([-71.061471, 42.355043]);
+  const [end, setEnd] = useState([-71.061471, 42.365043]);
   const [start, setStart] = useState([-71.22424322006663, 42.38078912464982]);
   const [coords, setCoords] = useState([]);
   const [layerVisibility, setLayerVisibility] = useState({

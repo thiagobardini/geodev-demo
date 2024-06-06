@@ -277,7 +277,7 @@ const VersionInfo: React.FC<{ onClick: () => void }> = ({ onClick }) => {
 
   return (
     <div
-      className="mt-8 mb-[124px] cursor-pointer text-center text-sm font-semibold text-white underline"
+      className="mt-8 mb-[124px] cursor-pointer text-center text-sm font-semibold text-white underline pb-40 sm:pb-0"
       onClick={onClick}
     >
       {versionLabel ? versionLabel : "Loading..."}
