@@ -8,8 +8,9 @@ import Link from "next/link";
 export default function Footer() {
   const pathname = usePathname();
   const hideFooter = pathname === "/map/trailmap";
+  const hideFooterHome = pathname === "/";
 
-  if (hideFooter) {
+  if (hideFooter || hideFooterHome) {
     return null;
   }
 

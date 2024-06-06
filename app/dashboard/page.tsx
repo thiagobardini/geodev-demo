@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
 import { LoadingDots, Google } from "@/components/shared/icons";
+import Home from "@/components/home/home";
 
 export default function Page() {
   const { data: session, status } = useSession();
@@ -62,6 +63,7 @@ export default function Page() {
               Welcome back, {session?.user?.name}
             </h1>
           </div>
+            <Home />
         </>
       )}
     </>

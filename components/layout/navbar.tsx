@@ -15,7 +15,8 @@ export default function NavBar({ session }: { session: Session | null }) {
   const scrolled = useScroll(50);
 
   const pathname = usePathname();
-  const isMapRoute = pathname.includes("map");
+  const isMapRoute = pathname.includes("");
+  // const isMapRoute = pathname.includes("map");
 
   return (
     <>

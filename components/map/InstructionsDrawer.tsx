@@ -264,7 +264,7 @@ const OpenInGoogleMapsButton: React.FC<{ onClick: () => void }> = ({
 
 const VersionInfo: React.FC<{ onClick: () => void }> = ({ onClick }) => (
   <div
-    className="mt-8 cursor-pointer text-center text-sm font-semibold text-white underline"
+    className="my-8 cursor-pointer text-center text-sm font-semibold text-white underline"
     onClick={onClick}
   >
     Version 2.0
