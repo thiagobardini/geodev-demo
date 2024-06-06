@@ -24,6 +24,7 @@ interface VersionTexts {
 
 const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
   const [texts, setTexts] = useState<VersionTexts | null>(null);
+  const [openSection, setOpenSection] = useState<'implemented' | 'current' | 'upcoming' | null>('current');
 
   useEffect(() => {
     const fetchTexts = async () => {
@@ -35,13 +36,17 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
     fetchTexts();
   }, []);
 
+  const handleToggle = (section: 'implemented' | 'current' | 'upcoming') => {
+    setOpenSection(prev => (prev === section ? null : section));
+  };
+
   if (!texts) {
     return null;
   }
 
   return (
     <Modal showModal={showModal} setShowModal={setShowModal}>
-      <div className="relative z-50 max-h-screen w-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl">
+      <div className="relative z-50 max-h-screen w-full overflow-y-auto custom-scrollbar rounded-2xl border border-gray-200 bg-white shadow-xl">
         <div className="relative p-4">
           <div className="absolute left-2 top-3 text-sm font-semibold text-gray-600">
             {texts.versionLabel}
@@ -62,53 +67,86 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
 
         <div className="max-h-[calc(100vh-150px)] overflow-y-auto custom-scrollbar px-4 pb-4">
           <div className="space-y-6">
-            <details className="rounded-md border border-gray-200 p-3">
-              <summary className="cursor-pointer text-lg font-semibold text-gray-700">
+            <details 
+              open={openSection === 'implemented'} 
+              className="rounded-md border border-gray-200 p-3"
+            >
+              <summary 
+                className="cursor-pointer text-lg font-semibold text-gray-700"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleToggle('implemented');
+                }}
+              >
                 {texts.implementedFeaturesTitle}
               </summary>
-              <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
-                <ul className="mt-2 list-inside list-none text-sm text-gray-600">
-                  {texts.implementedFeaturesList.map((feature, index) => (
-                    <li key={index}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
+              {openSection === 'implemented' && (
+                <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
+                  <ul className="mt-2 list-inside list-none text-sm text-gray-600">
+                    {texts.implementedFeaturesList.map((feature, index) => (
+                      <li key={index}>{feature}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </details>
 
-            <details open className="rounded-md border border-gray-200 p-3">
-              <summary className="cursor-pointer text-lg font-semibold text-gray-700">
+            <details 
+              open={openSection === 'current'} 
+              className="rounded-md border border-gray-200 p-3"
+            >
+              <summary 
+                className="cursor-pointer text-lg font-semibold text-gray-700"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleToggle('current');
+                }}
+              >
                 {texts.currentFeaturesTitle}
               </summary>
-              <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
-                <h3 className="text-md font-semibold text-gray-700">
-                  {texts.currentVersionLabel}
-                </h3>
-                <ul className="mt-2 list-inside list-none text-sm text-gray-600">
-                  {texts.currentFeaturesList.map((feature, index) => (
-                    <li key={index}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
+              {openSection === 'current' && (
+                <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
+                  <h3 className="text-md font-semibold text-gray-700">
+                    {texts.currentVersionLabel}
+                  </h3>
+                  <ul className="mt-2 list-inside list-none text-sm text-gray-600">
+                    {texts.currentFeaturesList.map((feature, index) => (
+                      <li key={index}>{feature}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </details>
 
-            <details className="rounded-md border border-gray-200 p-3">
-              <summary className="cursor-pointer text-lg font-semibold text-gray-700">
+            <details 
+              open={openSection === 'upcoming'} 
+              className="rounded-md border border-gray-200 p-3"
+            >
+              <summary 
+                className="cursor-pointer text-lg font-semibold text-gray-700"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleToggle('upcoming');
+                }}
+              >
                 {texts.upcomingFeaturesTitle}
               </summary>
-              <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
-                {texts.upcomingVersions.map((version, index) => (
-                  <div key={index} className="mb-4">
-                    <h3 className="text-md font-semibold text-gray-700">
-                      {version.versionLabel}
-                    </h3>
-                    <ul className="mt-2 list-inside list-none text-sm text-gray-600">
-                      {version.featuresList.map((feature, i) => (
-                        <li key={i}>{feature}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
+              {openSection === 'upcoming' && (
+                <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
+                  {texts.upcomingVersions.map((version, index) => (
+                    <div key={index} className="mb-4">
+                      <h3 className="text-md font-semibold text-gray-700">
+                        {version.versionLabel}
+                      </h3>
+                      <ul className="mt-2 list-inside list-none text-sm text-gray-600">
+                        {version.featuresList.map((feature, i) => (
+                          <li key={i}>{feature}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              )}
             </details>
           </div>
         </div>
