@@ -101,7 +101,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
         } w-2/3 bg-slate-800 shadow-lg sm:w-80`}
       >
         <Header onClose={() => setIsOpen(false)} />
-        <div className="h-full min-h-screen overflow-y-auto p-4">
+        <div className="h-full min-h-screen overflow-y-auto p-4 custom-scrollbar">
           <LayersSection
             layerVisibility={layerVisibility}
             toggleLayerVisibility={toggleLayerVisibility}

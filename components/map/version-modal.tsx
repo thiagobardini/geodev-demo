@@ -41,7 +41,7 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
 
   return (
     <Modal showModal={showModal} setShowModal={setShowModal}>
-      <div className="z-50 max-h-screen w-full overflow-y-auto rounded-2xl border border-gray-200 bg-white shadow-xl">
+      <div className="relative z-50 max-h-screen w-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl">
         <div className="relative p-4">
           <div className="absolute left-2 top-3 text-sm font-semibold text-gray-600">
             {texts.versionLabel}
@@ -58,13 +58,15 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
           <h2 className="mb-4 text-center text-xl font-bold text-gray-800">
             {texts.modalTitle}
           </h2>
+        </div>
 
+        <div className="max-h-[calc(100vh-150px)] overflow-y-auto custom-scrollbar px-4 pb-4">
           <div className="space-y-6">
             <details className="rounded-md border border-gray-200 p-3">
               <summary className="cursor-pointer text-lg font-semibold text-gray-700">
                 {texts.implementedFeaturesTitle}
               </summary>
-              <div className="mt-2">
+              <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
                 <ul className="mt-2 list-inside list-none text-sm text-gray-600">
                   {texts.implementedFeaturesList.map((feature, index) => (
                     <li key={index}>{feature}</li>
@@ -77,7 +79,7 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
               <summary className="cursor-pointer text-lg font-semibold text-gray-700">
                 {texts.currentFeaturesTitle}
               </summary>
-              <div className="mt-2">
+              <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
                 <h3 className="text-md font-semibold text-gray-700">
                   {texts.currentVersionLabel}
                 </h3>
@@ -93,7 +95,7 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
               <summary className="cursor-pointer text-lg font-semibold text-gray-700">
                 {texts.upcomingFeaturesTitle}
               </summary>
-              <div className="mt-2">
+              <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
                 {texts.upcomingVersions.map((version, index) => (
                   <div key={index} className="mb-4">
                     <h3 className="text-md font-semibold text-gray-700">
