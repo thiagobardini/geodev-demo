@@ -17,7 +17,7 @@
     "✅ Pin and display a pop-up card with the main trails in Metro Boston's Regional Trail Network.",
     "✅ Layer: Show/hide trail entrances",
     "🟡 Trail entrance cards will have three types of pins: walking, bicycling, walking/bicycling.",
-    "🟡 Button to connect the endpoint pin within the trail entrance cards.",
+    "🟡 Button inside the trail entrance card to connect the endpoint pin to the selected trail entrance coordinates.",
     "🟡 Button in the 'enter the start point' input to locate the user and display the start point pin.",
     "🟡 'Enter the start/end point' inputs will display the location once selected.",
     "🟡 Show trail entrances' names when approaching the pin",
