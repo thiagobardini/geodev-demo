@@ -3,42 +3,42 @@
   "modalTitle": "Versions Overview",
   "implementedFeaturesTitle": "Implemented Features:",
   "implementedFeaturesList": [
-    "User signup/signin",
-    "Pin on the map for start and end points",
-    "Search input for start and end points",
-    "Legend: Show/hide trails",
-    "Types of routes: Driving, walking, cycling",
-    "Mobile and desktop views",
-    "Button to open the route on Google Maps"
+    "✅ User signup/signin",
+    "✅ Pin on the map for start and end points",
+    "✅ Search input for start and end points",
+    "✅ Legend: Show/hide trails",
+    "✅ Types of routes: Driving, walking, cycling",
+    "✅ Mobile and desktop views",
+    "✅ Button to open the route on Google Maps"
   ],
   "currentFeaturesTitle": "Current Features:",
   "currentVersionLabel": "Version 2:",
   "currentFeaturesList": [
-    "Pin and display a pop-up card with the main trails in Metro Boston's Regional Trail Network.",
-    "Layer: Show/hide trail entrances",
-    "Trail entrance cards will have three types of pins: walking, bicycling, walking/bicycling.",
-    "Within the trail entrance cards, there will be a button to connect the endpoint pin, connecting the endpoint to the selected trail entrance.",
-    "The input 'enter the start point' will have a button to locate the user and display the start point pin when clicked.",
-    "Both 'enter the start/end point' inputs will display the location once selected.",
-    "Show trail entrances' names when approaching the pin",
-    "UI improvements"
+    "✅ Pin and display a pop-up card with the main trails in Metro Boston's Regional Trail Network.",
+    "✅ Layer: Show/hide trail entrances",
+    "🟡 Trail entrance cards will have three types of pins: walking, bicycling, walking/bicycling.",
+    "🟡 Within the trail entrance cards, there will be a button to connect the endpoint pin, connecting the endpoint to the selected trail entrance.",
+    "🟡 The input 'enter the start point' will have a button to locate the user and display the start point pin when clicked.",
+    "🟡 Both 'enter the start/end point' inputs will display the location once selected.",
+    "🟡 Show trail entrances' names when approaching the pin",
+    "🟡 UI improvements"
   ],
   "upcomingFeaturesTitle": "Upcoming Features:",
   "upcomingVersions": [
     {
       "versionLabel": "Version 3:",
       "featuresList": [
-        "Add different map styles: Satellite, Terrain, Light, Dark, Streets",
-        "Be able to show/hide labels such as street names, parks, etc."
+        "🟡 Add different map styles: Satellite, Terrain, Light, Dark, Streets",
+        "🟡 Be able to show/hide labels such as street names, parks, etc."
       ]
     },
     {
       "versionLabel": "Version 4:",
       "featuresList": [
-        "After signing in, you will be able to save your best routes with start and end points",
-        "After signing in, you will be able to save entrance bike/walking trails",
-        "On the dashboard, you can visualize all your saved routes for different types: driving, walking, cycling",
-        "UI improvements"
+        "🟡 After signing in, you will be able to save your best routes with start and end points",
+        "🟡 After signing in, you will be able to save entrance bike/walking trails",
+        "🟡 On the dashboard, you can visualize all your saved routes for different types: driving, walking, cycling",
+        "🟡 UI improvements"
       ]
     }
   ]
