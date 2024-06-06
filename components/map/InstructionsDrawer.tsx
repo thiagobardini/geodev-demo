@@ -262,15 +262,28 @@ const OpenInGoogleMapsButton: React.FC<{ onClick: () => void }> = ({
   </button>
 );
 
-const VersionInfo: React.FC<{ onClick: () => void }> = ({ onClick }) => (
-  <div
-    className="mt-8 mb-[124px]
-     cursor-pointer text-center text-sm font-semibold text-white underline"
-    onClick={onClick}
-  >
-    Version 2.0
-  </div>
-);
+const VersionInfo: React.FC<{ onClick: () => void }> = ({ onClick }) => {
+  const [versionLabel, setVersionLabel] = useState<string>("");
+
+  useEffect(() => {
+    const fetchVersionLabel = async () => {
+      const response = await fetch("/data/versionTexts.json");
+      const data = await response.json();
+      setVersionLabel(data.versionLabel);
+    };
+
+    fetchVersionLabel();
+  }, []);
+
+  return (
+    <div
+      className="mt-8 mb-[124px] cursor-pointer text-center text-sm font-semibold text-white underline"
+      onClick={onClick}
+    >
+      {versionLabel ? versionLabel : "Loading..."}
+    </div>
+  );
+};
 
 const OpenDrawerButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
   <button

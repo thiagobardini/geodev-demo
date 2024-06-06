@@ -1,5 +1,5 @@
 {
-  "versionLabel": "Version 2.0",
+  "versionLabel": "Version 2.2",
   "modalTitle": "Versions Overview",
   "implementedFeaturesTitle": "Implemented Features:",
   "implementedFeaturesList": [
@@ -17,9 +17,9 @@
     "✅ Pin and display a pop-up card with the main trails in Metro Boston's Regional Trail Network.",
     "✅ Layer: Show/hide trail entrances",
     "🟡 Trail entrance cards will have three types of pins: walking, bicycling, walking/bicycling.",
-    "🟡 Within the trail entrance cards, there will be a button to connect the endpoint pin, connecting the endpoint to the selected trail entrance.",
-    "🟡 The input 'enter the start point' will have a button to locate the user and display the start point pin when clicked.",
-    "🟡 Both 'enter the start/end point' inputs will display the location once selected.",
+    "🟡 Button to connect the endpoint pin within the trail entrance cards.",
+    "🟡 Button in the 'enter the start point' input to locate the user and display the start point pin.",
+    "🟡 'Enter the start/end point' inputs will display the location once selected.",
     "🟡 Show trail entrances' names when approaching the pin",
     "🟡 UI improvements"
   ],
