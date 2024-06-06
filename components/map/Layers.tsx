@@ -66,7 +66,7 @@ const Layers: React.FC<LayersProps> = ({
             </label>
             {color && (
               <div
-                className="ml-2 h-2 w-6"
+                className="ml-2 h-2 w-6 absolute right-8 rounded-md"
                 style={{ backgroundColor: color }}
               ></div>
             )}
