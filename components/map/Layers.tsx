@@ -60,28 +60,6 @@ const Layers: React.FC<LayersProps> = ({
           ></div>
         </div>
       </div>
-      {/* Land Line Systems */}
-      <div className="relative flex items-start">
-        <div className="flex h-6 items-center">
-          <input
-            id="landLine"
-            onChange={handleChange("landLineSystems")}
-            name="landLine"
-            type="checkbox"
-            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-            checked={layerVisibility.landLineSystems === "visible"}
-          />
-        </div>
-        <div className="ml-3 flex items-center text-sm leading-6">
-          <label htmlFor="landLine" className="font-medium text-white">
-            Land Line Systems
-          </label>
-          <div
-            className="ml-2 h-1 w-6"
-            style={{ backgroundColor: "hsl(50, 100%, 66%)" }}
-          ></div>
-        </div>
-      </div>
       {/* Shared Use Paths */}
       <div className="relative flex items-start">
         <div className="flex h-6 items-center">
@@ -100,7 +78,29 @@ const Layers: React.FC<LayersProps> = ({
           </label>
           <div
             className="ml-2 h-1 w-6"
-            style={{ backgroundColor: "#41ec74" }}
+            style={{ backgroundColor: "#214a2d" }}
+          ></div>
+        </div>
+      </div>
+      {/* Land Line Systems */}
+      <div className="relative flex items-start">
+        <div className="flex h-6 items-center">
+          <input
+            id="landLine"
+            onChange={handleChange("landLineSystems")}
+            name="landLine"
+            type="checkbox"
+            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            checked={layerVisibility.landLineSystems === "visible"}
+          />
+        </div>
+        <div className="ml-3 flex items-center text-sm leading-6">
+          <label htmlFor="landLine" className="font-medium text-white">
+            LandLine Systems
+          </label>
+          <div
+            className="ml-2 h-1 w-6"
+            style={{ backgroundColor: "hsl(50, 100%, 66%)" }}
           ></div>
         </div>
       </div>

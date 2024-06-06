@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  Suspense,
-  useMemo,
-} from "react";
+import React, { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import ReactMapboxGl, {
   FullscreenControl,
   GeolocateControl,
@@ -18,7 +11,6 @@ import ReactMapboxGl, {
   Marker,
 } from "react-map-gl";
 import InstructionsDrawer from "./InstructionsDrawer";
-import LabeledMarker from "./LabeledMarker";
 import useMediaQuery from "@/lib/hooks/use-media-query";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import Image from "next/image";
@@ -27,14 +19,15 @@ import {
   startPointStyle,
   endPointStyle,
 } from "./map-styles/trailLinesLayerProps";
-import Pin from "./map-styles/pin";
 import Header from "./Header";
 import UserPin from "./map-styles/userPin";
+import PinsTrailsEntrance from "./PinsTrailsEntrance";
+import Layers from "./Layers";
 
 const initialViewState = {
   latitude: 42.395043,
   longitude: -71.161471,
-  zoom: 10,
+  zoom: 11,
   bearing: 0,
   pitch: 0,
   padding: { top: 0, bottom: 0, left: 0, right: 0 },
@@ -63,13 +56,15 @@ const TrailMap = () => {
     landLineSystems: "visible",
     sharedUsePaths: "visible",
     trailEntrances: "visible",
+    userLocation: "visible",
   });
-  const [trailEntrancesData, setTrailEntrancesData] = useState([]);
+  const [trailEntrancesData, setTrailEntrancesData] = useState(null);
   const [selectedPoint, setSelectedPoint] = useState("end");
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
   const [travelMode, setTravelMode] = useState("walking");
   const [popupInfo, setPopupInfo] = useState(null);
+  const [renderKey, setRenderKey] = useState(0);
 
   const { isMobile } = useMediaQuery();
 
@@ -80,7 +75,7 @@ const TrailMap = () => {
     const fetchTrailEntrancesData = async () => {
       const response = await fetch("/data/trailEntrancesData.json");
       const data = await response.json();
-      setTrailEntrancesData(data.features);
+      setTrailEntrancesData(data);
     };
 
     fetchTrailEntrancesData();
@@ -91,10 +86,9 @@ const TrailMap = () => {
       travelMode === "bicycling" ? "cycling" : travelMode;
     try {
       const response = await fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/${adjustedTravelMode}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
+        `https://api.mapbox.com/directions/v5/mapbox/${adjustedTravelMode}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
       );
       const data = await response.json();
-      // console.log("Route data:", data);
 
       if (data.routes && data.routes.length > 0) {
         const route = data.routes[0];
@@ -120,10 +114,21 @@ const TrailMap = () => {
   }, [start, end, travelMode, getRoute]);
 
   const toggleLayerVisibility = (layerId) => {
-    setLayerVisibility((prevState) => ({
-      ...prevState,
-      [layerId]: prevState[layerId] === "visible" ? "none" : "visible",
-    }));
+    setLayerVisibility((prevState) => {
+      const newVisibility = prevState[layerId] === "visible" ? "none" : "visible";
+      if (layerId === "trailEntrances") {
+        setRenderKey((prevKey) => prevKey + 1); // Force re-render UserPin
+        return {
+          ...prevState,
+          [layerId]: newVisibility,
+          userLocation: "visible",
+        };
+      }
+      return {
+        ...prevState,
+        [layerId]: newVisibility,
+      };
+    });
   };
 
   const geojson = {
@@ -179,29 +184,6 @@ const TrailMap = () => {
     }
   };
 
-  useEffect(() => {
-    // console.log("Layer visibility state:", layerVisibility);
-  }, [layerVisibility]);
-
-  const pins = useMemo(
-    () =>
-      trailEntrancesData.map((trail, index) => (
-        <Marker
-          key={`marker-${index}`}
-          longitude={trail.geometry.coordinates[0]}
-          latitude={trail.geometry.coordinates[1]}
-          anchor="bottom"
-          onClick={(e) => {
-            e.originalEvent.stopPropagation();
-            setPopupInfo(trail);
-          }}
-        >
-          <Pin />
-        </Marker>
-      )),
-    [trailEntrancesData],
-  );
-
   return (
     <>
       <section className="relative h-full w-full">
@@ -222,10 +204,6 @@ const TrailMap = () => {
               distance={distance}
               duration={duration}
             />
-            {/* <GeocoderControl
-              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
-              position="bottom-right"
-            /> */}
 
             <Source id="composite" type="vector" url="mapbox://composite">
               <Layer
@@ -234,7 +212,7 @@ const TrailMap = () => {
                 type="line"
                 paint={{
                   "line-color": "#913368",
-                  "line-width": 1,
+                  "line-width": 2,
                 }}
                 layout={{ visibility: layerVisibility.walkingTrails }}
               />
@@ -247,8 +225,7 @@ const TrailMap = () => {
                 type="line"
                 paint={{
                   "line-color": "#92c6df",
-                  "line-offset": 1,
-                  "line-width": 1,
+                  "line-width": 2,
                 }}
                 layout={{ visibility: layerVisibility.bikeFacilities }}
               />
@@ -261,7 +238,7 @@ const TrailMap = () => {
                 type="line"
                 paint={{
                   "line-color": "hsl(50, 100%, 66%)",
-                  "line-width": 1,
+                  "line-width": 2,
                 }}
                 layout={{ visibility: layerVisibility.landLineSystems }}
               />
@@ -273,9 +250,9 @@ const TrailMap = () => {
                 source-layer="trans_shared_use_paths-9a2oo6"
                 type="line"
                 paint={{
-                  "line-color": "#41ec74",
+                  "line-color": "#214a2d",
                   "line-offset": 3,
-                  "line-width": 1,
+                  "line-width": 2,
                 }}
                 layout={{ visibility: layerVisibility.sharedUsePaths }}
               />
@@ -293,27 +270,35 @@ const TrailMap = () => {
               <Layer {...endPointStyle} />
             </Source>
 
-            {layerVisibility.trailEntrances === "visible" && pins}
+            {layerVisibility.trailEntrances === "visible" && trailEntrancesData && (
+              <PinsTrailsEntrance trailEntrancesData={trailEntrancesData} setPopupInfo={setPopupInfo} />
+            )}
 
-            <Marker
-              longitude={start[0]}
-              latitude={start[1]}
-              anchor="bottom"
-              draggable
-              onDragEnd={(e) => handleMarkerDragEnd(e, setStart)}
-            >
-              <UserPin text="Start Point" size="40px" />
-            </Marker>
+            {layerVisibility.userLocation === "visible" && (
+              <>
+                <Marker
+                  key={`start-marker-${renderKey}`}
+                  longitude={start[0]}
+                  latitude={start[1]}
+                  anchor="bottom"
+                  draggable
+                  onDragEnd={(e) => handleMarkerDragEnd(e, setStart)}
+                >
+                  <UserPin text="Start Point" size="40px" />
+                </Marker>
 
-            <Marker
-              longitude={end[0]}
-              latitude={end[1]}
-              anchor="bottom"
-              draggable
-              onDragEnd={(e) => handleMarkerDragEnd(e, setEnd)}
-            >
-              <UserPin text="End Point" size="40px"/>
-            </Marker>
+                <Marker
+                  key={`end-marker-${renderKey}`}
+                  longitude={end[0]}
+                  latitude={end[1]}
+                  anchor="bottom"
+                  draggable
+                  onDragEnd={(e) => handleMarkerDragEnd(e, setEnd)}
+                >
+                  <UserPin text="End Point" size="40px" />
+                </Marker>
+              </>
+            )}
 
             {popupInfo && (
               <Popup
@@ -400,6 +385,7 @@ const TrailMap = () => {
           </ReactMapboxGl>
         </Suspense>
       </section>
+      <Layers layerVisibility={layerVisibility} toggleLayerVisibility={toggleLayerVisibility} />
     </>
   );
 };
