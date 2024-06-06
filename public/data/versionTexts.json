@@ -1,5 +1,5 @@
 {
-  "versionLabel": "Version 2.2",
+  "versionLabel": "Version 2.4",
   "modalTitle": "Versions Overview",
   "implementedFeaturesTitle": "Implemented Features:",
   "implementedFeaturesList": [
@@ -16,11 +16,11 @@
   "currentFeaturesList": [
     "✅ Pin and display a pop-up card with the main trails in Metro Boston's Regional Trail Network.",
     "✅ Layer: Show/hide trail entrances",
-    "🟡 Trail entrance cards will have three types of pins: walking, bicycling, walking/bicycling.",
+    "✅ Show Park Entrances' names when hovering the pin",
+    "✅ Trail entrance cards will have three types of pins: walking, bicycling, walking/bicycling.",
     "🟡 Button inside the trail entrance card to connect the endpoint pin to the selected trail entrance coordinates.",
     "🟡 Button in the 'enter the start point' input to locate the user and display the start point pin.",
     "🟡 'Enter the start/end point' inputs will display the location once selected.",
-    "🟡 Show trail entrances' names when approaching the pin",
     "🟡 A 'Welcome to TrailMap' modal will appear when the user enters the TrailMap app, asking 'I'm interested in: walking, biking, or show me all.' When the user selects an option, specific trails for that type will be displayed on the map.",
     "🟡 UI improvements"
   ],

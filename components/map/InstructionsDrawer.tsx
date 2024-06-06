@@ -256,7 +256,7 @@ const OpenInGoogleMapsButton: React.FC<{ onClick: () => void }> = ({
 }) => (
   <button
     onClick={onClick}
-    className="mt-3 w-full rounded-md bg-indigo-600 p-2 text-sm text-white"
+    className="mt-2 w-full rounded-md bg-indigo-600 p-2 text-sm text-white"
   >
     Open in Google Maps
   </button>

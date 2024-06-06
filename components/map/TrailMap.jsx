@@ -22,7 +22,6 @@ import {
 import Header from "./Header";
 import UserPin from "./map-styles/userPin";
 import PinsTrailsEntrance from "./PinsTrailsEntrance";
-import Layers from "./Layers";
 
 const initialViewState = {
   latitude: 42.395043,
@@ -56,6 +55,8 @@ const TrailMap = () => {
     landLineSystems: "visible",
     sharedUsePaths: "visible",
     trailEntrances: "visible",
+    bikeParkTrails: "visible",
+    walkingParkTrails: "visible",
     userLocation: "visible",
   });
   const [trailEntrancesData, setTrailEntrancesData] = useState(null);
@@ -116,7 +117,7 @@ const TrailMap = () => {
   const toggleLayerVisibility = (layerId) => {
     setLayerVisibility((prevState) => {
       const newVisibility = prevState[layerId] === "visible" ? "none" : "visible";
-      if (layerId === "trailEntrances") {
+      if (layerId === "trailEntrances" || layerId === "bikeParkTrails" || layerId === "walkingParkTrails") {
         setRenderKey((prevKey) => prevKey + 1); // Force re-render UserPin
         return {
           ...prevState,
@@ -183,6 +184,19 @@ const TrailMap = () => {
       setPopupInfo(null);
     }
   };
+
+  const filterTrailEntrances = (trail) => {
+    const activities = trail.properties.activities;
+    if (layerVisibility.bikeParkTrails === "visible" && activities.includes("biking")) {
+      return true;
+    }
+    if (layerVisibility.walkingParkTrails === "visible" && activities.includes("walking")) {
+      return true;
+    }
+    return false;
+  };
+
+  const filteredPins = trailEntrancesData ? trailEntrancesData.features.filter(filterTrailEntrances) : [];
 
   return (
     <>
@@ -271,7 +285,7 @@ const TrailMap = () => {
             </Source>
 
             {layerVisibility.trailEntrances === "visible" && trailEntrancesData && (
-              <PinsTrailsEntrance trailEntrancesData={trailEntrancesData} setPopupInfo={setPopupInfo} />
+              <PinsTrailsEntrance trailEntrancesData={{ features: filteredPins }} setPopupInfo={setPopupInfo} />
             )}
 
             {layerVisibility.userLocation === "visible" && (
@@ -385,7 +399,6 @@ const TrailMap = () => {
           </ReactMapboxGl>
         </Suspense>
       </section>
-      <Layers layerVisibility={layerVisibility} toggleLayerVisibility={toggleLayerVisibility} />
     </>
   );
 };
