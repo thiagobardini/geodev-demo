@@ -5,7 +5,7 @@ export default function Page() {
   return (
     <>
       <meta name="Mapbox" content="Mapbox Integration" />
-      <div className="relative h-screen w-screen">
+      <div className="absolute h-screen w-screen">
         <TrailMap />
       </div>
     </>
