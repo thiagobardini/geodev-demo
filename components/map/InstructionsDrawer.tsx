@@ -92,11 +92,11 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     getRoute();
   }, [travelMode, getRoute]);
 
- const getUserLocation = () => {
+  const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setStart({ lng: position.coords.longitude, lat: position.coords.latitude });
+          setStart({ lat: position.coords.latitude, lng: position.coords.longitude });
         },
         (error) => {
           console.error("Error getting user location: ", error);
@@ -125,9 +125,9 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
           <DirectionsSection
             setStart={setStart}
             setEnd={setEnd}
+            getUserLocation={getUserLocation}
             start={start}
             end={end}
-            getUserLocation={getUserLocation}
           />
           <DraggableMarkersSection />
 
@@ -211,10 +211,10 @@ const Divider: React.FC = () => (
 const DirectionsSection: React.FC<{
   setStart: (point: Coordinates) => void;
   setEnd: (point: Coordinates) => void;
+  getUserLocation: () => void;
   start: [number, number];
   end: [number, number];
-  getUserLocation: () => void;
-}> = ({ setStart, setEnd, start, end, getUserLocation }) => (
+}> = ({ setStart, setEnd, getUserLocation, start, end }) => (
   <section className="mt-2">
     <div className="flex items-center">
       <h3 className="text-white">Directions</h3>
@@ -224,18 +224,20 @@ const DirectionsSection: React.FC<{
     </div>
     <div className="flex items-center">
       <Places
-        placeholder={`Current: ${start[1].toFixed(6)}, ${start[0].toFixed(6)}`}
+        placeholder={`Start Point (${start[1]}, ${start[0]})`}
         setEnd={(point: Coordinates) => setStart(point)}
       />
-      <button
-        onClick={getUserLocation}
+      <Tooltip content="Find my location">
+        <button
+          onClick={getUserLocation}
         className="ml-2 p-2 rounded bg-[#ff8c00] text-white hover:bg-[#ffa733]"
-      >
-        <Locate className="w-5 h-5" />
-      </button>
+        >
+          <Locate className="w-5 h-5" />
+        </button>
+      </Tooltip>
     </div>
     <Places
-      placeholder={`Current: ${end[1].toFixed(6)}, ${end[0].toFixed(6)}`}
+      placeholder={`End Point (${end[1]}, ${end[0]})`}
       setEnd={(point: Coordinates) => setEnd(point)}
     />
   </section>
