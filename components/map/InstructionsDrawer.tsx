@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { X, Info } from "lucide-react";
+import { X, Info, MapPin } from "lucide-react";
 import Places from "./Places";
 import Tooltip from "@/components/shared/tooltip";
 import Layers from "./Layers";
@@ -98,10 +98,10 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
         ref={drawerRef}
         className={`fixed left-0 top-[64px] z-20 h-full transform transition-transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } w-2/3 bg-slate-800 shadow-lg sm:w-80`}
+        } w-2/3 bg-[#1b1f23] shadow-lg sm:w-80 rounded-r-lg`}
       >
         <Header onClose={() => setIsOpen(false)} />
-        <div className="h-full min-h-screen overflow-y-auto p-4 custom-scrollbar">
+        <div className="h-full min-h-screen overflow-y-auto p-4">
           <LayersSection
             layerVisibility={layerVisibility}
             toggleLayerVisibility={toggleLayerVisibility}
@@ -155,7 +155,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
 };
 
 const Header: React.FC<{ onClose: () => void }> = ({ onClose }) => (
-  <div className="relative flex items-center justify-between bg-slate-900 p-4">
+  <div className="relative flex items-center justify-between bg-[#282c34] p-4 rounded-t-lg">
     <h2 className="text-lg font-semibold text-white">Instructions</h2>
     <button onClick={onClose} className="absolute right-3 top-5 text-white">
       <X className="h-6 w-6" />
@@ -167,7 +167,7 @@ const LayersSection: React.FC<{
   layerVisibility: { [key: string]: string };
   toggleLayerVisibility: (layerId: string) => void;
 }> = ({ layerVisibility, toggleLayerVisibility }) => (
-  <section>
+  <section className="drawer-section">
     <div className="flex items-center">
       <h3 className="text-white">Layers</h3>
       <Tooltip content="You can hide or show the trails using the buttons below.">
@@ -183,7 +183,7 @@ const LayersSection: React.FC<{
 
 const Divider: React.FC = () => (
   <div className="my-6 flex items-center">
-    <div className="flex-grow border-t border-gray-100"></div>
+    <div className="flex-grow border-t border-gray-700"></div>
   </div>
 );
 
@@ -224,7 +224,7 @@ const DraggableMarkersSection: React.FC = () => (
       </div>
       <div className="flex items-center mr-1">
         <UserPin text="End Point" tooltip={false} />
-        <div className="h-fit rounded-md  text-white">End Point</div>
+        <div className="h-fit rounded-md text-white">End Point</div>
       </div>
     </div>
   </section>
@@ -256,8 +256,9 @@ const OpenInGoogleMapsButton: React.FC<{ onClick: () => void }> = ({
 }) => (
   <button
     onClick={onClick}
-    className="mt-2 w-full rounded-md bg-indigo-600 p-2 text-sm text-white"
+    className="mt-2 w-full flex items-center justify-center rounded-md bg-[#ff8c00] p-2 text-sm text-white hover:bg-[#ffa733]"
   >
+    <MapPin className="w-5 h-5 mr-2" />
     Open in Google Maps
   </button>
 );
@@ -288,7 +289,7 @@ const VersionInfo: React.FC<{ onClick: () => void }> = ({ onClick }) => {
 const OpenDrawerButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
   <button
     onClick={onClick}
-    className={`absolute -right-12 top-[45vh] h-12 w-12 -translate-y-1/2 transform rounded-r-md bg-slate-800 text-center shadow-md`}
+    className={`absolute -right-12 top-[45vh] h-12 w-12 -translate-y-1/2 transform rounded-r-md bg-[#1b1f23] text-center shadow-md`}
     style={{ boxShadow: "0 0 0 2px rgba(0, 0, 0, .1)" }}
   >
     <Image

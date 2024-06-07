@@ -3,7 +3,6 @@ import { formatDuration } from "@/lib/utils";
 import TravelModeDropdown, {
   TravelModeDropdownHandle,
 } from "./shared/TravelModeDropdown";
-import classes from "./Map.module.css";
 
 interface HeaderProps {
   travelMode: string;
@@ -46,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({
         <div className="w-full max-w-screen-lg border-y-2 border-y-indigo-600 bg-opacity-50">
           <div className="flex h-auto items-center justify-center space-x-2 border-x border-b border-gray-200 bg-white/50 bg-opacity-50 px-2 text-black backdrop-blur-xl">
             <h1 className="text-2xl font-bold">TrailMap</h1>
-            <div className={classes.divider}></div>
+            <div className="divider"></div>
             <h2 className="text-sm">
               Metro Boston&#39;s Regional Walking and Cycling Map
             </h2>
@@ -57,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({
       <div className="mt-1 flex h-full w-full items-center justify-center">
         <div className="w-full max-w-screen-sm border-b-2 bg-opacity-50">
           <div className="relative flex h-[50px] items-center justify-center space-x-2 border-x border-b border-gray-200 bg-white/50 bg-opacity-50 px-2 text-black backdrop-blur-xl">
-            <div className="min-w-[70px] bg-slate-600">
+            <div className="min-w-[70px]">
               <div className="absolute top-[-3px]">
                 <TravelModeDropdown
                   travelMode={travelMode}

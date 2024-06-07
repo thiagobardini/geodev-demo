@@ -1,6 +1,7 @@
 import { FC, Dispatch, SetStateAction, useEffect, useState } from "react";
 import Modal from "@/components/shared/modal";
 import Image from "next/image";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface VersionModalProps {
   showModal: boolean;
@@ -72,13 +73,14 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
               className="rounded-md border border-gray-200 p-3"
             >
               <summary 
-                className="cursor-pointer text-lg font-semibold text-gray-700"
+                className="cursor-pointer flex items-center justify-between text-lg font-semibold text-gray-700"
                 onClick={(e) => {
                   e.preventDefault();
                   handleToggle('implemented');
                 }}
               >
                 {texts.implementedFeaturesTitle}
+                {openSection === 'implemented' ? <ChevronUp /> : <ChevronDown />}
               </summary>
               {openSection === 'implemented' && (
                 <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
@@ -96,13 +98,14 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
               className="rounded-md border border-gray-200 p-3"
             >
               <summary 
-                className="cursor-pointer text-lg font-semibold text-gray-700"
+                className="cursor-pointer flex items-center justify-between text-lg font-semibold text-gray-700"
                 onClick={(e) => {
                   e.preventDefault();
                   handleToggle('current');
                 }}
               >
                 {texts.currentFeaturesTitle}
+                {openSection === 'current' ? <ChevronUp /> : <ChevronDown />}
               </summary>
               {openSection === 'current' && (
                 <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
@@ -123,13 +126,14 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
               className="rounded-md border border-gray-200 p-3"
             >
               <summary 
-                className="cursor-pointer text-lg font-semibold text-gray-700"
+                className="cursor-pointer flex items-center justify-between text-lg font-semibold text-gray-700"
                 onClick={(e) => {
                   e.preventDefault();
                   handleToggle('upcoming');
                 }}
               >
                 {texts.upcomingFeaturesTitle}
+                {openSection === 'upcoming' ? <ChevronUp /> : <ChevronDown />}
               </summary>
               {openSection === 'upcoming' && (
                 <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
