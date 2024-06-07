@@ -266,12 +266,14 @@ const DirectionsSection: React.FC<{
         setEnd={(point: [number, number]) => setStart(point)}
         isEndPoint={false}
       />
-      <button
-        onClick={getUserLocation}
-        className="ml-2 rounded bg-indigo-600 p-2 text-white hover:bg-indigo-700"
-      >
-        <Locate className="h-5 w-5" />
-      </button>
+      <Tooltip content="Find My Location">
+        <button
+          onClick={getUserLocation}
+          className="ml-2 rounded bg-indigo-600 p-2 text-white hover:bg-indigo-700"
+        >
+          <Locate className="h-5 w-5" />
+        </button>
+      </Tooltip>
     </div>
     <div className="flex items-center">
       <Places
