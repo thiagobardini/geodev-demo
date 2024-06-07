@@ -92,11 +92,11 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     getRoute();
   }, [travelMode, getRoute]);
 
-  const getUserLocation = () => {
+ const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setStart([position.coords.longitude, position.coords.latitude]);
+          setStart({ lng: position.coords.longitude, lat: position.coords.latitude });
         },
         (error) => {
           console.error("Error getting user location: ", error);
