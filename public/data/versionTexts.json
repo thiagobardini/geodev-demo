@@ -1,38 +1,33 @@
 {
-  "versionLabel": "Version 2.7",
+  "versionLabel": "Version 3.0",
   "modalTitle": "Versions Overview",
   "implementedFeaturesTitle": "Implemented Features:",
   "implementedFeaturesList": [
-    "✅ User signup/signin",
-    "✅ Pin on the map for start and end points",
-    "✅ Search input for start and end points",
-    "✅ Legend: Show/hide trails",
-    "✅ Types of routes: Driving, walking, cycling",
-    "✅ Mobile and desktop views",
-    "✅ Button to open the route on Google Maps"
+    "✅ v1.1 User signup/signin",
+    "✅ v1.2 Pin on the map for start and end points",
+    "✅ v1.3 Search input for start and end points",
+    "✅ v1.4 Legend: Show/hide trails",
+    "✅ v1.5 Types of routes: Driving, walking, cycling",
+    "✅ v1.6 Button to open the route on Google Maps",
+    "✅ v1.7 Mobile and desktop views",
+    "✅ v2.1 Pin and display a pop-up card with the main trails in Metro Boston's Regional Trail Network.",
+    "✅ v2.2 Layer: Show/hide trail entrances",
+    "✅ v2.3 Show Park Entrances' names when hovering the pin",
+    "✅ v2.4  Trail entrance cards will have three types of pins: walking, bicycling, walking/bicycling.",
+    "✅ v2.5 Button inside the trail entrance card to connect the endpoint pin to the selected trail entrance coordinates.",
+    "✅ v2.6 Button in the 'enter the start point' input to locate the user and display the start point pin.",
+    "✅ v2.7 'Enter the start/end point' inputs will display the location once selected.",
+    "✅ v2.8 UI improvements"
   ],
   "currentFeaturesTitle": "Current Features:",
-  "currentVersionLabel": "Version 2:",
+  "currentVersionLabel": "Version 3:",
   "currentFeaturesList": [
-    "✅ Pin and display a pop-up card with the main trails in Metro Boston's Regional Trail Network.",
-    "✅ Layer: Show/hide trail entrances",
-    "✅ Show Park Entrances' names when hovering the pin",
-    "✅ Trail entrance cards will have three types of pins: walking, bicycling, walking/bicycling.",
-    "✅ Button inside the trail entrance card to connect the endpoint pin to the selected trail entrance coordinates.",
-    "✅ Button in the 'enter the start point' input to locate the user and display the start point pin.",
-    "✅ 'Enter the start/end point' inputs will display the location once selected.",
-    "🟡 A 'Welcome to TrailMap' modal will appear when the user enters the TrailMap app, asking 'I'm interested in: walking, biking, or show me all.' When the user selects an option, specific trails for that type will be displayed on the map.",
-    "🟡 UI improvements"
+    "🟡 Add different map styles: Satellite, Terrain, Light, Dark, Streets",
+    "🟡 Be able to show/hide labels such as street names, parks, etc.",
+    "🟡 A 'Welcome to TrailMap' modal will appear when the user enters the TrailMap app, asking 'I'm interested in: walking, biking, or show me all.' When the user selects an option, specific trails for that type will be displayed on the map."
   ],
   "upcomingFeaturesTitle": "Upcoming Features:",
   "upcomingVersions": [
-    {
-      "versionLabel": "Version 3:",
-      "featuresList": [
-        "🟡 Add different map styles: Satellite, Terrain, Light, Dark, Streets",
-        "🟡 Be able to show/hide labels such as street names, parks, etc."
-      ]
-    },
     {
       "versionLabel": "Version 4:",
       "featuresList": [
