@@ -19,10 +19,9 @@ const layersConfig = [
   },
   {
     id: "trailEntrances",
-    label: "Park Multi-Use Trail Entrances",
+    label: "Walking & Biking Park",
     pin: require("@/components/animations/shared-pin.json"),
-    size: 65,
-    right: "12px",
+    size: 50,
   },
   {
     id: "bikeParkTrails",
@@ -48,45 +47,38 @@ const Layers: React.FC<LayersProps> = ({
 
   return (
     <div className="mt-1">
-      {layersConfig.map(({ id, label, color, pin, size, right = 20 }) => (
-        <div key={id} className="xs:pt-0 relative flex items-center sm:pt-2">
-          <div className="flex h-[40px]  items-center sm:h-6">
-            <input
-              id={id}
-              onChange={handleChange(id)}
-              name={id}
-              type="checkbox"
-              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-              checked={layerVisibility[id] === "visible"}
+      {layersConfig.map(({ id, label, color, pin, size }) => (
+        <div key={id} className="grid grid-cols-[auto_1fr_auto] items-center py-1">
+          <input
+            id={id}
+            onChange={handleChange(id)}
+            name={id}
+            type="checkbox"
+            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            checked={layerVisibility[id] === "visible"}
+          />
+          <label htmlFor={id} className="ml-2 text-sm font-medium text-white flex-1">
+            {label}
+          </label>
+          {color && (
+            <div
+              className="h-2 w-6 ml-2 rounded-md"
+              style={{ backgroundColor: color }}
+            ></div>
+          )}
+          {pin && (
+            <Lottie
+              animationData={pin}
+              loop={true}
+              style={{
+                height: size,
+                width: size,
+                marginLeft: "8px",
+                position: "absolute",
+                right: "0",
+              }}
             />
-          </div>
-          <div className="ml-3 flex items-center text-sm leading-6 sm:h-6">
-            <label htmlFor={id} className="font-medium text-white">
-              {label}
-            </label>
-            {color && (
-              <div
-                className="ml-2 h-2 w-6 absolute right-8 rounded-md"
-                style={{ backgroundColor: color }}
-              ></div>
-            )}
-            {pin && (
-              <>
-                <div className="w-20"></div>
-                <Lottie
-                  animationData={pin}
-                  loop={true}
-                  style={{
-                    height: size,
-                    width: size,
-                    marginLeft: "0px",
-                    position: "absolute",
-                    right: right,
-                  }}
-                />
-              </>
-            )}
-          </div>
+          )}
         </div>
       ))}
     </div>
