@@ -4,7 +4,7 @@ import { LoadingDots } from "@/components/shared/icons";
 import Image from "next/image";
 import UserPin from "@/components/map/map-styles/userPin";
 
-const Places = ({ setEnd, placeholder }) => {
+const Places = ({ setEnd, placeholder, isEndPoint }) => {
   const [places, setPlaces] = useState([]);
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +12,7 @@ const Places = ({ setEnd, placeholder }) => {
   const getPlaces = useCallback(async () => {
     setIsLoading(true);
     const response = await fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
     );
     const data = await response.json();
 
@@ -36,9 +36,8 @@ const Places = ({ setEnd, placeholder }) => {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between rounded-md px-2 py-2 shadow-sm">
-        {/* <AiOutlineSearch size={20} className="mr-2 text-white" /> */}
         <div className="mr-1">
-          {placeholder === "Enter End Point" ? (
+          {isEndPoint ? (
             <UserPin text="End Point" tooltip={false} />
           ) : (
             <UserPin text="Start Point" tooltip={false} />

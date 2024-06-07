@@ -19,8 +19,8 @@ interface Coordinates {
 
 interface InstructionsDrawerProps {
   getRoute: () => void;
-  setStart: (point: Coordinates) => void;
-  setEnd: (point: Coordinates) => void;
+  setStart: (point: [number, number]) => void;
+  setEnd: (point: [number, number]) => void;
   start: [number, number]; // [longitude, latitude]
   end: [number, number]; // [longitude, latitude]
   selectedPoint: string;
@@ -50,6 +50,8 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
   const { isMobile } = useMediaQuery();
   const [isOpen, setIsOpen] = useState(false);
   const [showVersionModal, setShowVersionModal] = useState(true);
+  const [startPlaceName, setStartPlaceName] = useState("Fetching location...");
+  const [endPlaceName, setEndPlaceName] = useState("Fetching location...");
   const dropdownRef = useRef<TravelModeDropdownHandle>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
 
@@ -90,17 +92,41 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
 
   useEffect(() => {
     getRoute();
-  }, [travelMode, getRoute]);
+    fetchPlaceName(start, setStartPlaceName);
+    fetchPlaceName(end, setEndPlaceName);
+  }, [start, end, travelMode, getRoute]);
+
+  const fetchPlaceName = async (coordinates, setPlaceName) => {
+    try {
+      const response = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates[0]},${coordinates[1]}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
+      );
+      const data = await response.json();
+      if (data.features && data.features.length > 0) {
+        setPlaceName(data.features[0].place_name);
+      } else {
+        setPlaceName("Unknown location");
+      }
+    } catch (error) {
+      console.error("Error fetching place name: ", error);
+      setPlaceName("Error fetching location");
+    }
+  };
 
   const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setStart({ lat: position.coords.latitude, lng: position.coords.longitude });
+          const newStart = [
+            position.coords.longitude,
+            position.coords.latitude,
+          ];
+          setStart(newStart);
+          fetchPlaceName(newStart, setStartPlaceName);
         },
         (error) => {
           console.error("Error getting user location: ", error);
-        }
+        },
       );
     } else {
       console.error("Geolocation is not supported by this browser.");
@@ -113,7 +139,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
         ref={drawerRef}
         className={`fixed left-0 top-[64px] z-20 h-full transform transition-transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } w-2/3 bg-[#1b1f23] shadow-lg sm:w-80 rounded-r-lg`}
+        } w-2/3 rounded-r-lg bg-[#1b1f23] shadow-lg sm:w-80`}
       >
         <Header onClose={() => setIsOpen(false)} />
         <div className="h-full min-h-screen overflow-y-auto p-4">
@@ -128,6 +154,8 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
             getUserLocation={getUserLocation}
             start={start}
             end={end}
+            startPlaceName={startPlaceName}
+            endPlaceName={endPlaceName}
           />
           <DraggableMarkersSection />
 
@@ -176,7 +204,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
 };
 
 const Header: React.FC<{ onClose: () => void }> = ({ onClose }) => (
-  <div className="relative flex items-center justify-between bg-[#282c34] p-4 rounded-t-lg">
+  <div className="relative flex items-center justify-between rounded-t-lg bg-[#282c34] p-4">
     <h2 className="text-lg font-semibold text-white">Instructions</h2>
     <button onClick={onClose} className="absolute right-3 top-5 text-white">
       <X className="h-6 w-6" />
@@ -209,12 +237,22 @@ const Divider: React.FC = () => (
 );
 
 const DirectionsSection: React.FC<{
-  setStart: (point: Coordinates) => void;
-  setEnd: (point: Coordinates) => void;
+  setStart: (point: [number, number]) => void;
+  setEnd: (point: [number, number]) => void;
   getUserLocation: () => void;
   start: [number, number];
   end: [number, number];
-}> = ({ setStart, setEnd, getUserLocation, start, end }) => (
+  startPlaceName: string;
+  endPlaceName: string;
+}> = ({
+  setStart,
+  setEnd,
+  getUserLocation,
+  start,
+  end,
+  startPlaceName,
+  endPlaceName,
+}) => (
   <section className="mt-2">
     <div className="flex items-center">
       <h3 className="text-white">Directions</h3>
@@ -224,22 +262,24 @@ const DirectionsSection: React.FC<{
     </div>
     <div className="flex items-center">
       <Places
-        placeholder={`Start Point (${start[1]}, ${start[0]})`}
-        setEnd={(point: Coordinates) => setStart(point)}
+        placeholder={startPlaceName}
+        setEnd={(point: [number, number]) => setStart(point)}
+        isEndPoint={false}
       />
-      <Tooltip content="Find my location">
-        <button
-          onClick={getUserLocation}
-        className="ml-2 p-2 rounded bg-[#ff8c00] text-white hover:bg-[#ffa733]"
-        >
-          <Locate className="w-5 h-5" />
-        </button>
-      </Tooltip>
+      <button
+        onClick={getUserLocation}
+        className="ml-2 rounded bg-indigo-600 p-2 text-white hover:bg-indigo-700"
+      >
+        <Locate className="h-5 w-5" />
+      </button>
     </div>
-    <Places
-      placeholder={`End Point (${end[1]}, ${end[0]})`}
-      setEnd={(point: Coordinates) => setEnd(point)}
-    />
+    <div className="flex items-center">
+      <Places
+        placeholder={endPlaceName}
+        setEnd={(point: [number, number]) => setEnd(point)}
+        isEndPoint={true}
+      />
+    </div>
   </section>
 );
 
@@ -252,11 +292,11 @@ const DraggableMarkersSection: React.FC = () => (
       </Tooltip>
     </div>
     <div className="mt-2 flex items-center justify-start gap-4">
-      <div className="flex items-center mr-1">
+      <div className="mr-1 flex items-center">
         <UserPin text="Start Point" tooltip={false} />
         <div className="h-fit rounded-md text-white">Start Point</div>
       </div>
-      <div className="flex items-center mr-1">
+      <div className="mr-1 flex items-center">
         <UserPin text="End Point" tooltip={false} />
         <div className="h-fit rounded-md text-white">End Point</div>
       </div>
@@ -290,9 +330,9 @@ const OpenInGoogleMapsButton: React.FC<{ onClick: () => void }> = ({
 }) => (
   <button
     onClick={onClick}
-    className="mt-2 w-full flex items-center justify-center rounded-md bg-[#ff8c00] p-2 text-sm text-white hover:bg-[#ffa733]"
+    className="mt-2 flex w-full items-center justify-center rounded-md bg-indigo-600 p-2 text-sm text-white hover:bg-indigo-700"
   >
-    <MapPin className="w-5 h-5 mr-2" />
+    <MapPin className="mr-2 h-5 w-5" />
     Open in Google Maps
   </button>
 );
@@ -312,7 +352,7 @@ const VersionInfo: React.FC<{ onClick: () => void }> = ({ onClick }) => {
 
   return (
     <div
-      className="mt-8 mb-[124px] cursor-pointer text-center text-sm font-semibold text-white underline pb-40 sm:pb-0"
+      className="mb-[124px] mt-8 cursor-pointer pb-40 text-center text-sm font-semibold text-white underline sm:pb-0"
       onClick={onClick}
     >
       {versionLabel ? versionLabel : "Loading..."}
