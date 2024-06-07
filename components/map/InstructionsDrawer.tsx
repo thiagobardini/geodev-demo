@@ -96,7 +96,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     fetchPlaceName(end, setEndPlaceName);
   }, [start, end, travelMode, getRoute]);
 
-  const fetchPlaceName = async (coordinates, setPlaceName) => {
+  const fetchPlaceName = async (coordinates: [number, number], setPlaceName: React.Dispatch<React.SetStateAction<string>>) => {
     try {
       const response = await fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates[0]},${coordinates[1]}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
@@ -117,7 +117,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const newStart = [
+          const newStart: [number, number] = [
             position.coords.longitude,
             position.coords.latitude,
           ];
