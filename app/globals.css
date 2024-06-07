@@ -24,3 +24,15 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: #4338ca; /* Hover color for the scrollbar thumb */
 }
+
+/* TrailPopup */
+.custom-popup .mapboxgl-popup-content {
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.custom-popup .mapboxgl-popup-tip {
+  border-bottom-color: #e0f7fa !important;
+}

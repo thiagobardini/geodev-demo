@@ -5,7 +5,6 @@ import ReactMapboxGl, {
   FullscreenControl,
   GeolocateControl,
   NavigationControl,
-  Popup,
   Source,
   Layer,
   Marker,
@@ -22,33 +21,19 @@ import {
 import Header from "./Header";
 import UserPin from "./map-styles/userPin";
 import PinsTrailsEntrance from "./PinsTrailsEntrance";
+import TrailPopup from "./TrailPopup"; // Import the new TrailPopup component
 
 const initialViewState = {
   latitude: 42.362,
   longitude: -71.075,
-  // latitude: 42.395043,
-  // longitude: -71.161471,
   zoom: 11,
   bearing: 0,
   pitch: 0,
   padding: { top: 0, bottom: 0, left: 0, right: 0 },
 };
 
-const ImageWithFallback = ({ src, alt, width, height, className }) => (
-  <Suspense fallback={<LoadingSpinner />}>
-    <Image
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      className={className}
-    />
-  </Suspense>
-);
-
 const TrailMap = () => {
   const [viewport, setViewport] = useState(initialViewState);
-  // const [end, setEnd] = useState([-71.061471, 42.355043]);
   const [end, setEnd] = useState([-71.061471, 42.365043]);
   const [start, setStart] = useState([-71.22424322006663, 42.38078912464982]);
   const [coords, setCoords] = useState([]);
@@ -201,6 +186,10 @@ const TrailMap = () => {
 
   const filteredPins = trailEntrancesData ? trailEntrancesData.features.filter(filterTrailEntrances) : [];
 
+  const connectToEndpoint = (coordinates) => {
+    setEnd(coordinates);
+  };
+
   return (
     <>
       <section className="relative h-full w-full">
@@ -318,40 +307,9 @@ const TrailMap = () => {
             )}
 
             {popupInfo && (
-              <Popup
-                longitude={popupInfo.geometry.coordinates[0]}
-                latitude={popupInfo.geometry.coordinates[1]}
-                onClose={() => setPopupInfo(null)}
-                closeOnClick={false}
-                anchor="top"
-              >
-                <div className="p-2">
-                  <h3 className="text-lg font-semibold">
-                    {popupInfo.properties.name}
-                  </h3>
-                  <p className="text-sm">
-                    {popupInfo.properties.activities.join(", ")}
-                  </p>
-                  <div className="my-2">
-                    <ImageWithFallback
-                      src={popupInfo.properties.imageUrl.replace("./", "/")}
-                      alt={popupInfo.properties.name}
-                      className="rounded"
-                      width={200}
-                      height={100}
-                    />
-                  </div>
-                  <a
-                    href={popupInfo.properties.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-indigo-600 hover:text-indigo-800"
-                  >
-                    More info
-                  </a>
-                </div>
-              </Popup>
+              <TrailPopup popupInfo={popupInfo} onClose={() => setPopupInfo(null)} connectToEndpoint={connectToEndpoint} />
             )}
+
             <div className="absolute h-full">
               <NavigationControl
                 position="bottom-right"

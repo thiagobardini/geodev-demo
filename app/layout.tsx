@@ -28,6 +28,7 @@ export default async function RootLayout({
         <head>
           <Script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js" />
           <Script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js" />
+          <Script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"/>
           <link
             rel="stylesheet"
             href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
