@@ -12,7 +12,6 @@ import ReactMapboxGl, {
 import InstructionsDrawer from "./InstructionsDrawer";
 import useMediaQuery from "@/lib/hooks/use-media-query";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
-import Image from "next/image";
 import {
   lineStyle,
   startPointStyle,
@@ -356,6 +355,7 @@ const TrailMap = () => {
               duration={duration}
               travelMode={travelMode}
               setTravelMode={setTravelMode}
+              // getUserLocation={getUserLocation} 
             />
           </ReactMapboxGl>
         </Suspense>

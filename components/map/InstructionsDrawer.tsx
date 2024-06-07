@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { X, Info, MapPin } from "lucide-react";
+import { X, Info, MapPin, Locate } from "lucide-react";
 import Places from "./Places";
 import Tooltip from "@/components/shared/tooltip";
 import Layers from "./Layers";
@@ -92,6 +92,21 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     getRoute();
   }, [travelMode, getRoute]);
 
+  const getUserLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setStart([position.coords.longitude, position.coords.latitude]);
+        },
+        (error) => {
+          console.error("Error getting user location: ", error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  };
+
   return (
     <>
       <div
@@ -107,7 +122,13 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
             toggleLayerVisibility={toggleLayerVisibility}
           />
           <Divider />
-          <DirectionsSection setStart={setStart} setEnd={setEnd} />
+          <DirectionsSection
+            setStart={setStart}
+            setEnd={setEnd}
+            start={start}
+            end={end}
+            getUserLocation={getUserLocation}
+          />
           <DraggableMarkersSection />
 
           <section className="relative my-4">
@@ -190,7 +211,10 @@ const Divider: React.FC = () => (
 const DirectionsSection: React.FC<{
   setStart: (point: Coordinates) => void;
   setEnd: (point: Coordinates) => void;
-}> = ({ setStart, setEnd }) => (
+  start: [number, number];
+  end: [number, number];
+  getUserLocation: () => void;
+}> = ({ setStart, setEnd, start, end, getUserLocation }) => (
   <section className="mt-2">
     <div className="flex items-center">
       <h3 className="text-white">Directions</h3>
@@ -198,12 +222,20 @@ const DirectionsSection: React.FC<{
         <Info className="ml-2 h-5 w-5 text-gray-400" />
       </Tooltip>
     </div>
+    <div className="flex items-center">
+      <Places
+        placeholder={`Current: ${start[1].toFixed(6)}, ${start[0].toFixed(6)}`}
+        setEnd={(point: Coordinates) => setStart(point)}
+      />
+      <button
+        onClick={getUserLocation}
+        className="ml-2 p-2 rounded bg-[#ff8c00] text-white hover:bg-[#ffa733]"
+      >
+        <Locate className="w-5 h-5" />
+      </button>
+    </div>
     <Places
-      placeholder="Enter Start Point"
-      setEnd={(point: Coordinates) => setStart(point)}
-    />
-    <Places
-      placeholder="Enter End Point"
+      placeholder={`Current: ${end[1].toFixed(6)}, ${end[0].toFixed(6)}`}
       setEnd={(point: Coordinates) => setEnd(point)}
     />
   </section>
@@ -213,7 +245,7 @@ const DraggableMarkersSection: React.FC = () => (
   <section className="pt-2">
     <div className="flex items-center">
       <h3 className="text-white">Draggable Markers</h3>
-      <Tooltip content="Drag the markers to change the start  and end points.">
+      <Tooltip content="Drag the markers to change the start and end points.">
         <Info className="ml-2 h-5 w-5 text-gray-400" />
       </Tooltip>
     </div>
