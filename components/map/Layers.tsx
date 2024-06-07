@@ -46,7 +46,7 @@ const Layers: React.FC<LayersProps> = ({
   };
 
   return (
-    <div className="mt-1">
+    <div className="mt-1 relative">
       {layersConfig.map(({ id, label, color, pin, size }) => (
         <div key={id} className="grid grid-cols-[auto_1fr_auto] items-center py-1">
           <input
@@ -73,9 +73,8 @@ const Layers: React.FC<LayersProps> = ({
               style={{
                 height: size,
                 width: size,
-                marginLeft: "8px",
+                right: "-12px",
                 position: "absolute",
-                right: "0",
               }}
             />
           )}

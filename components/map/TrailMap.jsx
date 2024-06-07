@@ -355,7 +355,6 @@ const TrailMap = () => {
               duration={duration}
               travelMode={travelMode}
               setTravelMode={setTravelMode}
-              // getUserLocation={getUserLocation} 
             />
           </ReactMapboxGl>
         </Suspense>

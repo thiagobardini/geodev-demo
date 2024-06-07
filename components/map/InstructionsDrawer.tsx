@@ -10,12 +10,6 @@ import TravelModeDropdown, {
   TravelModeDropdownHandle,
 } from "./shared/TravelModeDropdown";
 import { formatDuration } from "@/lib/utils";
-import UserPin from "./map-styles/userPin";
-
-interface Coordinates {
-  lat: number;
-  lng: number;
-}
 
 interface InstructionsDrawerProps {
   getRoute: () => void;
@@ -96,7 +90,10 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     fetchPlaceName(end, setEndPlaceName);
   }, [start, end, travelMode, getRoute]);
 
-  const fetchPlaceName = async (coordinates: [number, number], setPlaceName: React.Dispatch<React.SetStateAction<string>>) => {
+  const fetchPlaceName = async (
+    coordinates: [number, number],
+    setPlaceName: React.Dispatch<React.SetStateAction<string>>,
+  ) => {
     try {
       const response = await fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates[0]},${coordinates[1]}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
@@ -133,6 +130,14 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     }
   };
 
+  const setAllLayerVisibility = (visibility: string) => {
+    Object.keys(layerVisibility).forEach((layerId) => {
+      if (layerId !== "userLocation") {
+        toggleLayerVisibility(layerId);
+      }
+    });
+  };
+
   return (
     <>
       <div
@@ -146,19 +151,16 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
           <LayersSection
             layerVisibility={layerVisibility}
             toggleLayerVisibility={toggleLayerVisibility}
+            setAllLayerVisibility={setAllLayerVisibility}
           />
           <Divider />
           <DirectionsSection
             setStart={setStart}
             setEnd={setEnd}
             getUserLocation={getUserLocation}
-            start={start}
-            end={end}
             startPlaceName={startPlaceName}
             endPlaceName={endPlaceName}
           />
-          <DraggableMarkersSection />
-
           <section className="relative my-4">
             <div className="flex items-center">
               <h3 className="text-white">Travel Mode</h3>
@@ -215,13 +217,28 @@ const Header: React.FC<{ onClose: () => void }> = ({ onClose }) => (
 const LayersSection: React.FC<{
   layerVisibility: { [key: string]: string };
   toggleLayerVisibility: (layerId: string) => void;
-}> = ({ layerVisibility, toggleLayerVisibility }) => (
+  setAllLayerVisibility: (visibility: string) => void;
+}> = ({ layerVisibility, toggleLayerVisibility, setAllLayerVisibility }) => (
   <section className="drawer-section">
-    <div className="flex items-center">
-      <h3 className="text-white">Layers</h3>
-      <Tooltip content="You can hide or show the trails using the buttons below.">
-        <Info className="ml-2 h-5 w-5 text-gray-400" />
-      </Tooltip>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center">
+        <h3 className="text-white">Layers</h3>
+        <Tooltip content="You can hide or show the trails using the buttons below.">
+          <Info className="ml-2 h-5 w-5 text-gray-400" />
+        </Tooltip>
+      </div>
+      <button
+        onClick={() =>
+          setAllLayerVisibility(
+            Object.values(layerVisibility).every((v) => v === "visible")
+              ? "none"
+              : "visible",
+          )
+        }
+        className="text-sm text-indigo-600 hover:text-indigo-400"
+      >
+        Select All
+      </button>
     </div>
     <Layers
       layerVisibility={layerVisibility}
@@ -240,40 +257,30 @@ const DirectionsSection: React.FC<{
   setStart: (point: [number, number]) => void;
   setEnd: (point: [number, number]) => void;
   getUserLocation: () => void;
-  start: [number, number];
-  end: [number, number];
   startPlaceName: string;
   endPlaceName: string;
-}> = ({
-  setStart,
-  setEnd,
-  getUserLocation,
-  start,
-  end,
-  startPlaceName,
-  endPlaceName,
-}) => (
+}> = ({ setStart, setEnd, getUserLocation, startPlaceName, endPlaceName }) => (
   <section className="mt-2">
     <div className="flex items-center">
       <h3 className="text-white">Directions</h3>
-      <Tooltip content="You can change the start point and end point by entering the locations in the inputs below.">
+      <Tooltip content="You can change the start point and end point by entering the locations in the inputs below. The markers are draggable.">
         <Info className="ml-2 h-5 w-5 text-gray-400" />
       </Tooltip>
     </div>
-    <div className="flex items-center">
+    <div className="flex items-start">
       <Places
         placeholder={startPlaceName}
         setEnd={(point: [number, number]) => setStart(point)}
         isEndPoint={false}
       />
-      <Tooltip content="Find My Location">
-        <button
-          onClick={getUserLocation}
-          className="ml-2 rounded bg-indigo-600 p-2 text-white hover:bg-indigo-700"
-        >
-          <Locate className="h-5 w-5" />
-        </button>
-      </Tooltip>
+      <div className="relative h-full">
+          <button
+            onClick={getUserLocation}
+            className="ml-2 mr-1 mt-[8px] rounded bg-indigo-600 p-2 text-white hover:bg-indigo-700"
+          >
+            <Locate className="h-5 w-5" />
+          </button>
+      </div>
     </div>
     <div className="flex items-center">
       <Places
@@ -281,27 +288,6 @@ const DirectionsSection: React.FC<{
         setEnd={(point: [number, number]) => setEnd(point)}
         isEndPoint={true}
       />
-    </div>
-  </section>
-);
-
-const DraggableMarkersSection: React.FC = () => (
-  <section className="pt-2">
-    <div className="flex items-center">
-      <h3 className="text-white">Draggable Markers</h3>
-      <Tooltip content="Drag the markers to change the start and end points.">
-        <Info className="ml-2 h-5 w-5 text-gray-400" />
-      </Tooltip>
-    </div>
-    <div className="mt-2 flex items-center justify-start gap-4">
-      <div className="mr-1 flex items-center">
-        <UserPin text="Start Point" tooltip={false} />
-        <div className="h-fit rounded-md text-white">Start Point</div>
-      </div>
-      <div className="mr-1 flex items-center">
-        <UserPin text="End Point" tooltip={false} />
-        <div className="h-fit rounded-md text-white">End Point</div>
-      </div>
     </div>
   </section>
 );
