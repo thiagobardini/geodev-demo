@@ -72,14 +72,14 @@ const TrailPopup: React.FC<TrailPopupProps> = ({
       closeOnClick={false}
       closeButton={false}
       anchor="top"
-      className="custom-popup" 
+      className="custom-popup"
     >
-      <div className="max-w-xs p-3 bg-blue-50 border-2 border-blue-200 rounded-lg shadow-md">
+      <div className="max-w-xs rounded-lg border-2 border-blue-200 bg-blue-50 p-3 shadow-md">
         <h3 className="mb-1 text-lg font-semibold text-blue-800">
           {popupInfo.properties.name}
         </h3>
         <p className="mb-2 flex items-center text-sm text-gray-600">
-          <CheckCircle className="w-4 h-4 text-green-500 mr-1" />
+          <CheckCircle className="mr-1 h-4 w-4 text-green-500" />
           {popupInfo.properties.activities.join(", ")} allowed
         </p>
         <div className="my-2">
@@ -91,14 +91,14 @@ const TrailPopup: React.FC<TrailPopupProps> = ({
             height={100}
           />
         </div>
-        <div className="flex justify-between mt-2">
+        <div className="mt-2 flex justify-between">
           <a
             href={popupInfo.properties.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-blue-600 hover:text-blue-800 flex items-center"
+            className="flex items-center text-sm text-blue-600 hover:text-blue-800"
           >
-            <Info className="w-4 h-4 mr-1" />
+            <Info className="mr-1 h-4 w-4" />
             More info
           </a>
           <div
@@ -116,7 +116,7 @@ const TrailPopup: React.FC<TrailPopupProps> = ({
               }}
             />
             <span className="text-sm">Directions</span>
-            <ArrowRight className="w-5 h-5 ml-1" />
+            <ArrowRight className="ml-1 h-5 w-5" />
           </div>
         </div>
       </div>

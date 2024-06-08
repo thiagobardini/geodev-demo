@@ -9,7 +9,7 @@ function TrailEntrancesPin({
   isTooltip = true,
   size = "30px",
   frame = [20, 117],
-  className = "top-0 -translate-y-[170%] translate-x-[0px] transform whitespace-nowrap p-1 "
+  className = "top-0 -translate-y-[170%] translate-x-[0px] transform whitespace-nowrap p-1 ",
 }: {
   text: string;
   tooltip?: string;
@@ -18,11 +18,12 @@ function TrailEntrancesPin({
   frame?: [number, number];
   className?: string;
 }) {
-  const bgColor = text === "walking"
-    ? "bg-purple-100"
-    : text === "biking"
-    ? "bg-blue-100"
-    : "bg-green-100";
+  const bgColor =
+    text === "walking"
+      ? "bg-purple-100"
+      : text === "biking"
+      ? "bg-blue-100"
+      : "bg-green-100";
 
   const animationData =
     text === "walking"

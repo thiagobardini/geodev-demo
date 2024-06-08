@@ -63,7 +63,7 @@ export default function Page() {
               Welcome back, {session?.user?.name}
             </h1>
           </div>
-            <Home />
+          <Home />
         </>
       )}
     </>

@@ -25,7 +25,9 @@ interface VersionTexts {
 
 const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
   const [texts, setTexts] = useState<VersionTexts | null>(null);
-  const [openSection, setOpenSection] = useState<'implemented' | 'current' | 'upcoming' | null>('current');
+  const [openSection, setOpenSection] = useState<
+    "implemented" | "current" | "upcoming" | null
+  >("current");
 
   useEffect(() => {
     const fetchTexts = async () => {
@@ -37,8 +39,8 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
     fetchTexts();
   }, []);
 
-  const handleToggle = (section: 'implemented' | 'current' | 'upcoming') => {
-    setOpenSection(prev => (prev === section ? null : section));
+  const handleToggle = (section: "implemented" | "current" | "upcoming") => {
+    setOpenSection((prev) => (prev === section ? null : section));
   };
 
   if (!texts) {
@@ -47,7 +49,7 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
 
   return (
     <Modal showModal={showModal} setShowModal={setShowModal}>
-      <div className="relative z-50 max-h-screen w-full overflow-y-auto custom-scrollbar rounded-2xl border border-gray-200 bg-white shadow-xl">
+      <div className="custom-scrollbar relative z-50 max-h-screen w-full overflow-y-auto rounded-2xl border border-gray-200 bg-white shadow-xl">
         <div className="relative p-4">
           <div className="absolute left-2 top-3 text-sm font-semibold text-gray-600">
             {texts.versionLabel}
@@ -66,24 +68,28 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
           </h2>
         </div>
 
-        <div className="max-h-[calc(100vh-150px)] overflow-y-auto custom-scrollbar px-4 pb-4">
+        <div className="custom-scrollbar max-h-[calc(100vh-150px)] overflow-y-auto px-4 pb-4">
           <div className="space-y-6">
-            <details 
-              open={openSection === 'implemented'} 
+            <details
+              open={openSection === "implemented"}
               className="rounded-md border border-gray-200 p-3"
             >
-              <summary 
-                className="cursor-pointer flex items-center justify-between text-lg font-semibold text-gray-700"
+              <summary
+                className="flex cursor-pointer items-center justify-between text-lg font-semibold text-gray-700"
                 onClick={(e) => {
                   e.preventDefault();
-                  handleToggle('implemented');
+                  handleToggle("implemented");
                 }}
               >
                 {texts.implementedFeaturesTitle}
-                {openSection === 'implemented' ? <ChevronUp /> : <ChevronDown />}
+                {openSection === "implemented" ? (
+                  <ChevronUp />
+                ) : (
+                  <ChevronDown />
+                )}
               </summary>
-              {openSection === 'implemented' && (
-                <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
+              {openSection === "implemented" && (
+                <div className="custom-scrollbar mt-2 max-h-60 overflow-y-auto">
                   <ul className="mt-2 list-inside list-none text-sm text-gray-600">
                     {texts.implementedFeaturesList.map((feature, index) => (
                       <li key={index}>{feature}</li>
@@ -93,22 +99,22 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
               )}
             </details>
 
-            <details 
-              open={openSection === 'current'} 
+            <details
+              open={openSection === "current"}
               className="rounded-md border border-gray-200 p-3"
             >
-              <summary 
-                className="cursor-pointer flex items-center justify-between text-lg font-semibold text-gray-700"
+              <summary
+                className="flex cursor-pointer items-center justify-between text-lg font-semibold text-gray-700"
                 onClick={(e) => {
                   e.preventDefault();
-                  handleToggle('current');
+                  handleToggle("current");
                 }}
               >
                 {texts.currentFeaturesTitle}
-                {openSection === 'current' ? <ChevronUp /> : <ChevronDown />}
+                {openSection === "current" ? <ChevronUp /> : <ChevronDown />}
               </summary>
-              {openSection === 'current' && (
-                <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
+              {openSection === "current" && (
+                <div className="custom-scrollbar mt-2 max-h-60 overflow-y-auto">
                   <h3 className="text-md font-semibold text-gray-700">
                     {texts.currentVersionLabel}
                   </h3>
@@ -121,22 +127,22 @@ const VersionModal: FC<VersionModalProps> = ({ showModal, setShowModal }) => {
               )}
             </details>
 
-            <details 
-              open={openSection === 'upcoming'} 
+            <details
+              open={openSection === "upcoming"}
               className="rounded-md border border-gray-200 p-3"
             >
-              <summary 
-                className="cursor-pointer flex items-center justify-between text-lg font-semibold text-gray-700"
+              <summary
+                className="flex cursor-pointer items-center justify-between text-lg font-semibold text-gray-700"
                 onClick={(e) => {
                   e.preventDefault();
-                  handleToggle('upcoming');
+                  handleToggle("upcoming");
                 }}
               >
                 {texts.upcomingFeaturesTitle}
-                {openSection === 'upcoming' ? <ChevronUp /> : <ChevronDown />}
+                {openSection === "upcoming" ? <ChevronUp /> : <ChevronDown />}
               </summary>
-              {openSection === 'upcoming' && (
-                <div className="mt-2 max-h-60 overflow-y-auto custom-scrollbar">
+              {openSection === "upcoming" && (
+                <div className="custom-scrollbar mt-2 max-h-60 overflow-y-auto">
                   {texts.upcomingVersions.map((version, index) => (
                     <div key={index} className="mb-4">
                       <h3 className="text-md font-semibold text-gray-700">

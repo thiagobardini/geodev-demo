@@ -20,7 +20,7 @@ function UserPin({
       : require("@/components/animations/start-point.json");
 
   return (
-    <div className="group relative flex items-center justify-center z-50">
+    <div className="group relative z-50 flex items-center justify-center">
       {tooltip && (
         <div
           className={`absolute w-auto max-w-fit rounded-md text-xs font-bold text-gray-800 ${bgColor} -top-4 -translate-y-1/2 translate-x-[0px] transform whitespace-nowrap p-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100`}

@@ -28,7 +28,7 @@ interface FeatureCollection {
 }
 
 interface PinsTrailsEntranceProps {
-  trailEntrancesData: FeatureCollection | null; 
+  trailEntrancesData: FeatureCollection | null;
   setPopupInfo: (info: Feature | null) => void;
   layerVisibility: { [key: string]: string };
 }
@@ -40,15 +40,18 @@ const PinsTrailsEntrance: React.FC<PinsTrailsEntranceProps> = ({
 }) => {
   const pins = useMemo(() => {
     if (!trailEntrancesData) return null;
-    
+
     return trailEntrancesData.features.map((trail, index) => {
       const name = trail.properties.name;
       const activities = trail.properties.activities;
-      const isWalkingAndBiking = activities.includes("walking") && activities.includes("biking");
-      const isWalkingOnly = activities.includes("walking") && !activities.includes("biking");
-      const isBikingOnly = activities.includes("biking") && !activities.includes("walking");
-      
-      const isVisible = 
+      const isWalkingAndBiking =
+        activities.includes("walking") && activities.includes("biking");
+      const isWalkingOnly =
+        activities.includes("walking") && !activities.includes("biking");
+      const isBikingOnly =
+        activities.includes("biking") && !activities.includes("walking");
+
+      const isVisible =
         (isWalkingAndBiking && layerVisibility.trailEntrances === "visible") ||
         (isWalkingOnly && layerVisibility.walkingParkTrails === "visible") ||
         (isBikingOnly && layerVisibility.bikeParkTrails === "visible");
@@ -72,7 +75,12 @@ const PinsTrailsEntrance: React.FC<PinsTrailsEntranceProps> = ({
             setPopupInfo(trail);
           }}
         >
-          <TrailEntrancesPin text={text} size="80px" frame={[0, 30]} tooltip={name} />
+          <TrailEntrancesPin
+            text={text}
+            size="80px"
+            frame={[0, 30]}
+            tooltip={name}
+          />
         </Marker>
       );
     });

@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback, Suspense } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  Suspense,
+} from "react";
 import ReactMapboxGl, {
   FullscreenControl,
   GeolocateControl,
@@ -8,6 +14,7 @@ import ReactMapboxGl, {
   Source,
   Layer,
   Marker,
+  ScaleControl,
 } from "react-map-gl";
 import InstructionsDrawer from "./InstructionsDrawer";
 import useMediaQuery from "@/lib/hooks/use-media-query";
@@ -33,8 +40,8 @@ const initialViewState = {
 
 const TrailMap = () => {
   const [viewport, setViewport] = useState(initialViewState);
-  const [end, setEnd] = useState([-71.061471, 42.365043]);
-  const [start, setStart] = useState([-71.22424322006663, 42.38078912464982]);
+  const [start, setStart] = useState([-71.06231336746748, 42.36603734491197]);
+  const [end, setEnd] = useState([-71.11004052997221, 42.352832707822245]);
   const [coords, setCoords] = useState([]);
   const [layerVisibility, setLayerVisibility] = useState({
     walkingTrails: "visible",
@@ -74,7 +81,7 @@ const TrailMap = () => {
       travelMode === "bicycling" ? "cycling" : travelMode;
     try {
       const response = await fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/${adjustedTravelMode}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
+        `https://api.mapbox.com/directions/v5/mapbox/${adjustedTravelMode}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
       );
       const data = await response.json();
 
@@ -99,12 +106,19 @@ const TrailMap = () => {
 
   useEffect(() => {
     getRoute();
+    console.log("Start Point", start);
+    console.log("End Point", end);
   }, [start, end, travelMode, getRoute]);
 
   const toggleLayerVisibility = (layerId) => {
     setLayerVisibility((prevState) => {
-      const newVisibility = prevState[layerId] === "visible" ? "none" : "visible";
-      if (layerId === "trailEntrances" || layerId === "bikeParkTrails" || layerId === "walkingParkTrails") {
+      const newVisibility =
+        prevState[layerId] === "visible" ? "none" : "visible";
+      if (
+        layerId === "trailEntrances" ||
+        layerId === "bikeParkTrails" ||
+        layerId === "walkingParkTrails"
+      ) {
         setRenderKey((prevKey) => prevKey + 1); // Force re-render UserPin
         return {
           ...prevState,
@@ -304,6 +318,9 @@ const TrailMap = () => {
               />
             )}
 
+            <ScaleControl
+              position={isMobile ? "bottom-left" : "bottom-right"}
+            />
             <div className="absolute h-full">
               <NavigationControl
                 position="bottom-right"
