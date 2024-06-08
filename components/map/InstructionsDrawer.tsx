@@ -163,7 +163,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
           />
           <section className="relative my-4">
             <div className="flex items-center">
-              <h3 className="text-white">Travel Mode</h3>
+              <h3 className="text-white">Choose Travel Mode</h3>
               <Tooltip content="Select the mode of travel. Options are driving, walking, and bicycling.">
                 <Info className="ml-2 h-5 w-5 text-gray-400" />
               </Tooltip>
