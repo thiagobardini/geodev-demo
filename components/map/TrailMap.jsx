@@ -20,7 +20,7 @@ import {
 import Header from "./Header";
 import UserPin from "./map-styles/userPin";
 import PinsTrailsEntrance from "./PinsTrailsEntrance";
-import TrailPopup from "./TrailPopup"; // Import the new TrailPopup component
+import TrailPopup from "./TrailPopup";
 
 const initialViewState = {
   latitude: 42.362,
@@ -172,19 +172,6 @@ const TrailMap = () => {
     }
   };
 
-  const filterTrailEntrances = (trail) => {
-    const activities = trail.properties.activities;
-    if (layerVisibility.bikeParkTrails === "visible" && activities.includes("biking")) {
-      return true;
-    }
-    if (layerVisibility.walkingParkTrails === "visible" && activities.includes("walking")) {
-      return true;
-    }
-    return false;
-  };
-
-  const filteredPins = trailEntrancesData ? trailEntrancesData.features.filter(filterTrailEntrances) : [];
-
   const connectToEndpoint = (coordinates) => {
     setEnd(coordinates);
   };
@@ -275,8 +262,12 @@ const TrailMap = () => {
               <Layer {...endPointStyle} />
             </Source>
 
-            {layerVisibility.trailEntrances === "visible" && trailEntrancesData && (
-              <PinsTrailsEntrance trailEntrancesData={{ features: filteredPins }} setPopupInfo={setPopupInfo} />
+            {trailEntrancesData && (
+              <PinsTrailsEntrance
+                trailEntrancesData={trailEntrancesData}
+                setPopupInfo={setPopupInfo}
+                layerVisibility={layerVisibility}
+              />
             )}
 
             {layerVisibility.userLocation === "visible" && (
@@ -306,7 +297,11 @@ const TrailMap = () => {
             )}
 
             {popupInfo && (
-              <TrailPopup popupInfo={popupInfo} onClose={() => setPopupInfo(null)} connectToEndpoint={connectToEndpoint} />
+              <TrailPopup
+                popupInfo={popupInfo}
+                onClose={() => setPopupInfo(null)}
+                connectToEndpoint={connectToEndpoint}
+              />
             )}
 
             <div className="absolute h-full">
