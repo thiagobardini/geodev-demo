@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { formatDuration } from "@/lib/utils";
 import TravelModeDropdown, {
   TravelModeDropdownHandle,
-} from "./shared/TravelModeDropdown";
+} from "./TravelModeDropdown";
 
 interface HeaderProps {
   travelMode: string;
