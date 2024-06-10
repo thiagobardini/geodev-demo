@@ -117,6 +117,8 @@ const TrailMap = () => {
 
   useEffect(() => {
     getRoute();
+    console.log("Start Point", start);
+    console.log("End Point", end);
   }, [start, end, travelMode, getRoute]);
 
   const toggleLayerVisibility = (layerId) => {
@@ -320,19 +322,6 @@ const TrailMap = () => {
             />
             <div className="absolute h-full">
               <NavigationControl
-                position="bottom-right"
-                style={{
-                  position: "relative",
-                  bottom: isMobile ? "80px" : 0,
-                  right: 0,
-                }}
-              />
-              <GeolocateControl
-                showAccuracyCircle={false}
-                onGeolocate={(e) =>
-                  setStart([e.coords.longitude, e.coords.latitude])
-                }
-                ref={GeolocateControlRef}
                 position="bottom-right"
                 style={{
                   position: "relative",

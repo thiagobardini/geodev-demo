@@ -6,8 +6,8 @@ import Layers from "./Layers";
 import useMediaQuery from "@/lib/hooks/use-media-query";
 import Image from "next/image";
 import VersionModal from "./version-modal";
-import TravelModeDropdown, { TravelModeDropdownHandle } from "./shared/TravelModeDropdown";
 import { formatDuration } from "@/lib/utils";
+import TravelModeButtons from "./TravelModeButtons";
 
 interface InstructionsDrawerProps {
   getRoute: () => void;
@@ -44,7 +44,6 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
   const [showVersionModal, setShowVersionModal] = useState(true);
   const [startPlaceName, setStartPlaceName] = useState("Fetching location...");
   const [endPlaceName, setEndPlaceName] = useState("Fetching location...");
-  const dropdownRef = useRef<TravelModeDropdownHandle>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -90,11 +89,11 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
 
   const fetchPlaceName = async (
     coordinates: [number, number],
-    setPlaceName: React.Dispatch<React.SetStateAction<string>>
+    setPlaceName: React.Dispatch<React.SetStateAction<string>>,
   ) => {
     try {
       const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates[0]},${coordinates[1]}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates[0]},${coordinates[1]}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
       );
       const data = await response.json();
       if (data.features && data.features.length > 0) {
@@ -121,7 +120,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
         },
         (error) => {
           console.error("Error getting user location: ", error);
-        }
+        },
       );
     } else {
       console.error("Geolocation is not supported by this browser.");
@@ -160,32 +159,23 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
             endPlaceName={endPlaceName}
           />
           <section className="relative my-4">
-            <div className="flex items-center">
+            <div className="flex items-center mb-2">
               <h3 className="text-white">Choose Travel Mode</h3>
               <Tooltip content="Select the mode of travel. Options are driving, walking, and bicycling.">
                 <Info className="ml-2 h-5 w-5 text-gray-400" />
               </Tooltip>
             </div>
-            <div className="flex h-auto items-center space-x-2 ">
-              <div className="min-w-[70px]">
-                <div className="absolute top-[25px]">
-                  <TravelModeDropdown
-                    travelMode={travelMode}
-                    setTravelMode={setTravelMode}
-                    ref={dropdownRef}
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <RouteInfo
-                  distance={distance}
-                  duration={duration}
-                  onClick={() => dropdownRef.current?.toggleDropdown()}
-                  isMobile={isMobile}
-                />
-              </div>
-            </div>
+            <TravelModeButtons
+              travelMode={travelMode}
+              setTravelMode={setTravelMode}
+            />
+            <RouteInfo
+              distance={distance}
+              duration={duration}
+              isMobile={isMobile}
+            />
           </section>
+
           <section className="mt-6">
             <OpenInGoogleMapsButton onClick={handleRedirect} />
           </section>
@@ -230,7 +220,7 @@ const LayersSection: React.FC<{
           setAllLayerVisibility(
             Object.values(layerVisibility).every((v) => v === "visible")
               ? "none"
-              : "visible"
+              : "visible",
           )
         }
         className="text-sm text-indigo-600 hover:text-indigo-400"
@@ -246,7 +236,7 @@ const LayersSection: React.FC<{
 );
 
 const Divider: React.FC = () => (
-  <div className="mt-3 mb-4 flex items-center">
+  <div className="mb-4 mt-3 flex items-center">
     <div className="flex-grow border-t border-gray-700"></div>
   </div>
 );
@@ -293,20 +283,21 @@ const DirectionsSection: React.FC<{
 const RouteInfo: React.FC<{
   distance: number;
   duration: number;
-  onClick: () => void;
   isMobile?: boolean;
-}> = ({ distance, duration, onClick, isMobile }) => (
-  <div onClick={onClick} className="mt-4 cursor-pointer text-sm text-white">
+}> = ({ distance, duration, isMobile }) => (
+  <div className="mt-5 cursor-pointer text-sm text-white">
     {isMobile ? (
-      <>
+      <div className="flex justify-center gap-2 w-full">
         <p>Dist: {(distance / 1609.34).toFixed(2)} mi</p>
+        <span style={{ color: "#e0e0e0" }}>|</span>
         <p>Dur: {formatDuration(duration, true)}</p>
-      </>
+      </div>
     ) : (
-      <>
+      <div className="flex justify-between w-full">
         <p>Distance: {(distance / 1609.34).toFixed(2)} miles</p>
+        <span style={{ color: "#e0e0e0" }}>|</span>
         <p>Duration: {formatDuration(duration)}</p>
-      </>
+      </div>
     )}
   </div>
 );
@@ -352,7 +343,12 @@ const OpenDrawerButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
     className={`absolute -right-12 top-[45vh] h-12 w-12 -translate-y-1/2 transform rounded-r-md bg-[#1b1f23] text-center shadow-md`}
     style={{ boxShadow: "0 0 0 2px rgba(0, 0, 0, .1)" }}
   >
-    <Image src="/icons/filter-icon-white.svg" alt="Filter Icon" width={42} height={42} />
+    <Image
+      src="/icons/filter-icon-white.svg"
+      alt="Filter Icon"
+      width={42}
+      height={42}
+    />
   </button>
 );
 
