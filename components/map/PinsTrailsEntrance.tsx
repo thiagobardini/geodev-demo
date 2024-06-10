@@ -53,16 +53,10 @@ const PinsTrailsEntrance: React.FC<PinsTrailsEntranceProps> = ({
 
       const isVisible =
         (isWalkingAndBiking && layerVisibility.trailEntrances === "visible") ||
-        (isWalkingOnly && layerVisibility.walkingParkTrails === "visible") ||
-        (isBikingOnly && layerVisibility.bikeParkTrails === "visible");
+        (isWalkingOnly && layerVisibility.trailEntrances === "visible") ||
+        (isBikingOnly && layerVisibility.trailEntrances === "visible");
 
       if (!isVisible) return null;
-
-      const text = isWalkingAndBiking
-        ? "walking and biking"
-        : isWalkingOnly
-        ? "walking"
-        : "biking";
 
       return (
         <Marker
@@ -75,12 +69,7 @@ const PinsTrailsEntrance: React.FC<PinsTrailsEntranceProps> = ({
             setPopupInfo(trail);
           }}
         >
-          <TrailEntrancesPin
-            text={text}
-            size="80px"
-            frame={[0, 30]}
-            tooltip={name}
-          />
+          <TrailEntrancesPin tooltip={name} />
         </Marker>
       );
     });

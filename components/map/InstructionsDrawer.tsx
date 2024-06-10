@@ -6,9 +6,7 @@ import Layers from "./Layers";
 import useMediaQuery from "@/lib/hooks/use-media-query";
 import Image from "next/image";
 import VersionModal from "./version-modal";
-import TravelModeDropdown, {
-  TravelModeDropdownHandle,
-} from "./shared/TravelModeDropdown";
+import TravelModeDropdown, { TravelModeDropdownHandle } from "./shared/TravelModeDropdown";
 import { formatDuration } from "@/lib/utils";
 
 interface InstructionsDrawerProps {
@@ -92,11 +90,11 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
 
   const fetchPlaceName = async (
     coordinates: [number, number],
-    setPlaceName: React.Dispatch<React.SetStateAction<string>>,
+    setPlaceName: React.Dispatch<React.SetStateAction<string>>
   ) => {
     try {
       const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates[0]},${coordinates[1]}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`,
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates[0]},${coordinates[1]}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
       );
       const data = await response.json();
       if (data.features && data.features.length > 0) {
@@ -123,7 +121,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
         },
         (error) => {
           console.error("Error getting user location: ", error);
-        },
+        }
       );
     } else {
       console.error("Geolocation is not supported by this browser.");
@@ -232,7 +230,7 @@ const LayersSection: React.FC<{
           setAllLayerVisibility(
             Object.values(layerVisibility).every((v) => v === "visible")
               ? "none"
-              : "visible",
+              : "visible"
           )
         }
         className="text-sm text-indigo-600 hover:text-indigo-400"
@@ -248,7 +246,7 @@ const LayersSection: React.FC<{
 );
 
 const Divider: React.FC = () => (
-  <div className="my-6 flex items-center">
+  <div className="mt-3 mb-4 flex items-center">
     <div className="flex-grow border-t border-gray-700"></div>
   </div>
 );
@@ -354,12 +352,7 @@ const OpenDrawerButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
     className={`absolute -right-12 top-[45vh] h-12 w-12 -translate-y-1/2 transform rounded-r-md bg-[#1b1f23] text-center shadow-md`}
     style={{ boxShadow: "0 0 0 2px rgba(0, 0, 0, .1)" }}
   >
-    <Image
-      src="/icons/filter-icon-white.svg"
-      alt="Filter Icon"
-      width={42}
-      height={42}
-    />
+    <Image src="/icons/filter-icon-white.svg" alt="Filter Icon" width={42} height={42} />
   </button>
 );
 

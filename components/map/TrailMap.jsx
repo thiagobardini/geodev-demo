@@ -49,8 +49,6 @@ const TrailMap = () => {
     landLineSystems: "visible",
     sharedUsePaths: "visible",
     trailEntrances: "visible",
-    bikeParkTrails: "visible",
-    walkingParkTrails: "visible",
     userLocation: "visible",
   });
   const [trailEntrancesData, setTrailEntrancesData] = useState(null);
@@ -114,23 +112,13 @@ const TrailMap = () => {
     setLayerVisibility((prevState) => {
       const newVisibility =
         prevState[layerId] === "visible" ? "none" : "visible";
-      if (
-        layerId === "trailEntrances" ||
-        layerId === "bikeParkTrails" ||
-        layerId === "walkingParkTrails"
-      ) {
-        setRenderKey((prevKey) => prevKey + 1); // Force re-render UserPin
-        return {
-          ...prevState,
-          [layerId]: newVisibility,
-          userLocation: "visible",
-        };
-      }
       return {
         ...prevState,
         [layerId]: newVisibility,
+        userLocation: "visible",
       };
     });
+    setRenderKey((prevKey) => prevKey + 1); // Force re-render UserPin
   };
 
   const geojson = {
@@ -286,6 +274,14 @@ const TrailMap = () => {
 
             {layerVisibility.userLocation === "visible" && (
               <>
+                {popupInfo && (
+                  <TrailPopup
+                    popupInfo={popupInfo}
+                    onClose={() => setPopupInfo(null)}
+                    connectToEndpoint={connectToEndpoint}
+                  />
+                )}
+
                 <Marker
                   key={`start-marker-${renderKey}`}
                   longitude={start[0]}
@@ -294,7 +290,7 @@ const TrailMap = () => {
                   draggable
                   onDragEnd={(e) => handleMarkerDragEnd(e, setStart)}
                 >
-                  <UserPin text="Start Point" size="40px" />
+                  <UserPin text="Start Point" size="50px" />
                 </Marker>
 
                 <Marker
@@ -305,17 +301,9 @@ const TrailMap = () => {
                   draggable
                   onDragEnd={(e) => handleMarkerDragEnd(e, setEnd)}
                 >
-                  <UserPin text="End Point" size="40px" />
+                  <UserPin text="End Point" size="50px" />
                 </Marker>
               </>
-            )}
-
-            {popupInfo && (
-              <TrailPopup
-                popupInfo={popupInfo}
-                onClose={() => setPopupInfo(null)}
-                connectToEndpoint={connectToEndpoint}
-              />
             )}
 
             <ScaleControl

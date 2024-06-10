@@ -10,7 +10,7 @@
       "properties": {
         "id": 1,
         "name": "Charles River Bike Path",
-        "activities": ["biking"],
+        "activities": ["walking", "biking"],
         "imageUrl": "/images/pins/charles-river-bike.png",
         "description": "A scenic bike path along the Charles River in Boston.",
         "url": "https://www.traillink.com/trail/charles-river-bike-path/"
@@ -130,7 +130,7 @@
       "properties": {
         "id": 9,
         "name": "Cambridge Crossing",
-        "activities": ["biking"],
+        "activities": ["walking", "biking"],
         "imageUrl": "/images/pins/cambridge-crossing.png",
         "description": "A new development with bike paths and green spaces.",
         "url": "https://www.cambridgecrossing.com"

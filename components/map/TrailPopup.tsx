@@ -80,7 +80,7 @@ const TrailPopup: React.FC<TrailPopupProps> = ({
         </h3>
         <p className="mb-2 flex items-center text-sm text-gray-600">
           <CheckCircle className="mr-1 h-4 w-4 text-green-500" />
-          {popupInfo.properties.activities.join(", ")} allowed
+          {popupInfo.properties.activities.join(", ")}
         </p>
         <div className="my-2">
           <ImageWithFallback

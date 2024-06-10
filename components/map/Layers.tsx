@@ -1,7 +1,5 @@
 import React from "react";
-import dynamic from "next/dynamic";
-
-const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+import Image from "next/image";
 
 interface LayersProps {
   layerVisibility: { [key: string]: string };
@@ -19,22 +17,10 @@ const layersConfig = [
   },
   {
     id: "trailEntrances",
-    label: "Walking & Biking Park",
-    pin: require("@/components/animations/shared-pin.json"),
-    size: 50,
-  },
-  {
-    id: "bikeParkTrails",
-    label: "Park Bike-Only Trails",
-    pin: require("@/components/animations/bike-pin.json"),
-    size: 50,
-  },
-  {
-    id: "walkingParkTrails",
-    label: "Park Walking-Only Trails",
-    pin: require("@/components/animations/walking-pin.json"),
-    size: 50,
-  },
+    label: "Trail Park",
+    icon: <Image alt="TrailMap Demo" src="/icons/trail-pin.png" width="20" height="20" />
+  }
+
 ];
 
 const Layers: React.FC<LayersProps> = ({
@@ -47,7 +33,7 @@ const Layers: React.FC<LayersProps> = ({
 
   return (
     <div className="relative mt-1">
-      {layersConfig.map(({ id, label, color, pin, size }) => (
+      {layersConfig.map(({ id, label, color, icon }) => (
         <div
           key={id}
           className="grid grid-cols-[auto_1fr_auto] items-center py-1"
@@ -72,17 +58,10 @@ const Layers: React.FC<LayersProps> = ({
               style={{ backgroundColor: color }}
             ></div>
           )}
-          {pin && (
-            <Lottie
-              animationData={pin}
-              loop={true}
-              style={{
-                height: size,
-                width: size,
-                right: "-12px",
-                position: "absolute",
-              }}
-            />
+         {icon && (
+            <div className="ml-2">
+              {icon}
+            </div>
           )}
         </div>
       ))}
