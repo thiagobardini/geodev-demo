@@ -74,6 +74,19 @@ const TrailMap = () => {
     fetchTrailEntrancesData();
   }, []);
 
+  useEffect(() => {
+    setLayerVisibility((prevState) => ({
+      ...prevState,
+      trailEntrances: "none",
+    }));
+    setTimeout(() => {
+      setLayerVisibility((prevState) => ({
+        ...prevState,
+        trailEntrances: "visible",
+      }));
+    }, 0);
+  }, []);
+
   const getRoute = useCallback(async () => {
     const adjustedTravelMode =
       travelMode === "bicycling" ? "cycling" : travelMode;
@@ -104,8 +117,6 @@ const TrailMap = () => {
 
   useEffect(() => {
     getRoute();
-    console.log("Start Point", start);
-    console.log("End Point", end);
   }, [start, end, travelMode, getRoute]);
 
   const toggleLayerVisibility = (layerId) => {
@@ -115,10 +126,8 @@ const TrailMap = () => {
       return {
         ...prevState,
         [layerId]: newVisibility,
-        userLocation: "visible",
       };
     });
-    setRenderKey((prevKey) => prevKey + 1); // Force re-render UserPin
   };
 
   const geojson = {
@@ -274,14 +283,6 @@ const TrailMap = () => {
 
             {layerVisibility.userLocation === "visible" && (
               <>
-                {popupInfo && (
-                  <TrailPopup
-                    popupInfo={popupInfo}
-                    onClose={() => setPopupInfo(null)}
-                    connectToEndpoint={connectToEndpoint}
-                  />
-                )}
-
                 <Marker
                   key={`start-marker-${renderKey}`}
                   longitude={start[0]}
@@ -304,6 +305,14 @@ const TrailMap = () => {
                   <UserPin text="End Point" size="50px" />
                 </Marker>
               </>
+            )}
+
+            {popupInfo && (
+              <TrailPopup
+                popupInfo={popupInfo}
+                onClose={() => setPopupInfo(null)}
+                connectToEndpoint={connectToEndpoint}
+              />
             )}
 
             <ScaleControl
