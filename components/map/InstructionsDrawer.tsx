@@ -293,10 +293,10 @@ const RouteInfo: React.FC<{
         <p>Dur: {formatDuration(duration, true)}</p>
       </div>
     ) : (
-      <div className="flex justify-between w-full">
+      <div className="flex justify-center w-full gap-2">
         <p>Distance: {(distance / 1609.34).toFixed(2)} miles</p>
         <span style={{ color: "#e0e0e0" }}>|</span>
-        <p>Duration: {formatDuration(duration)}</p>
+        <p>Duration: {formatDuration(duration, true)}</p>
       </div>
     )}
   </div>
