@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({
   );
 
   return (
-    <section className="fixed left-0 right-0 top-0 z-20 mt-1 flex flex-col items-center justify-center px-4 pt-[64px]">
+    <section className="fixed left-0 right-0 top-0 z-4 mt-1 flex flex-col items-center justify-center px-4 pt-[64px]">
       <div className="flex w-full items-center justify-center">
         <div className="w-full max-w-screen-lg border-y-2 border-y-indigo-600 bg-opacity-50">
           <div className="flex h-auto items-center justify-center space-x-2 border-x border-b border-gray-200 bg-white/50 bg-opacity-50 px-2 text-black backdrop-blur-xl">

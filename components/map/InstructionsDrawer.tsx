@@ -1,4 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+"use client";
+
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import { X, Info, MapPin, Locate } from "lucide-react";
 import Places from "./Places";
 import Tooltip from "@/components/shared/tooltip";
@@ -8,6 +16,8 @@ import Image from "next/image";
 import VersionModal from "./version-modal";
 import { formatDuration } from "@/lib/utils";
 import TravelModeButtons from "./TravelModeButtons";
+import Link from "next/link";
+import MapStyleSelector from "./MapStyleSelector";
 
 interface InstructionsDrawerProps {
   getRoute: () => void;
@@ -24,6 +34,8 @@ interface InstructionsDrawerProps {
   travelMode: string;
   setTravelMode: (mode: string) => void;
   data: any;
+  setMapStyle: Dispatch<SetStateAction<string>>;
+  mapStyle: string;
 }
 
 const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
@@ -38,6 +50,8 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
   duration,
   travelMode,
   setTravelMode,
+  setMapStyle,
+  mapStyle,
 }) => {
   const { isMobile } = useMediaQuery();
   const [isOpen, setIsOpen] = useState(false);
@@ -139,18 +153,32 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
     <>
       <div
         ref={drawerRef}
-        className={`fixed left-0 top-[64px] z-20 h-full transform transition-transform ${
+        className={`fixed left-0 top-[64px] z-10 h-full transform transition-transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } w-2/3 rounded-r-lg bg-[#1b1f23] shadow-lg sm:w-80`}
       >
         <Header onClose={() => setIsOpen(false)} />
-        <div className="h-full min-h-screen overflow-y-auto p-4">
+        <div className="h-full min-h-full overflow-y-auto p-4">
           <LayersSection
             layerVisibility={layerVisibility}
             toggleLayerVisibility={toggleLayerVisibility}
             setAllLayerVisibility={setAllLayerVisibility}
           />
           <Divider />
+          <div className="pb-2">
+            <div className="flex items-center gap-2">
+              <h3 className="text-white">Map Style</h3>
+              <Tooltip content="Select the style of the map. Options are Mono, Outdoor, and Streets.">
+                <Info className="h-5 w-5 text-gray-400" />
+              </Tooltip>
+            </div>
+            <div className="mt-2">
+              <MapStyleSelector mapStyle={mapStyle} setMapStyle={setMapStyle} />
+            </div>
+          </div>
+
+          <Divider />
+
           <DirectionsSection
             setStart={setStart}
             setEnd={setEnd}
@@ -159,7 +187,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
             endPlaceName={endPlaceName}
           />
           <section className="relative my-4">
-            <div className="flex items-center mb-2">
+            <div className="mb-2 flex items-center">
               <h3 className="text-white">Choose Travel Mode</h3>
               <Tooltip content="Select the mode of travel. Options are driving, walking, and bicycling.">
                 <Info className="ml-2 h-5 w-5 text-gray-400" />
@@ -287,13 +315,13 @@ const RouteInfo: React.FC<{
 }> = ({ distance, duration, isMobile }) => (
   <div className="mt-5 cursor-pointer text-sm text-white">
     {isMobile ? (
-      <div className="flex justify-center gap-2 w-full">
+      <div className="flex w-full justify-center gap-2">
         <p>Dist: {(distance / 1609.34).toFixed(2)} mi</p>
         <span style={{ color: "#e0e0e0" }}>|</span>
         <p>Dur: {formatDuration(duration, true)}</p>
       </div>
     ) : (
-      <div className="flex justify-center w-full gap-2">
+      <div className="flex w-full justify-center gap-2">
         <p>Distance: {(distance / 1609.34).toFixed(2)} miles</p>
         <span style={{ color: "#e0e0e0" }}>|</span>
         <p>Duration: {formatDuration(duration, true)}</p>
@@ -329,13 +357,14 @@ const VersionInfo: React.FC<{ onClick: () => void }> = ({ onClick }) => {
 
   return (
     <div
-      className="mb-[124px] mt-8 cursor-pointer pb-40 text-center text-sm font-semibold text-white underline sm:pb-0"
+      className="mb-[24px] mt-8 cursor-pointer  text-center text-sm font-semibold text-white underline sm:pb-0"
       onClick={onClick}
     >
       {versionLabel ? versionLabel : "Loading..."}
     </div>
   );
 };
+
 
 const OpenDrawerButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
   <button

@@ -9,7 +9,6 @@ import React, {
 } from "react";
 import ReactMapboxGl, {
   FullscreenControl,
-  GeolocateControl,
   NavigationControl,
   Source,
   Layer,
@@ -28,6 +27,8 @@ import Header from "./Header";
 import UserPin from "./map-styles/userPin";
 import PinsTrailsEntrance from "./PinsTrailsEntrance";
 import TrailPopup from "./TrailPopup";
+import Link from "next/link";
+import Image from "next/image";
 
 const initialViewState = {
   latitude: 42.362,
@@ -37,6 +38,37 @@ const initialViewState = {
   pitch: 0,
   padding: { top: 0, bottom: 0, left: 0, right: 0 },
 };
+
+const PortfolioLink = () => {
+  const { isMobile } = useMediaQuery();
+
+  return (
+    <div className="z-50 mb-4 flex items-end justify-center gap-1">
+      <p
+        className={`relative ${
+          isMobile ? "bottom-[-4px]" : ""
+        } text-gray-500`}
+      >
+        A project by
+      </p>
+      <Link
+        className="font-semibold text-gray-600 underline-offset-4 transition-colors hover:underline"
+        href="https://www.tbardini.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Image
+          src="/images/TBardini-dot-dark.png"
+          alt="Tbardini logo"
+          width="100"
+          height="30"
+          className="transition-all duration-75 hover:scale-105"
+        />
+      </Link>
+    </div>
+  );
+};
+
 
 const TrailMap = () => {
   const [viewport, setViewport] = useState(initialViewState);
@@ -58,10 +90,12 @@ const TrailMap = () => {
   const [travelMode, setTravelMode] = useState("walking");
   const [popupInfo, setPopupInfo] = useState(null);
   const [renderKey, setRenderKey] = useState(0);
+  const [mapStyle, setMapStyle] = useState(
+    process.env.NEXT_PUBLIC_MAPBOX_STYLE_OUTDOOR,
+  );
 
   const { isMobile } = useMediaQuery();
 
-  const GeolocateControlRef = useRef(null);
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -189,6 +223,7 @@ const TrailMap = () => {
     setEnd(coordinates);
   };
 
+
   return (
     <>
       <section className="relative h-full w-full">
@@ -198,7 +233,7 @@ const TrailMap = () => {
             ref={mapRef}
             onClick={handleClick}
             onMove={(event) => setViewport(event.viewState)}
-            mapStyle={process.env.NEXT_PUBLIC_MAPBOX_STYLE_MONOCHROME}
+            mapStyle={mapStyle}
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
             style={{ width: "100%", height: "100%" }}
             addControl={true}
@@ -338,7 +373,6 @@ const TrailMap = () => {
                 }}
               />
             </div>
-
             <InstructionsDrawer
               getRoute={getRoute}
               setStart={setStart}
@@ -353,10 +387,16 @@ const TrailMap = () => {
               duration={duration}
               travelMode={travelMode}
               setTravelMode={setTravelMode}
+              setMapStyle={setMapStyle}
+              mapStyle={mapStyle}
             />
           </ReactMapboxGl>
         </Suspense>
       </section>
+
+      <div className="z-5 absolute bottom-0 left-0 right-0">
+        <PortfolioLink />
+      </div>
     </>
   );
 };
