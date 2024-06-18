@@ -168,7 +168,7 @@ const InstructionsDrawer: React.FC<InstructionsDrawerProps> = ({
           <div className="pb-2">
             <div className="flex items-center gap-2">
               <h3 className="text-white">Map Style</h3>
-              <Tooltip content="Select the style of the map. Options are Mono, Outdoor, and Streets.">
+              <Tooltip content="Select the style of the map. Options are Mono, Outdoor, and Satellite.">
                 <Info className="h-5 w-5 text-gray-400" />
               </Tooltip>
             </div>
