@@ -1,5 +1,5 @@
 {
-  "versionLabel": "Version 3.0",
+  "versionLabel": "Version 3.1",
   "modalTitle": "Versions Overview",
   "implementedFeaturesTitle": "Implemented Features:",
   "implementedFeaturesList": [
@@ -22,7 +22,7 @@
   "currentFeaturesTitle": "Current Features:",
   "currentVersionLabel": "Version 3:",
   "currentFeaturesList": [
-    "🟡 Add different map styles: Satellite, Terrain, Light, Dark, Streets",
+    "✅ Add different map styles: Mono, Outdoor, Streets",
     "🟡 Be able to show/hide labels such as street names, parks, etc.",
     "🟡 A 'Welcome to TrailMap' modal will appear when the user enters the TrailMap app, asking 'I'm interested in: walking, biking, or show me all.' When the user selects an option, specific trails for that type will be displayed on the map."
   ],

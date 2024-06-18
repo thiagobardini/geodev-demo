@@ -26,8 +26,8 @@ const MapStyleSelector: React.FC<MapStyleSelectorProps> = ({
     },
     {
       style: process.env.NEXT_PUBLIC_MAPBOX_STYLE_STREETS as string,
-      label: "Streets",
-      image: "/images/streets.png",
+      label: "Satellite",
+      image: "/images/satellite.png",
     },
   ];
 
