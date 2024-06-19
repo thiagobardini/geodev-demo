@@ -1,7 +1,8 @@
 <p align="center">
 <img src="https://raw.githubusercontent.com/thiagobardini/tbardini/main/src/Assets/images/TBardini-dot-gold.png" width="200" alt="Demo Report Logo">
 </p>
-</br>
+
+---
 
 # GeoDev
 
