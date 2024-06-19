@@ -40,10 +40,10 @@ const Header: React.FC<HeaderProps> = ({
   );
 
   return (
-    <section className="fixed left-0 right-0 top-0 z-4 mt-1 flex flex-col items-center justify-center px-4 pt-[64px]">
+    <section className="z-4 fixed left-0 right-0 top-0 mt-1 flex flex-col items-center justify-center px-4 pt-[64px]">
       <div className="flex w-full items-center justify-center">
         <div className="w-full max-w-screen-lg border-y-2 border-y-indigo-600 bg-opacity-50">
-          <div className="flex h-auto items-center justify-center space-x-2 border-x border-b border-gray-200 bg-white/50 bg-opacity-50 px-2 text-black backdrop-blur-xl">
+          <div className="flex h-auto items-center justify-center space-x-2 border-gray-200 bg-white/50 bg-opacity-50 px-2 text-black backdrop-blur-xl">
             <h1 className="text-2xl font-bold">TrailMap</h1>
             <div className="divider"></div>
             <h2 className="text-sm">
@@ -54,8 +54,8 @@ const Header: React.FC<HeaderProps> = ({
       </div>
 
       <div className="mt-1 flex h-full w-full items-center justify-center">
-        <div className="w-full max-w-screen-sm border-b-2 bg-opacity-50">
-          <div className="relative flex h-[50px] items-center justify-center space-x-2 border-x border-b border-gray-200 bg-white/50 bg-opacity-50 px-2 text-black backdrop-blur-xl">
+        <div className="w-full max-w-screen-sm">
+          <div className="relative flex h-[50px] items-center justify-center space-x-2  border-gray-200 bg-white/50 bg-opacity-50 px-2 text-black backdrop-blur-xl">
             <div className="min-w-[70px]">
               <div className="absolute top-[-3px]">
                 <TravelModeDropdown
