@@ -3,8 +3,6 @@
 </p>
 </br>
 
----
-
 # GeoDev
 
 ![GeoDev](https://i.imgur.com/r7O9gdA.gif)
