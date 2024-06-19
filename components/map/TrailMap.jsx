@@ -43,32 +43,33 @@ const PortfolioLink = () => {
   const { isMobile } = useMediaQuery();
 
   return (
-    <div className="z-50 mb-4 flex items-end justify-center gap-1">
-      <p
-        className={`relative ${
-          isMobile ? "bottom-[-4px]" : ""
-        } text-gray-500`}
-      >
-        A project by
-      </p>
-      <Link
-        className="font-semibold text-gray-600 underline-offset-4 transition-colors hover:underline"
-        href="https://www.tbardini.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Image
-          src="/images/TBardini-dot-dark.png"
-          alt="Tbardini logo"
-          width="100"
-          height="30"
-          className="transition-all duration-75 hover:scale-105"
-        />
-      </Link>
+    <div className="z-50 mb-4 flex  justify-center">
+      <div className=" border-gray-200 bg-white/50 bg-opacity-50 p-2 flex items-end justify-center gap-1">
+        <p
+          className={`relative ${
+            isMobile ? "bottom-[-4px]" : "bottom-[-4px]"
+          }  text-gray-500 `}
+        >
+          A project by
+        </p>
+        <Link
+          className="underline-offset-4 transition-colors hover:underline"
+          href="https://www.tbardini.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image
+            src="/images/TBardini-dot-dark.png"
+            alt="Tbardini logo"
+            width="100"
+            height="30"
+            className="transition-all duration-75 hover:scale-105"
+          />
+        </Link>
+      </div>
     </div>
   );
 };
-
 
 const TrailMap = () => {
   const [viewport, setViewport] = useState(initialViewState);
@@ -222,7 +223,6 @@ const TrailMap = () => {
   const connectToEndpoint = (coordinates) => {
     setEnd(coordinates);
   };
-
 
   return (
     <>

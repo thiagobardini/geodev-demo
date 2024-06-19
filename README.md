@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://www.tbardini.com/assets/TBardini-dot-dark-MIMyJ2zW.png" width="200" alt="Demo Report Logo">
+<img src="https://www.tbardini.com/assets/TBardini-dot-gold-MIMyJ2zW.png" width="200" alt="Demo Report Logo">
 </p>
 
 ---
@@ -98,5 +98,5 @@ Special thanks to all the open-source libraries and tools that make this project
 </br>
 
 <p align="center">
-<img src="https://www.tbardini.com/assets/TBardini-dot-dark-MIMyJ2zW.png" width="200" alt="Demo Report Logo">
+<img src="https://www.tbardini.com/assets/TBardini-dot-gold-MIMyJ2zW.png" width="200" alt="Demo Report Logo">
 </p>
